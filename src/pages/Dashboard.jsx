@@ -1,6 +1,6 @@
-import NavBar from "../../../../OneDrive/שולחן העבודה/Computer Science/שנה ג\' סמסטר א/תכנות עם סיבות פיתוח חדשניות/knowledge_base_front-master/src/Components/NavBar.jsx";
-import History from "../../../../OneDrive/שולחן העבודה/Computer Science/שנה ג\' סמסטר א/תכנות עם סיבות פיתוח חדשניות/knowledge_base_front-master/src/Components/History.jsx";
 import CoursesList from "./CoursesList.jsx";
+import NavBar from "./NavBar.jsx";
+import History from "./History.jsx";
 
 function Dashboard() {
     return (
@@ -8,9 +8,9 @@ function Dashboard() {
             <div className={"dashboard"}>
 
 
-            {NavBar()}
-            {CoursesList()}
-            {History()}
+                <NavBar/>
+                <CoursesList/>
+                <History/>
             </div>
         </>
     );

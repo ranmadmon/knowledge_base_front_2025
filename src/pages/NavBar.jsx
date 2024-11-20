@@ -14,7 +14,7 @@ function NavBar() {
                     </li>
                     <li><a href="/profile">Profile</a></li>
                     <logo className="logo">
-                        <img src="../../../../OneDrive/שולחן%20העבודה/Computer%20Science/שנה%20ג'%20סמסטר%20א/תכנות%20עם%20סיבות%20פיתוח%20חדשניות/knowledge_base_front-master/src/assets/logo.png" alt="logo"/>
+                        <img src="src/assets/logo.png" alt="logo"/>
                     </logo>
                     <li><a href="/logout">Logout <LogoutRoundedIcon/></a></li>
                 </ul>
