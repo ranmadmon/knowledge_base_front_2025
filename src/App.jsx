@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Page1 from "./pages/Page1.jsx";
 import Page2 from "./pages/Page2.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
     return (
@@ -20,7 +20,7 @@ function App() {
                 }}>Login Page</Link>
             </div>
             <Routes>
-                <Route path="/" element={<Page1 />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/page2" element={<Page2 />} />
                 <Route path="/register" element={<Register />} />
