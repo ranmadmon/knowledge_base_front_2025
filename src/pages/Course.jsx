@@ -9,7 +9,7 @@ export default function Course(){
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
     const [description, setDescription] = useState("")
-    const SERVER_URL = "http://localhost:3306"
+    const SERVER_URL = "http://localhost:8080"
 
     function getLecturers(){
         axios.get(SERVER_URL+"/get-lecturers")
@@ -43,7 +43,11 @@ export default function Course(){
         )
     }
 
-    
+    useEffect(() => {
+        getLecturers();
+        // getAllCourses();
+    }, []);
+
 
     return(
         <div>
@@ -76,7 +80,7 @@ export default function Course(){
                         })
                     }
                 </select>
-
+                <button onClick={() => alert("add")}>Add Course</button>
             </div>
         </div>
     )
