@@ -29,13 +29,13 @@ export default function Course(){
             })
     }
 
-    function courseComponent(lecturer, course){
+    function courseComponent(lecturer, course, description){
         return (
             <>
                 <text>
                     Lecturer: <text>{lecturer}</text>
                     Course: <text>{course}</text>
-
+                    Description: <text>{description}</text>
                 </text>
             </>
         )
@@ -46,6 +46,18 @@ export default function Course(){
     return(
         <div>
 
+            <div>
+                {
+                 courses.map((course,index)=>{
+                     return (
+                         <div key={index}>
+                             {
+                                 courseComponent(course.lecturer.name, course.name, course.description)
+                             }
+                         </div>
+                     )
+                 })
+                }            </div>
 
             <div>
                 <h1>Add Course</h1>
