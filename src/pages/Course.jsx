@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 
 export default function Course(){
@@ -22,7 +22,7 @@ export default function Course(){
             })
     }
 
-    function courseComponent(lecturer, course){
+    function course(lecturer, course){
         return (
             <>
                 <text>
@@ -34,16 +34,10 @@ export default function Course(){
         )
     }
 
-    useEffect(() => {
-        getAllCourses();
-    }, []);
+
     return(
         <div>
-            {
-                courses.map(course =>(<div>{
-                     courseComponent(course.)
-                }</div>))
-            }
+
         </div>
     )
 }
