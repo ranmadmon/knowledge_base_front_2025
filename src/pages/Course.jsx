@@ -13,15 +13,19 @@ export default function Course(){
     function getLecturers(){
         axios.get(SERVER_URL+"/get-lecturers")
             .then(response => {
-                setLecturers(response.data)
+               if (response.data!=null){
+                   setLecturers(response.data)
+               }
             })
     }
 
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
-                setCourses(response.data);
-                console.log(courses);
+               if(response.data!=null){
+                   setCourses(response.data);
+                   console.log(courses);
+               }
             })
     }
 
