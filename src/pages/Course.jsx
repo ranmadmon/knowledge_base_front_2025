@@ -5,6 +5,9 @@ export default function Course(){
 
     const [lecturers, setLecturers] = useState([])
     const [courses, setCourses] = useState([])
+    const [chosenLecturer, setChosenLecturer] = useState("")
+    const [courseName,setCourseName] = useState("")
+    const [description, setDescription] = useState("")
     const SERVER_URL = "http://localhost:3306"
 
     function getLecturers(){
@@ -38,6 +41,24 @@ export default function Course(){
     return(
         <div>
 
+
+            <div>
+                <h1>Add Course</h1>
+                <input type={"text"} value={courseName} onChange={(event) => setCourseName(event.target.value)}/>
+                <input type={"text"} value={description} onChange={(event) => setDescription(event.target.value)}/>
+                <select value={chosenLecturer} onChange={(event) => setChosenLecturer(event.target.value)}>
+                    {
+                        lecturers.map((lecturer, index) => {
+                            return (
+                                <option key={index} value={lecturer.name}>
+                                    {lecturer.name}
+                                </option>
+                            );
+                        })
+                    }
+                </select>
+
+            </div>
         </div>
     )
 }
