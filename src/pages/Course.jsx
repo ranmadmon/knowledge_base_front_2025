@@ -25,7 +25,7 @@ export default function Course(){
             })
     }
 
-    function course(lecturer, course){
+    function courseComponent(lecturer, course){
         return (
             <>
                 <text>
@@ -37,6 +37,7 @@ export default function Course(){
         )
     }
 
+    
 
     return(
         <div>
