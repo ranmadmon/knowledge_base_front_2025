@@ -1,4 +1,5 @@
-import {useState} from "react";
+import "./Course.css"
+import {useState,useEffect} from "react";
 import axios from "axios";
 
 export default function Course(){
@@ -13,19 +14,20 @@ export default function Course(){
     function getLecturers(){
         axios.get(SERVER_URL+"/get-lecturers")
             .then(response => {
-               if (response.data!=null){
-                   setLecturers(response.data)
-               }
+                if (response.data!=null){
+                    setLecturers(response.data)
+                }
             })
     }
 
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
-               if(response.data!=null){
-                   setCourses(response.data);
-                   console.log(courses);
-               }
+                console.log(response)
+                if(response.data!=null){
+                    setCourses(response.data);
+                    console.log(courses);
+                }
             })
     }
 
@@ -59,11 +61,11 @@ export default function Course(){
                  })
                 }            </div>
 
-            <div>
+            <div className={"AddCourse"}>
                 <h1>Add Course</h1>
-                <input type={"text"} value={courseName} onChange={(event) => setCourseName(event.target.value)}/>
-                <input type={"text"} value={description} onChange={(event) => setDescription(event.target.value)}/>
-                <select value={chosenLecturer} onChange={(event) => setChosenLecturer(event.target.value)}>
+                <input className={"Input"} type={"text"} value={courseName} onChange={(event) => setCourseName(event.target.value)}/>
+                <input className={"Input"} type={"text"} value={description} onChange={(event) => setDescription(event.target.value)}/>
+                <select className={"Input"} value={chosenLecturer} onChange={(event) => setChosenLecturer(event.target.value)}>
                     {
                         lecturers.map((lecturer, index) => {
                             return (
