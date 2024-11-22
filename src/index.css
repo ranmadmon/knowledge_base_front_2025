@@ -1,14 +1,29 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 600;
-  color-scheme: dark light;
-  background-color: #242424;
+  --gradient-color: linear-gradient(129deg, rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);
+  --gradient-color-bright: linear-gradient(129deg, rgb(67, 12, 173) 17%, rgb(114, 0, 159) 59%, rgb(179, 3, 217) 100%);
+  --gradient-color-dark:linear-gradient(129deg, rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);
+  --card-width: 50vw;
+  --card-height: 60vh;
+
 }
-button:hover {
-  border-color: #490a9d;
-}
-button:focus,button:focus-visible {
-  outline: 90px auto -webkit-focus-ring-color;
+/*button:hover {*/
+/*  border-color: #490a9d;*/
+/*}*/
+/*button:focus,button:focus-visible {*/
+/*  outline: 90px auto -webkit-focus-ring-color;*/
+/*}*/
+.dashboard{
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  /*border-radius: 20px;*/
+  /*box-shadow: 0 2px 5px rgb(255, 255, 255);*/
 }
 
 .navbar {
@@ -16,54 +31,93 @@ button:focus,button:focus-visible {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(33, 98, 213, 0.6);
-  color: white;
-  padding: 15px;
-  z-index: 1000;
+  height: 80px;
+
   display: flex;
-  justify-content: inherit;
+  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  flex-direction: row;
+  text-align: center;
+
+  background: var(--gradient-color);
+  color: white;
+  box-shadow: -1px 3px 13px 0px rgba(83,45,117,1);
+  border-radius: 5px;
 }
-.search-bar{
-  padding: 8px;                         /* Inner padding for input */
-  border: 1px solid #ccc;               /* Border for the input */
-  border-radius: 4px;                   /* Rounded corners for the input */
-  margin-right: 10px;
-}
-.search-button{
-  padding: 8px 12px;                    /* Inner padding for the button */
-  background-color: #555;               /* Button background color */
-  border: none;                         /* No border */
-  border-radius: 4px;                   /* Rounded corners for the button */
-  color: white;                         /* Text color for the button */
-  cursor: pointer;
+.Logo{
+  margin-top: 10%;
+  width: 50px;
+  height: 50px;
 }
 
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
   display: flex;
-  float: right;
-}
-.navbar li:last-child{
-  position: absolute;
-  padding: 10px;
-  right: 0;
-  float: none;
-}
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
 
-.navbar li {
-  float: right;
-  margin-right: 50px;
+  list-style-type: none;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
-
 .navbar a {
   color: white;
   text-decoration: none;
-  transition: color 0.3s;
+
 }
+.navbar a:hover {
+  /*transition: border-bottom-color 0.3s;*/
+  border-bottom: 2px solid white;
+  animation: border-bottom-animation 0.3s;
+}
+@keyframes border-bottom-animation {
+  from {
+    border-bottom-color: transparent;
+  }
+  to{
+    border-bottom-color: white;
+  }
+}
+.navbar li:first-child{
+  position: absolute;
+  left: 10%;
+  float: none;
+}
+.navbar li:nth-child(2){
+  position: absolute;
+  left: 13.5%;
+  float: none;
+}
+.navbar li:nth-child(6){
+  position: absolute;
+  right: 17%;
+  float: none;
+}
+.navbar li:last-child{
+  position: absolute;
+  right: 10%;
+  float: none;
+}
+
+/*.search-bar{*/
+/*  padding: 8px;                         !* Inner padding for input *!*/
+/*  border: 1px solid #ccc;               !* Border for the input *!*/
+/*  border-radius: 4px;                   !* Rounded corners for the input *!*/
+/*  margin-right: 10px;*/
+/*}*/
+/*.search-button{*/
+/*  !*padding: 8px 12px;                    !* Inner padding for the button *!*!*/
+/*  background-color: transparent;               !* Button background color *!*/
+/*  border: 1px solid white;                         !* No border *!*/
+/*  border-radius: 4px;                   !* Rounded corners for the button *!*/
+/*  color: white;                         !* Text color for the button *!*/
+/*  cursor: pointer;*/
+/*}*/
+
+
 
 body {
   display: flex;
@@ -105,13 +159,4 @@ body {
   padding: 10px;
   margin-right:10px;
 }
-.dashboard{
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  /*border-radius: 20px;*/
-  /*box-shadow: 0 2px 5px rgb(255, 255, 255);*/
-}
-.logo{
 
-}

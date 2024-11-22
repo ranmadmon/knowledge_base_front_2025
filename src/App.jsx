@@ -7,12 +7,12 @@ import Course from "./pages/Course.jsx";
 function App() {
     return (
         <Router>
-            <h1>Knowledge Base</h1>
-            <div>
-                <Link to="/login" style={{
-                    marginRight: 50
-                }}>Login Page</Link>
-            </div>
+            {/*<h1>Knowledge Base</h1>*/}
+            {/*<div>*/}
+            {/*    <Link to="/login" style={{*/}
+            {/*        marginRight: 50*/}
+            {/*    }}>Login Page</Link>*/}
+            {/*</div>*/}
             <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />

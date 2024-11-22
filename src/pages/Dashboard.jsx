@@ -6,8 +6,6 @@ function Dashboard() {
     return (
         <>
             <div className={"dashboard"}>
-
-
                 <NavBar/>
                 <CoursesList/>
                 <History/>

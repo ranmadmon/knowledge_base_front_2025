@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './Register.css';
+import './Form.css';
 import axios from "axios";
 
 function Register() {
@@ -46,9 +46,9 @@ function Register() {
 
     function getInput(title, value, setValue, type = "text") {
         return (
-            <div key={title}>
-                <label>{title}:</label>
-                <input
+            <div className={"input-container"} key={title}>
+                <label className={"form-label"}>{title}:</label>
+                <input className={"form-input"}
                     type={type}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
@@ -80,34 +80,60 @@ function Register() {
     }
 
     return (
-        <div>
-            <h2>Register Page</h2>
-            <div className="register-form">
-                <form onSubmit={handleRegister}>
-                    {/* Form fields using getInput */}
-                    {getInput("Name", name, setName)}
-                    {getInput("Last Name", lastName, setLastName)}
-                    {getInput("Username", username, setUsername)}
-                    {getInput("Password", password, setPassword, "password")}
-                    {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password")}
-                    {getInput("Email", email, setEmail, "email")}
-                    <div>
-                        <label>Job Title:</label>
-                        <select value={jobTitle} onChange={(e) => setJobTitle(e.target.value)}>
-                            <option value="" disabled>Select Job Title</option>
-                            <option value="Student">Student</option>
-                            <option value="Crew">Crew</option>
-                        </select>
+        <div className="form-page">
+            <div className="form-container">
+                <div className={"right-side"}>
+                    <div className={"form-headers"}>
+                        <h1 style={{height: "40px"}}>Register</h1>
+                        <h3 style={{height: "5px"}}>Thank you for joining us</h3>
+                        <h4 style={{height: "5px"}}>please provide all the info below to get started 🫡</h4>
                     </div>
 
-                    <button type="submit"
-                            className={allFieldsFilled() ? "active" : ""}
-                            disabled={!allFieldsFilled()}>
-                        Register
-                    </button>
+                    <form className={"form"} onSubmit={handleRegister}>
+                        {/* Form fields using getInput */}
+                        <div className="input-pair">
+                            {getInput("Name", name, setName)}
+                            {getInput("Last Name", lastName, setLastName)}
+                        </div>
 
-                    <label> {showErrorCode()}</label>
-                </form>
+                        <div className="input-pair">
+                            {getInput("Username", username, setUsername)}
+                            {getInput("Email", email, setEmail, "email")}
+                        </div>
+                        <div className="input-pair">
+                            {getInput("Password", password, setPassword, "password")}
+                            {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password")}
+                        </div>
+
+                        <div className="input-pair">
+                            <div className={"input-container"}>
+                                <label className={"form-label"}>Job Title:</label>
+                                <select className={"form-input"} value={jobTitle}
+                                        onChange={(e) => setJobTitle(e.target.value)}>
+                                    <option value="" disabled>Select Job Title</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Crew">Crew</option>
+                                </select>
+                            </div>
+                            <div className="input-container">
+                                <label className={"form-label"}></label>
+                                <button id={"submit-button"} type="submit"
+                                        className={allFieldsFilled() ? "active" : ""}
+                                        disabled={!allFieldsFilled()}>
+                                    Register Now
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <label> {showErrorCode()}</label>
+                    </form>
+                </div>
+                <div className={"left-side"} style={{width:'30%'}}>
+                    <img style={{width:"17vw", height:"30vh"}} src={"src/assets/image2.png"} alt={"register-page-image"}/>
+
+                </div>
             </div>
         </div>
 

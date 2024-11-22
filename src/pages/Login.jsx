@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './Form.css';
 import axios from "axios";
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import RegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -38,34 +40,66 @@ function Login() {
                 }
             })
     }
+    const allFieldsFilled = () => {
+        return (
+            username.trim() &&
+            password.trim()
+        );
+    };
+    function getInput(title, value, setValue, type = "text") {
+        return (
+            <div className={"input-container"} key={title}>
+                <label className={"form-label"}>{title}:</label>
+                <input className={"form-input"}
+                       type={type}
+                       value={value}
+                       onChange={(e) => setValue(e.target.value)}
+                       placeholder={title}
+                />
+            </div>
+        );
+    }
+
+    function handleLogin() {
+        //some login logic here
+    }
 
     return (
-        <div>
-            <p>This is the Login page</p>
-            <div>
-                <label>User Name:</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                />
+        <div className="form-page">
+            <div className="form-container">
+                <div className={"right-side"}>
+                    <div className={"form-headers"}>
+                        <h1 style={{height: "30px"}}>Login</h1>
+                        <h3 style={{height: "30px"}}>Hi! welcome back 😊</h3>
+                    </div>
+                    <form className={"form"} onSubmit={handleLogin}>
+
+                        <div className={"input-container"}>
+                            {getInput("Username", username, setUsername)}
+                            {getInput("Password", password, setPassword)}
+                            <button className={"forgot-password-button"}>Forgot Password?</button>
+
+                        </div>
+                        {/*<button id={"submit-button"} onClick={login}>Login</button>*/}
+                        <button id={"submit-button"} type="submit" onClick={login}
+                                className={allFieldsFilled() ? "active" : ""}
+                                disabled={!allFieldsFilled()}>
+                            <label>Login</label>
+                        </button>
+                        <div className={"dont-have-account"}>
+                            <label>Dont have an account?</label>
+                            <button className={"register"} onClick={() => navigate('/register')}> Create Now!</button>
+                        </div>
+
+                    </form>
+                    <label> {showErrorCode()}</label>
+
+                </div>
+                <div className={"left-side"}>
+                <img style={{height:"30vh"}} src={"src/assets/images4.svg"} alt={"login-page-image"}/>
+                </div>
             </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
-            </div>
-            <div>
-                <button onClick={login}>Login</button>
-                <button onClick={() => navigate('/register')}> Register</button>
-                <button>Forget Password</button>
-            </div>
-            <label> {showErrorCode()}</label>
+
         </div>
     );
 }
