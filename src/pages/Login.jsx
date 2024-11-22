@@ -86,9 +86,9 @@ function Login() {
                                 disabled={!allFieldsFilled()}>
                             <label>Login</label>
                         </button>
-                        <div className={"dont-have-account"}>
+                        <div className={"have-an-account"}>
                             <label>Dont have an account?</label>
-                            <button className={"register"} onClick={() => navigate('/register')}> Create Now!</button>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create Now!</button>
                         </div>
 
                     </form>
@@ -96,7 +96,10 @@ function Login() {
 
                 </div>
                 <div className={"left-side"}>
-                <img style={{height:"30vh"}} src={"src/assets/images4.svg"} alt={"login-page-image"}/>
+                    <div className={"image-container"}>
+                        <img style={{width: "25vw", height: "40vh"}} src={"src/assets/image10.png"}
+                             alt={"login-page-image"}/>
+                    </div>
                 </div>
             </div>
 

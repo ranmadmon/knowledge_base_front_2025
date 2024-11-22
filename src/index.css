@@ -2,8 +2,8 @@
   --gradient-color: linear-gradient(129deg, rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);
   --gradient-color-bright: linear-gradient(129deg, rgb(67, 12, 173) 17%, rgb(114, 0, 159) 59%, rgb(179, 3, 217) 100%);
   --gradient-color-dark:linear-gradient(129deg, rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);
-  --card-width: 50vw;
-  --card-height: 60vh;
+  --card-width: 60vw;
+  --card-height: 70vh;
 
 }
 /*button:hover {*/

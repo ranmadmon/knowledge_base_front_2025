@@ -123,15 +123,21 @@ function Register() {
                                     Register Now
                                 </button>
                             </div>
-
                         </div>
-
+                        <div className={"have-an-account"}>
+                            <label>Already have an account?</label>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/login')}> Login Now!</button>
+                        </div>
 
                         <label> {showErrorCode()}</label>
                     </form>
                 </div>
-                <div className={"left-side"} style={{width:'30%'}}>
-                    <img style={{width:"17vw", height:"30vh"}} src={"src/assets/image2.png"} alt={"register-page-image"}/>
+                <div className={"left-side"}>
+                    <div className={"image-container"}>
+                        <img style={{width: "25vw", height: "40vh"}} src={"src/assets/image11.png"}
+                             alt={"register-page-image"}/>
+
+                    </div>
 
                 </div>
             </div>

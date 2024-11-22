@@ -20,7 +20,8 @@
     border-radius: 10px;
     box-shadow: 0 0px 20px -4px rgba(255, 255, 255, 1);
     text-align: center;
-    gap: 3rem;
+    /*gap: 2rem;*/
+    border: 1px solid violet;
 
 }
 .input-container{
@@ -107,13 +108,13 @@
 #submit-button:hover:not(:disabled) {
     background: var(--gradient-color-dark);
 }
-.dont-have-account{
+.have-an-account{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-.register{
+.have-an-account-button{
     background: transparent;
     border: none;
     cursor: pointer;
@@ -127,9 +128,19 @@
     align-items: center;
     justify-content: center;
     gap: 3rem;
+    width: 55%;
+    height: 100%;
 
-    width: 50%;
 }
 .left-side{
-    width: 50%;
+    width: 45%;
+    height: 100%;
+    background: var(--gradient-color);
+}
+.image-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
