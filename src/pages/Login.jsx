@@ -69,6 +69,7 @@ function Login() {
             <div className="form-container">
                 <div className={"right-side"}>
                     <div className={"form-headers"}>
+                        <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
                         <h1 style={{height: "30px"}}>Login</h1>
                         <h3 style={{height: "30px"}}>Hi! welcome back 😊</h3>
                     </div>
