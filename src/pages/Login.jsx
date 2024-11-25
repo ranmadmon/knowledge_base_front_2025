@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import RegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
+
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -85,7 +84,7 @@ function Login() {
                         <button id={"submit-button"} type="submit" onClick={login}
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
-                            <label>Login</label>
+                            Login
                         </button>
                         <div className={"have-an-account"}>
                             <label>Dont have an account?</label>
