@@ -9,7 +9,7 @@ function NavBar() {
             <ul>
                 <li><img className={"Logo"} src={"src/assets/book-logo.png"} alt={"logo"}/></li>
                 <li><text className={"Title"}>Knowledge Base</text></li>
-                <li><a href="/courses">Courses</a></li>
+                <li><a href="/course">Courses</a></li>
                 <li><a href="/uptade-materials">Materials</a></li>
                 {/*<li><input type="text" placeholder="search" className="search-bar"></input>*/}
                 {/*</li>*/}
