@@ -8,7 +8,7 @@ function Dashboard() {
 
     }
     return (
-        <>
+
             <div className={"dashboard"}>
                 <div className={"upper-container"}>
                     <NavBar/>
@@ -33,7 +33,7 @@ function Dashboard() {
                 {/*<CoursesList/>*/}
                 {/*<History/>*/}
             </div>
-        </>
+
     );
 }
 

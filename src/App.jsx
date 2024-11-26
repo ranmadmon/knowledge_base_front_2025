@@ -14,6 +14,7 @@ function App() {
     return (
         <Router>
             <Routes>
+                <Route path='/' element={<Dashboard/>}/>
                 <Route path='/*' element={<ErrorPage/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
