@@ -1,8 +1,41 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    color-scheme: dark light;
-    background-color: rgba(72, 78, 101, 0.69);
+  /*--gradient-color: linear-gradient(var(--gradient-angle), rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);*/
+  --gradient-angle: 129deg;
+  /*--color-1: #641435;*/
+  /*--color-2: #B71734;*/
+  /*--color-3: #ED1520;*/
+  /*--color-4: #FB5A20;*/
+  /*--color-5: #FCC730;*/
+  --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
+
+  --color-1-bright: rgb(88, 0, 255);
+  --color-2-bright: rgb(183, 0, 255);
+  --color-3-bright: rgb(210, 0, 255);
+  --color-1: rgb(66, 11, 169);
+  --color-2: rgb(81, 1, 113);
+  --color-3: rgb(70, 1, 98);
+  --card-width: 60vw;
+  --card-height: 70vh;
+}
+@property --color-1{
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: true;
+}
+@property --color-2{
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: true;
+}
+@property --color-3{
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: true;
+}
+
+body {
+  display: flex;
+  margin: 0;
 }
 body {
      display: flex;
@@ -17,7 +50,34 @@ button:hover {
 
 button:focus, button:focus-visible {
     outline: 90px auto -webkit-focus-ring-color;
+
+.upper-container {
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background: var(--gradient-color);
+  color: white;
+  box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);
+  border-radius: 5px;
 }
+.Logo{
+  margin-top: 10%;
+  width: 50px;
+  height: 50px;
+}
+.search{
+  height: 80%;
+  width: 100%;
+  /*border: 8px solid white;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
 
 .navbar {
     position: fixed;

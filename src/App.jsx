@@ -8,6 +8,8 @@ import UploadMaterials from "./pages/UploadMaterials.jsx";
 import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
 
+import Course from "./pages/Course.jsx";
+import "./App.css"
 
 function App() {
     return (
@@ -51,6 +53,7 @@ function App() {
     )
         ;
 }
+
 
 
 export default App;
