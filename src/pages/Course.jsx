@@ -1,7 +1,7 @@
 import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
-
+import NavBar from "../Components/Dashboard/NavBar.jsx";
 export default function Course(){
 
     const [lecturers, setLecturers] = useState([])
@@ -66,8 +66,8 @@ export default function Course(){
 
     return(
         <div>
-
-            <div>
+            <NavBar/>
+            <div className={"courses-container"}>
                 {
                  courses.map((course,index)=>{
                      return (

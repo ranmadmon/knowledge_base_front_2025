@@ -1,4 +1,7 @@
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import RegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
+
 import {Outlet, useNavigate} from "react-router-dom";
 
 function NavBar() {

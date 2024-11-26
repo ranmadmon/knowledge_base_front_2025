@@ -1,36 +1,26 @@
 :root {
-    /*--gradient-color: linear-gradient(var(--gradient-angle), rgba(49,9,121,1) 17%, rgba(55,1,77,1) 59%, rgba(101,0,120,1) 100%);*/
     --gradient-angle: 129deg;
-    /*--color-1: #641435;*/
-    /*--color-2: #B71734;*/
-    /*--color-3: #ED1520;*/
-    /*--color-4: #FB5A20;*/
-    /*--color-5: #FCC730;*/
-    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
-
-    --color-1-bright: rgb(88, 0, 255);
-    --color-2-bright: rgb(183, 0, 255);
-    --color-3-bright: rgb(210, 0, 255);
     --color-1: rgb(66, 11, 169);
     --color-2: rgb(81, 1, 113);
     --color-3: rgb(70, 1, 98);
+    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
+    --color-1-bright: rgb(88, 0, 255);
+    --color-2-bright: rgb(183, 0, 255);
+    --color-3-bright: rgb(210, 0, 255);
     --card-width: 60vw;
     --card-height: 70vh;
 }
-
-@property --color-1 {
+@property --color-1{
     syntax: "<color>";
     initial-value: transparent;
     inherits: true;
 }
-
-@property --color-2 {
+@property --color-2{
     syntax: "<color>";
     initial-value: transparent;
     inherits: true;
 }
-
-@property --color-3 {
+@property --color-3{
     syntax: "<color>";
     initial-value: transparent;
     inherits: true;
@@ -41,19 +31,14 @@ body {
     margin: 0;
 }
 
-body {
+.dashboard{
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    margin-top: 3rem;
-    padding-top: 50px;
-    overflow-y: scroll;
-}
-
-button:hover {
-    border-color: #490a9d;
-}
-
-button:focus, button:focus-visible {
-    outline: 90px auto -webkit-focus-ring-color;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgb(255, 255, 255);
 }
 
 .upper-container {
@@ -66,17 +51,15 @@ button:focus, button:focus-visible {
     text-align: center;
     background: var(--gradient-color);
     color: white;
-    box-shadow: -1px 3px 13px 0 rgba(83, 45, 117, 1);
+    box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);
     border-radius: 5px;
 }
-
-.Logo {
+.Logo{
     margin-top: 10%;
     width: 50px;
     height: 50px;
 }
-
-.search {
+.search{
     height: 80%;
     width: 100%;
     /*border: 8px solid white;*/
@@ -85,191 +68,118 @@ button:focus, button:focus-visible {
     align-items: center;
     flex-direction: column;
     gap: 40px;
-}
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
+}
+.navbar{
     width: 100%;
-    background-color: rgba(33, 98, 213, 1);
-    margin: 0;
-    color: white;
-    z-index: 1;
+    height: 20%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    align-content: center;
-
+    flex-direction: column;
 
 }
-
-.search-bar {
-    padding: 0.5rem; /* Inner padding for input */
-    border: 1px solid #ccc; /* Border for the input */
-    border-radius: 4px; /* Rounded corners for the input */
-    margin-right: 10px;
-}
-
-.search-button {
-    padding: 8px 12px; /* Inner padding for the button */
-    background-color: #555; /* Button background color */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners for the button */
-    color: white; /* Text color for the button */
-    cursor: pointer;
-}
-
 .navbar ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    float: right;
-    align-content: center;
-    justify-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 4rem;
-}
-
-.navbar li:first-child {
-    left: 0;
-    display: inline-flex;
-    position: absolute;
-}
-
-
-.navbar li:last-child {
-    display: inline-flex;
-    position: absolute;
-    right: 0;
-    align-items: center;
-    justify-content: center;
-    justify-self: center;
-    overflow: hidden;
-    align-self: flex-end;
-    overflow: unset;
-    horiz-align: center;
-
-}
-
-.navbar .logo {
-    font-family: "Algerian", serif; /* Use Algerian with a fallback */
-    font-size: 24px;
-    font-weight: normal; /* Algerian doesn't require bold by default */
-
-    overflow: hidden;
-    align-content: center;
-    justify-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.navbar li, .logout {
-    display: initial;
-    padding: 0.25rem;
-    margin: 0.25rem 1rem 0 0.25rem;
-    float: right;
-    color: white;
-    position: relative;
-    align-content: center;
-    justify-items: center;
-    justify-content: center;
-    text-align: center;
-
-}
-
-.navbar li :hover {
-    color: #918e8e;
-}
-
-.navbar text {
-    display: inline-flex;
-    cursor: pointer;
-    align-content: center;
-    justify-items: center;
-    justify-content: center;
-    font-size: 22px;
-
-}
-
-.history {
-    display: flex;
-    position: relative;
-    margin: 4rem;
-    padding: 2rem;
-    background-color: #242424;
-    color: white;
-    border: 3px solid #007BFF;
-    border-radius: 20px;
-}
-
-.search-bar {
-    margin-right: 10px;
-}
-
-.search-courses {
-    width: 90%;
-    padding: 10px;
-    margin-right: 10px;
-}
-
-
-.dashboard {
-    display: inline-flex;
-    flex-direction: row;
-    align-content: space-evenly;
-    height: 100%;
-    width: 100%;
-
-}
-
-.navCourses {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: #1e1f22;
-    padding: 2rem;
-    margin: 4rem;
-    flex: content;
-    position: relative;
-    width: 30%;
-    max-width: 30%;
-    height: 50%;
-    min-height: min-content;
-    max-height: 50%;
-    /*border: 3px solid #007bff;*/
-    /*border-radius: 20px;*/
-
-}
-
-.ListCard {
-    padding: 2rem;
-    max-width: 45%;
-    min-width: 45%;
-    position: fixed;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    justify-items: center;
-    flex-direction: column;
-    border: 3px solid #007bff;
-    border-radius: 20px;
-
-}
-
-.buttons {
     display: flex;
     flex-direction: row;
-    align-content: center;
-    justify-items: stretch;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     gap: 20px;
-    padding: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+
+}
+.navbar a:hover {
+    border-bottom: 2px solid white;
+    animation: border-bottom-animation 0.3s;
+}
+@keyframes border-bottom-animation {
+    from {
+        border-bottom-color: transparent;
+    }
+    to{
+        border-bottom-color: white;
+    }
+}
+.navbar li:first-child{
+    position: absolute;
+    left: 10%;
+    float: none;
+}
+.navbar li:nth-child(2){
+    position: absolute;
+    left: 13.5%;
+    float: none;
+}
+.navbar li:nth-child(6){
+    position: absolute;
+    right: 17%;
+    float: none;
+}
+.navbar li:last-child{
+    position: absolute;
+    right: 10%;
+    float: none;
 }
 
+/*.search-bar{*/
+/*  padding: 8px;                         !* Inner padding for input *!*/
+/*  border: 1px solid #ccc;               !* Border for the input *!*/
+/*  border-radius: 4px;                   !* Rounded corners for the input *!*/
+/*  margin-right: 10px;*/
+/*}*/
+/*.search-button{*/
+/*  !*padding: 8px 12px;                    !* Inner padding for the button *!*!*/
+/*  background-color: transparent;               !* Button background color *!*/
+/*  border: 1px solid white;                         !* No border *!*/
+/*  border-radius: 4px;                   !* Rounded corners for the button *!*/
+/*  color: white;                         !* Text color for the button *!*/
+/*  cursor: pointer;*/
+/*}*/
 
 
 
+/*.history{*/
+/*  display: inline-flex;*/
+/*  margin-left:480px;*/
+/*  margin-top: 60px;*/
+/*  padding: 20px;*/
+/*  background-color: #242424;*/
+/*  color: white;*/
+/*  border: 3px solid #007BFF;*/
+/*  border-radius: 20px;*/
+/*}*/
+/*.search-bar{*/
+/*  margin-right: 10px;*/
+/*}*/
+/*.navCourses {*/
+/*  display: inherit;*/
+/*  justify-content: flex-start;*/
+/*  align-items: center;*/
+/*  background-color: #1e1f22;*/
+/*  padding: 20px;*/
+/*  margin-left: 10px;*/
+/*  !*flex: 1;*!*/
+/*  !*position: absolute;*!*/
+/*  !*margin-top: 60px;*!*/
+/*  max-width: 30%;*/
+/*  width: 30%;*/
+/*  border: 3px solid #007BFF;*/
+/*  border-radius: 20px;*/
+/*  box-sizing: content-box;*/
+/*}*/
+/*.search-courses{*/
+/*  width: 90%;*/
+/*  padding: 10px;*/
+/*  margin-right:10px;*/
+/*}*/
 
