@@ -18,19 +18,18 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
 
+                {/*<Route*/}
+                {/*    element={*/}
+                {/*        <NavBar/>*/}
+                {/*    }*/}
 
-                <Route
-                    element={
-                        <NavBar/>
-                    }
-
-                    children={
-                        <>
-                            <Route path={'/'} element={<Dashboard/>}/>
-                            <Route path="/Course" element={<Course/>}/>
-                            <Route path="/matirals" element={<UploadMaterials/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
-                        </>}/>
+                {/*    children={*/}
+                {/*        <>*/}
+                {/*            /!*<Route path={'/'} element={<Dashboard/>}/>*!/*/}
+                {/*            <Route path="/Course" element={<Course/>}/>*/}
+                {/*            <Route path="/matirals" element={<UploadMaterials/>}/>*/}
+                {/*            <Route path="/profile" element={<Profile/>}/>*/}
+                {/*        </>}/>*/}
             </Routes>
 
 

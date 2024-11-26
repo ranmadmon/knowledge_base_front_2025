@@ -30,7 +30,6 @@ export default function Course(){
                 }
             })
     }
-    // axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
     function addCourse(){
         console.log("try" + lecturers)
         axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId())
@@ -42,8 +41,6 @@ export default function Course(){
         console.log(temp[0])
         return temp[0].id;
     }
-
-    // public void addCourses(String name,String description,int lecturer){
 
 
     function courseComponent(lecturer, course, description){
