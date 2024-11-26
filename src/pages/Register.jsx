@@ -113,7 +113,8 @@ function Register() {
                                         onChange={(e) => setJobTitle(e.target.value)}>
                                     <option value="" disabled>Select Job Title</option>
                                     <option value="Student">Student</option>
-                                    <option value="Crew">Crew</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                             <div className="input-container">

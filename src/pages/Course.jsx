@@ -23,13 +23,28 @@ export default function Course(){
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
-                console.log(response)
+                console.log(response.data)
                 if(response.data!=null){
                     setCourses(response.data);
                     console.log(courses);
                 }
             })
     }
+    // axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
+    function addCourse(){
+        console.log("try" + lecturers)
+        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId())
+    }
+
+    function getLecturerId(){
+        console.log("try1111111111" + chosenLecturer)
+        const temp = lecturers.filter(lecturer =>{return lecturer.name===chosenLecturer});
+        console.log(temp[0])
+        return temp[0].id;
+    }
+
+    // public void addCourses(String name,String description,int lecturer){
+
 
     function courseComponent(lecturer, course, description){
         return (
@@ -45,7 +60,7 @@ export default function Course(){
 
     useEffect(() => {
         getLecturers();
-        // getAllCourses();
+        getAllCourses();
     }, []);
 
 
@@ -58,12 +73,13 @@ export default function Course(){
                      return (
                          <div key={index}>
                              {
-                                 courseComponent(course.lecturer.name, course.name, course.description)
+                                 courseComponent(course.lecturerEntity.name, course.name, course.description)
                              }
                          </div>
                      )
                  })
-                }            </div>
+                }
+            </div>
 
             <div className={"AddCourse"}>
                 <h1>Add Course</h1>
@@ -80,7 +96,7 @@ export default function Course(){
                         })
                     }
                 </select>
-                <button onClick={() => alert("add")}>Add Course</button>
+                <button onClick={() => addCourse()}>Add Course</button>
             </div>
         </div>
     )
