@@ -70,17 +70,17 @@
 .navbar li{
 }
 .search-bar{
-    padding: 8px;                         /* Inner padding for input */
-    border: 1px solid #ccc;               /* Border for the input */
-    border-radius: 4px;                   /* Rounded corners for the input */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     margin-right: 10px;
 }
 .search-button{
-    padding: 8px 12px;                    /* Inner padding for the button */
-    background-color: transparent;               /* Button background color */
-    border: 1px solid white;                         /* No border */
-    border-radius: 4px;                   /* Rounded corners for the button */
-    color: white;                         /* Text color for the button */
+    padding: 8px 12px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: white;
     cursor: pointer;
 }
 
@@ -88,7 +88,6 @@
 body {
     display: flex;
     margin-top: 2rem;
-    /*padding-top: 50px;*/
     background: linear-gradient(var(--gradient-angle), var(--color-1), var(--color-2), var(--color-3));
     transition: --color-1 1s, --color-2 1s, --color-3 1s;
 }
@@ -104,6 +103,7 @@ button:focus, button:focus-visible {
 .navCourses {
     gap: 1rem;
     margin-top: 1rem;
+    margin-right: 1rem;
     padding: 2rem;
     max-width: 30%;
     min-width: 20%;

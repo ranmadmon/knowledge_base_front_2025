@@ -1,6 +1,5 @@
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import {Outlet, useNavigate} from "react-router-dom";
-import "./NavBar.css";
 
 function NavBar() {
     const navigate = useNavigate();
