@@ -14,40 +14,24 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<Dashboard/>}/>
+                {/*<Route path='/' element={<Dashboard/>}/>*/}
                 <Route path='/*' element={<ErrorPage/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
 
-                {/*<Route*/}
-                {/*    element={*/}
-                {/*        <NavBar/>*/}
-                {/*    }*/}
+                <Route
+                    element={
+                        <NavBar/>
+                    }
 
-                {/*    children={*/}
-                {/*        <>*/}
-                {/*            /!*<Route path={'/'} element={<Dashboard/>}/>*!/*/}
-                {/*            <Route path="/Course" element={<Course/>}/>*/}
-                {/*            <Route path="/matirals" element={<UploadMaterials/>}/>*/}
-                {/*            <Route path="/profile" element={<Profile/>}/>*/}
-                {/*        </>}/>*/}
+                    children={
+                        <>
+                            <Route path={'/'} element={<Dashboard/>}/>
+                            <Route path="/Course" element={<Course/>}/>
+                            <Route path="/matirals" element={<UploadMaterials/>}/>
+                            <Route path="/profile" element={<Profile/>}/>
+                        </>}/>
             </Routes>
-
-
-            {/*        <h1>Knowledge Base</h1>
-           <div>
-                <Link to="/" style={{
-                    marginRight: 50
-                }}>To Page 1</Link>
-                <Link to="/page2" style={{
-                    marginRight: 50
-                }}>To Page 2</Link>
-                <Link to="/login" style={{
-                    marginRight: 50
-                }}>Login Page</Link>
-            </div>*/
-            }
-
         </Router>
     )
         ;

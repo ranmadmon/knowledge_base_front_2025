@@ -79,7 +79,7 @@ function LastMaterials() {
                     {renderCoursesList()}
                 </ul>
                 <ul>
-                    <div>
+                    <div className={"buttons"}>
                         <button onClick={() => previousPage()} disabled={currentPage === 1}> previous page</button>
                         <button onClick={() => nextPage()} disabled={currentPage * perPage >= courses.length}> next
                             page

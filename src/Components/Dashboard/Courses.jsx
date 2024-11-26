@@ -1,6 +1,6 @@
-import ListCard from "../Components/Dashboard/ListCard.jsx";
- import {useEffect, useState} from "react";
- import {getCourses} from "../API/CoursesAPI.jsx";
+import ListCard from "./ListCard.jsx";
+ import React, {useEffect, useState} from "react";
+ import {getCourses} from "../../API/CoursesAPI.jsx";
 function Courses() {
     const coursesList = [
         {
