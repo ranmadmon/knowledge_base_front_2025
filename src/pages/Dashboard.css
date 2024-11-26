@@ -103,12 +103,12 @@ button:focus, button:focus-visible {
 .navCourses {
     gap: 1rem;
     margin-top: 1rem;
-    margin-right: 1rem;
+    margin-left: 1rem;
     padding: 2rem;
     max-width: 30%;
     min-width: 20%;
     max-height: 60%;
-    position: initial;
+    position: page;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -129,8 +129,8 @@ button:focus, button:focus-visible {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /*align-content: center;*/
-    /*justify-items: center;*/
+    align-content: center;
+    justify-items: center;
     flex-direction: column;
     border: 3px solid #007bff;
     border-radius: 20px;
