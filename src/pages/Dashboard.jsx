@@ -1,16 +1,16 @@
-import CoursesList from "./CoursesList.jsx";
-import NavBar from "./NavBar.jsx";
-import History from "./History.jsx";
+import LastMaterials from "./LastMaterials.jsx";
+import NavBar from "../Components/Dashboard/NavBar.jsx";
+import History from "../Components/Dashboard/History.jsx";
+import ListCard from "../Components/Dashboard/ListCard.jsx";
+import Courses from "./Courses.jsx";
 
 function Dashboard() {
     return (
         <>
             <div className={"dashboard"}>
-
-
                 <NavBar/>
-                <CoursesList/>
-                <History/>
+                <Courses/>
+                {/*<ListCard/>*/}
             </div>
         </>
     );

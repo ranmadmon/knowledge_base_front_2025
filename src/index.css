@@ -1,117 +1,203 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 600;
-  color-scheme: dark light;
-  background-color: #242424;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    color-scheme: dark light;
+    background-color: rgba(72, 78, 101, 0.69);
 }
+body {
+     display: flex;
+     margin-top: 3rem;
+     padding-top: 50px;
+    overflow-y: scroll;
+ }
+
 button:hover {
-  border-color: #490a9d;
+    border-color: #490a9d;
 }
-button:focus,button:focus-visible {
-  outline: 90px auto -webkit-focus-ring-color;
+
+button:focus, button:focus-visible {
+    outline: 90px auto -webkit-focus-ring-color;
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(33, 98, 213, 0.6);
-  color: white;
-  padding: 15px;
-  z-index: 1000;
-  display: flex;
-  justify-content: inherit;
-  align-items: center;
-  overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(33, 98, 213, 1);
+    margin: 0;
+    color: white;
+    z-index: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+
+
+
 }
-.search-bar{
-  padding: 8px;                         /* Inner padding for input */
-  border: 1px solid #ccc;               /* Border for the input */
-  border-radius: 4px;                   /* Rounded corners for the input */
-  margin-right: 10px;
+
+.search-bar {
+    padding: 0.5rem; /* Inner padding for input */
+    border: 1px solid #ccc; /* Border for the input */
+    border-radius: 4px; /* Rounded corners for the input */
+    margin-right: 10px;
 }
-.search-button{
-  padding: 8px 12px;                    /* Inner padding for the button */
-  background-color: #555;               /* Button background color */
-  border: none;                         /* No border */
-  border-radius: 4px;                   /* Rounded corners for the button */
-  color: white;                         /* Text color for the button */
-  cursor: pointer;
+
+.search-button {
+    padding: 8px 12px; /* Inner padding for the button */
+    background-color: #555; /* Button background color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners for the button */
+    color: white; /* Text color for the button */
+    cursor: pointer;
 }
 
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  float: right;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    float: right;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4rem;
 }
-.navbar li:last-child{
-  position: absolute;
-  padding: 10px;
-  right: 0;
-  float: none;
-}
-
-.navbar li {
-  float: right;
-  margin-right: 50px;
+.navbar li:first-child{
+    left: 0;
+    display: inline-flex;
+    position: absolute;
 }
 
-.navbar a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
+
+.navbar li:last-child {
+    display: inline-flex;
+    position: absolute;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    overflow: hidden;
+    align-self: flex-end;
+    overflow: unset;
+    horiz-align: center;
+
 }
 
-body {
-  display: flex;
-  margin: 0;
-  padding-top: 50px;
+.navbar .logo {
+    font-family: "Algerian", serif; /* Use Algerian with a fallback */
+    font-size: 24px;
+    font-weight: normal; /* Algerian doesn't require bold by default */
+
+    overflow: hidden;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.history{
-  display: inline-flex;
-  margin-left:480px;
-  margin-top: 60px;
-  padding: 20px;
-  background-color: #242424;
-  color: white;
-  border: 3px solid #007BFF;
-  border-radius: 20px;
+.navbar li, .logout {
+    display: initial;
+    padding: 0.25rem;
+    margin: 0.25rem 1rem 0 0.25rem;
+    float: right;
+    color: white;
+    position: relative;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+
 }
-.search-bar{
-  margin-right: 10px;
+
+.navbar li :hover {
+    color: #918e8e;
 }
+
+.navbar text {
+    display: inline-flex;
+    cursor: pointer;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    font-size: 22px;
+
+}
+
+.history {
+    display: flex;
+    position: relative;
+    margin: 4rem;
+    padding: 2rem;
+    background-color: #242424;
+    color: white;
+    border: 3px solid #007BFF;
+    border-radius: 20px;
+}
+
+.search-bar {
+    margin-right: 10px;
+}
+
+.search-courses {
+    width: 90%;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+
+.dashboard {
+    display: inline-flex;
+    flex-direction: row;
+    align-content: space-evenly;
+    height: 100%;
+    width: 100%;
+
+}
+
 .navCourses {
-  display: inherit;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #1e1f22;
-  padding: 20px;
-  margin-left: 10px;
-  flex: 1;
-  position: absolute;
-  margin-top: 60px;
-  max-width: 30%;
-  width: 30%;
-  border: 3px solid #007BFF;
-  border-radius: 20px;
-  box-sizing: content-box;
-}
-.search-courses{
-  width: 90%;
-  padding: 10px;
-  margin-right:10px;
-}
-.dashboard{
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  /*border-radius: 20px;*/
-  /*box-shadow: 0 2px 5px rgb(255, 255, 255);*/
-}
-.logo{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #1e1f22;
+    padding: 2rem;
+    margin: 4rem;
+    flex: content;
+    position: relative;
+    width: 30%;
+    max-width: 30%;
+    height: 50%;
+    min-height: min-content;
+    max-height: 50%;
+    /*border: 3px solid #007bff;*/
+    /*border-radius: 20px;*/
 
 }
+.ListCard{
+    padding: 2rem;
+    max-width: 45%;
+    min-width: 45%;
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    flex-direction: column;
+    border: 3px solid #007bff;
+    border-radius: 20px;
+
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-items: stretch;
+    gap: 20px;
+    padding: 1rem;
+}
+
+
+

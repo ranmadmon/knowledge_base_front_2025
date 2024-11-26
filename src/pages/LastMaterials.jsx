@@ -1,10 +1,8 @@
 import {useState} from "react";
 
-function CoursesList() {
-    const [currentPage,setCurrentPage] = useState(1)
-    const [perPage,setPerPage] = useState(3)
-
-
+function LastMaterials() {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [perPage, setPerPage] = useState(3)
 
 
     const courses = [
@@ -47,25 +45,26 @@ function CoursesList() {
 
 
     function renderCoursesList() {
-        const relevantCourses =  courses.slice(currentPage*perPage-perPage, currentPage*perPage);
+        const relevantCourses = courses.slice(currentPage * perPage - perPage, currentPage * perPage);
         return relevantCourses.map((course, index) => {
             return (
                 <li key={index}>
-                    {course.id} -   {course.name} : <br/> {course.description}
+                    {course.id} - {course.name} : {course.description}
                 </li>
             );
         });
     }
 
 
-    function  nextPage() {
+    function nextPage() {
         if (!(currentPage * perPage >= courses.length)) {
             setCurrentPage(currentPage + 1)
         }
     }
-    function previousPage(){
-        if (currentPage!==1){
-            setCurrentPage(currentPage-1)
+
+    function previousPage() {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1)
         }
     }
 
@@ -80,12 +79,17 @@ function CoursesList() {
                     {renderCoursesList()}
                 </ul>
                 <ul>
-                    <button onClick={() => previousPage()} disabled={currentPage===1}> previous page</button>
-                    <button onClick={() => nextPage()}  disabled={currentPage * perPage >= courses.length}> next page</button>
+                    <div>
+                        <button onClick={() => previousPage()} disabled={currentPage === 1}> previous page</button>
+                        <button onClick={() => nextPage()} disabled={currentPage * perPage >= courses.length}> next
+                            page
+                        </button>
+                    </div>
+
                 </ul>
             </nav>
         </>
     );
 }
 
-export default CoursesList;
+export default LastMaterials;

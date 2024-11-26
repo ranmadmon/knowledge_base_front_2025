@@ -1,14 +1,40 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Page2 from "./pages/Page2.jsx";
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import Courses from "./pages/Courses.jsx";
+import UploadMaterials from "./pages/UploadMaterials.jsx";
+import Profile from "./pages/Profile.jsx";
+import NavBar from "./Components/Dashboard/NavBar.jsx";
+
 
 function App() {
     return (
         <Router>
-            <h1>Knowledge Base</h1>
-            <div>
+            <Routes>
+                <Route path='/*' element={<ErrorPage/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+
+
+                <Route
+                    element={
+                        <NavBar/>
+                    }
+
+                    children={
+                        <>
+                            <Route path={'/'} element={<Dashboard/>}/>
+                            <Route path="/courses" element={<Courses/>}/>
+                            <Route path="/matirals" element={<UploadMaterials/>}/>
+                            <Route path="/profile" element={<Profile/>}/>
+                        </>}/>
+            </Routes>
+
+
+            {/*        <h1>Knowledge Base</h1>
+           <div>
                 <Link to="/" style={{
                     marginRight: 50
                 }}>To Page 1</Link>
@@ -18,17 +44,13 @@ function App() {
                 <Link to="/login" style={{
                     marginRight: 50
                 }}>Login Page</Link>
-            </div>
-            <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/page2" element={<Page2 />} />
-                <Route path="/register" element={<Register />} />
-            </Routes>
-        </Router>
-    );
-}
+            </div>*/
+            }
 
+        </Router>
+    )
+        ;
+}
 
 
 export default App;
