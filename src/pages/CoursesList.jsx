@@ -1,137 +1,100 @@
-import {useState} from "react";
+import "./Course.css"
+import {useState,useEffect} from "react";
 import axios from "axios";
+// import NavBar from "../Components/Dashboard/NavBar.jsx";
+export default function CoursesList(){
 
-function CoursesList() {
-    const [currentPage,setCurrentPage] = useState(1)
-    const [perPage,setPerPage] = useState(3)
     const [lecturers, setLecturers] = useState([])
     const [courses, setCourses] = useState([])
-    const SERVER_URL = "http://localhost:3306"
+    const [chosenLecturer, setChosenLecturer] = useState("")
+    const [courseName,setCourseName] = useState("")
+    const [description, setDescription] = useState("")
+    const SERVER_URL = "http://localhost:8080"
 
     function getLecturers(){
         axios.get(SERVER_URL+"/get-lecturers")
             .then(response => {
-                setLecturers(response.data)
+                if (response.data!=null){
+                    setLecturers(response.data)
+                }
             })
     }
 
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
-                setCourses(response.data);
-                console.log(courses);
+                console.log(response.data)
+                if(response.data!=null){
+                    setCourses(response.data);
+                    console.log(courses);
+                }
             })
     }
+    function addCourse(){
+        console.log("try" + lecturers)
+        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId())
+    }
 
-    function course(lecturer, course){
+    function getLecturerId(){
+        console.log("try1111111111" + chosenLecturer)
+        const temp = lecturers.filter(lecturer =>{return lecturer.name===chosenLecturer});
+        console.log(temp[0])
+        return temp[0].id;
+    }
+
+
+    function courseComponent(lecturer, course, description){
         return (
             <>
                 <text>
                     Lecturer: <text>{lecturer}</text>
                     Course: <text>{course}</text>
+                    Description: <text>{description}</text>
                 </text>
             </>
         )
     }
 
-    const coursesTemp = [
-        {
+    useEffect(() => {
+        getLecturers();
+        getAllCourses();
+    }, []);
 
-            name: "Web Development Bootcamp",
-            description: "Learn the fundamentals of web development, including HTML, CSS, and JavaScript.",
-            lecturer: "shai"
-        },
-        {
 
-            name: "Data Science with Python",
-            description: "Master data analysis, machine learning, and data visualization with Python.",
-            lecturer: "aviya"
-        },
-        {
+    return(
+        <div>
 
-            name: "React.js for Frontend Development",
-            description: "Build dynamic and interactive user interfaces with React.js.",
-            lecturer: "boris"
-        },
-        {
-
-            name: "Node.js and Express.js for Backend Development",
-            description: "Build scalable and efficient backend applications with Node.js and Express.js.",
-            lecturer: "effi"
-        },
-        {
-
-            name: "Mobile App Development with Flutter",
-            description: "Create beautiful and performant mobile apps for iOS and Android using Flutter.",
-            lecturer: "shai"
-        },
-        {
-
-            name: "Cybersecurity Fundamentals",
-            description: "Learn the basics of cybersecurity, including network security, ethical hacking, and digital forensics.",
-            lecturer: "menachem"
-        },
-        {
-
-            name: "Cybersecurity Fundamentals122ds2",
-            description: "Learn the y, ethical hacking, and digital forensics.",
-            lecturer: "leshem"
-        }
-    ];
-
-    function addCourse() {
-        axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
-            .then(response => {
-                if (response.data.success){
-                    if (!response.data.loginSuccessful){
-                        setErrorCode(response.data.errorCode)
-                    }else{
-                        navigate("/dashboard");
-                    }
+            <div className={"courses-container"}>
+                {
+                 courses.map((course,index)=>{
+                     return (
+                         <div key={index}>
+                             {
+                                 courseComponent(course.lecturerEntity.name, course.name, course.description)
+                             }
+                         </div>
+                     )
+                 })
                 }
-            })
-    }
+            </div>
 
-    // function renderCoursesList() {
-    //     const relevantCourses =  courses.slice(currentPage*perPage-perPage, currentPage*perPage);
-    //     return relevantCourses.map((course, index) => {
-    //         return (
-    //             <li key={index}>
-    //                 {course.id} -   {course.name} : <br/> {course.description}
-    //             </li>
-    //         );
-    //     });
-    // }
-
-
-    function  nextPage() {
-        if (!(currentPage * perPage >= courses.length)) {
-            setCurrentPage(currentPage + 1)
-        }
-    }
-    function previousPage(){
-        if (currentPage!==1){
-            setCurrentPage(currentPage-1)
-        }
-    }
-
-
-    return (
-        <>
-            <nav className="navCourses">
-                <div>
-                    <input type="text" placeholder="search" className="search-courses"/>
-                </div>
-                <ul>
-
-                </ul>
-                <ul>
-                    <button onClick={() => previousPage()} disabled={currentPage===1}> previous page</button>
-                    <button onClick={() => nextPage()}  disabled={currentPage * perPage >= courses.length}> next page</button>
-                </ul>
-            </nav>
-        </>
-    );
+            <div className={"AddCourse"}>
+                <h1>Add Course</h1>
+                <input className={"Input"} type={"text"} value={courseName} onChange={(event) => setCourseName(event.target.value)}/>
+                <input className={"Input"} type={"text"} value={description} onChange={(event) => setDescription(event.target.value)}/>
+                <select className={"Input"} value={chosenLecturer} onChange={(event) => setChosenLecturer(event.target.value)}>
+                    {
+                        lecturers.map((lecturer, index) => {
+                            return (
+                                <option key={index} value={lecturer.name}>
+                                    {lecturer.name}
+                                </option>
+                            );
+                        })
+                    }
+                </select>
+                <button onClick={() => addCourse()}>Add Course</button>
+            </div>
+        </div>
+    )
 }
-
-export default CoursesList;

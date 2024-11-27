@@ -1,0 +1,156 @@
+.form-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter, sans-serif;
+    color: white;
+    background: var(--gradient-color);
+}
+
+.form-container {
+    width: var(--card-width);
+    height: var(--card-height);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 0 20px violet;
+    text-align: center;
+    border: 1px solid violet;
+
+}
+.input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.form{
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap:wrap;
+    gap: 1rem;
+}
+.form-label{
+    width: 13vw;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+}
+.form-input{
+    width: 12vw;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+.input-pair{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+
+}
+
+.input-container select {
+    appearance: none;
+    width: 13vw;
+}
+
+#submit-button{
+    width: 13vw;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    /*color: #fff;*/
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.forgot-password-button{
+    width: 100%;
+    font-size: 0.8rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: right;
+    color: white;
+}
+#submit-button.active {
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(var(--gradient-angle), var(--color-1), var(--color-2), var(--color-3));
+    transition: --color-1 1s, --color-2 1s, --color-3 1s;
+}
+
+#submit-button:disabled {
+    background: #ccc;
+    cursor: default;
+}
+
+#submit-button.active:hover{
+    --color-1: var(--color-1-bright);
+    --color-2: var(--color-2-bright);
+    --color-3: var(--color-3-bright);
+}
+.have-an-account{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+.have-an-account-button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.right-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 55%;
+    height: 100%;
+    border-radius: 16px;
+
+}
+.left-side{
+    width: 45%;
+    height: 100%;
+    background: var(--gradient-color);
+    border-radius: 16px;
+}
+.image-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

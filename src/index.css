@@ -1,117 +1,74 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 600;
-  color-scheme: dark light;
-  background-color: #242424;
+    --gradient-angle: 129deg;
+    --color-1: rgb(66, 11, 169);
+    --color-2: rgb(81, 1, 113);
+    --color-3: rgb(70, 1, 98);
+    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
+    --color-1-bright: rgb(88, 0, 255);
+    --color-2-bright: rgb(183, 0, 255);
+    --color-3-bright: rgb(210, 0, 255);
+    --card-width: 60vw;
+    --card-height: 70vh;
 }
-button:hover {
-  border-color: #490a9d;
+@property --color-1{
+    syntax: "<color>";
+    initial-value: transparent;
+    inherits: true;
 }
-button:focus,button:focus-visible {
-  outline: 90px auto -webkit-focus-ring-color;
+@property --color-2{
+    syntax: "<color>";
+    initial-value: transparent;
+    inherits: true;
 }
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(33, 98, 213, 0.6);
-  color: white;
-  padding: 15px;
-  z-index: 1000;
-  display: flex;
-  justify-content: inherit;
-  align-items: center;
-  overflow: hidden;
-}
-.search-bar{
-  padding: 8px;                         /* Inner padding for input */
-  border: 1px solid #ccc;               /* Border for the input */
-  border-radius: 4px;                   /* Rounded corners for the input */
-  margin-right: 10px;
-}
-.search-button{
-  padding: 8px 12px;                    /* Inner padding for the button */
-  background-color: #555;               /* Button background color */
-  border: none;                         /* No border */
-  border-radius: 4px;                   /* Rounded corners for the button */
-  color: white;                         /* Text color for the button */
-  cursor: pointer;
-}
-
-.navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  float: right;
-}
-.navbar li:last-child{
-  position: absolute;
-  padding: 10px;
-  right: 0;
-  float: none;
-}
-
-.navbar li {
-  float: right;
-  margin-right: 50px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
+@property --color-3{
+    syntax: "<color>";
+    initial-value: transparent;
+    inherits: true;
 }
 
 body {
-  display: flex;
-  margin: 0;
-  padding-top: 50px;
+    display: flex;
+    margin: 0;
 }
-
-.history{
-  display: inline-flex;
-  margin-left:480px;
-  margin-top: 60px;
-  padding: 20px;
-  background-color: #242424;
-  color: white;
-  border: 3px solid #007BFF;
-  border-radius: 20px;
+.upper-container {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background: var(--gradient-color);
+    color: white;
+    box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);
+    border-radius: 5px;
 }
-.search-bar{
-  margin-right: 10px;
+.Logo{
+    margin-top: 10%;
+    width: 50px;
+    height: 50px;
 }
-.navCourses {
-  display: inherit;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #1e1f22;
-  padding: 20px;
-  margin-left: 10px;
-  flex: 1;
-  position: absolute;
-  margin-top: 60px;
-  max-width: 30%;
-  width: 30%;
-  border: 3px solid #007BFF;
-  border-radius: 20px;
-  box-sizing: content-box;
-}
-.search-courses{
-  width: 90%;
-  padding: 10px;
-  margin-right:10px;
-}
-.dashboard{
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  /*border-radius: 20px;*/
-  /*box-shadow: 0 2px 5px rgb(255, 255, 255);*/
-}
-.logo{
+.search{
+    height: 80%;
+    width: 100%;
+    /*border: 8px solid white;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
 
 }
+
+.
+@keyframes border-bottom-animation {
+    from {
+        border-bottom-color: transparent;
+    }
+    to{
+        border-bottom-color: white;
+    }
+}
+
+
+
