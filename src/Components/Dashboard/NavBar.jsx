@@ -1,5 +1,6 @@
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import {Outlet, useNavigate} from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 function NavBar() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ function NavBar() {
                         <text className={"Title"}>Knowledge Base</text>
                     </li>
                     <li>
-                        <text onClick={()=>navigate("/courses")}>Courses</text>
+                        <text onClick={()=>navigate("/courses-list")}>Courses</text>
                     </li>
                     <li>
                         <text onClick={()=>navigate("/UpdateMatirials")}>Materials</text>
@@ -29,7 +30,13 @@ function NavBar() {
                     {/*    <img src="src/assets/logo.png" alt="logo"/>*/}
                     {/*</logo>*/}
                     <li>
-                        <text onClick={()=>navigate("/login")}>Login <LoginRoundedIcon/></text>
+                        <text onClick={
+                            ()=>{
+                                const cookies = new Cookies(null, { path: '/' });
+                                cookies.remove("token");
+                                navigate("/login");
+                            }
+                        }>Login <LoginRoundedIcon/></text>
                     </li>
                 </ul>
             </nav>

@@ -3,7 +3,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import Course from "../src/pages/Course.jsx";
+import CoursesList from "./pages/CoursesList.jsx";
 import UploadMaterials from "./pages/UploadMaterials.jsx";
 import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
@@ -16,9 +16,9 @@ function App() {
             <Routes>
                 {/*<Route path='/' element={<Dashboard/>}/>*/}
                 <Route path='/*' element={<ErrorPage/>}/>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
-
+                <Route path="/courses-list" element={<CoursesList/>}/>
                 <Route
                     element={
                         <NavBar/>
@@ -26,8 +26,8 @@ function App() {
 
                     children={
                         <>
-                            <Route path={'/'} element={<Dashboard/>}/>
-                            <Route path="/Course" element={<Course/>}/>
+                            <Route path={'/dashboard'} element={<Dashboard/>}/>
+                            <Route path="/CoursesList" element={<CoursesList/>}/>
                             <Route path="/matirals" element={<UploadMaterials/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                         </>}/>

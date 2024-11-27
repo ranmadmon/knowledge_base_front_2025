@@ -15,7 +15,7 @@ function Register() {
 
     const navigate = useNavigate();
 
-    const SERVER_URL = "http://localhost:3306"
+    const SERVER_URL = "http://localhost:8080"
     const INVALID_REPEAT_PASSWORD = 102;
     const USERNAME_NOT_AVAILABLE = 103
 

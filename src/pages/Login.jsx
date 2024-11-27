@@ -1,7 +1,8 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 
 function Login() {
@@ -10,10 +11,17 @@ function Login() {
     const [errorCode, setErrorCode]= useState(-1);
 
     const navigate = useNavigate();
-
     const SERVER_URL = "http://localhost:8080"
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
+
+    useEffect(() => {
+        const cookies = new Cookies(null, { path: '/' });
+        const token = cookies.get("token");
+        if (token) {
+            navigate("/dashboard");
+        }
+    }, []);
 
     function showErrorCode(){
 
@@ -34,6 +42,8 @@ function Login() {
                     if (!response.data.loginSuccessful){
                         setErrorCode(response.data.errorCode)
                     }else{
+                        const cookies = new Cookies(null, { path: '/' });
+                        cookies.set('token', response.data.token);
                         navigate("/dashboard");
                     }
                 }
@@ -72,7 +82,7 @@ function Login() {
                         <h1 style={{height: "30px"}}>Login</h1>
                         <h3 style={{height: "30px"}}>Hi! welcome back 😊</h3>
                     </div>
-                    <form className={"form"} onSubmit={handleLogin}>
+                    <div className={"form"}>
 
                         <div className={"input-container"}>
                             {getInput("Username", username, setUsername)}
@@ -91,7 +101,7 @@ function Login() {
                             <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create Now!</button>
                         </div>
 
-                    </form>
+                    </div>
                     <label> {showErrorCode()}</label>
 
                 </div>

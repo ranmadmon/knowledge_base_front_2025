@@ -90,7 +90,7 @@ function Courses() {
         <>
 
             {/*<input type="text" placeholder="Search courses" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>*/}
-            <ListCard render={renderCourseList} list={filteredCourses} header={"Course List"} />
+            <ListCard render={renderCourseList} list={filteredCourses} header={"CoursesList List"} />
         </>
     );
 }
