@@ -40,9 +40,9 @@ export default function CoursesList(){
         return temp[0].id;
     }
 
-    // useEffect(()=>{
-    //     getAllCourses();
-    // },[courses])
+    useEffect(()=>{
+        getAllCourses();
+    },[courses])
 
     function courseComponent(lecturer, course, description){
         return (
