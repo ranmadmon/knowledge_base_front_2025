@@ -8,7 +8,7 @@ export default function Course(props){
     return (
         <div>
              <h1>
-                 {props.name}
+                 {props.course.name}
              </h1>
         </div>
     )

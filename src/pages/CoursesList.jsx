@@ -9,7 +9,7 @@ export default function CoursesList(){
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
-    const[currentCourse, setCurrentCourse] = useState("try")
+    const[currentCourse, setCurrentCourse] = useState({name:"",id:""})
     const [description, setDescription] = useState("")
     const [goToCourse, setGoToCourse] = useState(false)
     const SERVER_URL = "http://localhost:8080"
@@ -47,10 +47,10 @@ export default function CoursesList(){
         getAllCourses();
     },[courses])
 
-    function courseComponent(lecturer, course, description){
+    function courseComponent(lecturer, course, description,courseId){
         return (
             //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
-            <div onClick={()=>{setCurrentCourse(course);setGoToCourse(true)}} className="course-card-container">
+            <div onClick={()=>{setCurrentCourse({name:course,id:courseId});setGoToCourse(true)}} className="course-card-container">
                 <text className={"course-card"}>
                     <h1>Course Name: {course}</h1>
                     <h2>Lecturer: {lecturer}</h2>
@@ -69,7 +69,7 @@ export default function CoursesList(){
         <div>
             <NavBar/>
            {
-             goToCourse?<Course name={currentCourse}/>:
+             goToCourse?<Course course={currentCourse}/>:
                  <div>
                      <div className={"course-list-container"}>
                          {
@@ -77,7 +77,7 @@ export default function CoursesList(){
                                  return (
                                      <div key={index}>
                                          {
-                                             courseComponent(course.lecturerEntity.name, course.name, course.description)
+                                             courseComponent(course.lecturerEntity.name, course.name, course.description,index)
                                          }
                                      </div>
                                  )
