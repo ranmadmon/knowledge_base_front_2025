@@ -2,6 +2,7 @@ import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import NavBar from "../Components/Dashboard/NavBar.jsx";
+import Course from "./Course.jsx";
 export default function CoursesList(){
 
     const [lecturers, setLecturers] = useState([])
@@ -9,6 +10,7 @@ export default function CoursesList(){
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
     const [description, setDescription] = useState("")
+    const [goToCourse, setGoToCourse] = useState(false)
     const SERVER_URL = "http://localhost:8080"
 
     function getLecturers(){
@@ -46,7 +48,8 @@ export default function CoursesList(){
 
     function courseComponent(lecturer, course, description){
         return (
-            <div className="course-card-container">
+            //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
+            <div onClick={()=>setGoToCourse(true)} className="course-card-container">
                 <text className={"course-card"}>
                     <h1>Course Name: {course}</h1>
                     <h2>Lecturer: {lecturer}</h2>
@@ -64,38 +67,46 @@ export default function CoursesList(){
     return (
         <div>
             <NavBar/>
-            <div className={"course-list-container"}>
-                {
-                 courses.map((course,index)=>{
-                     return (
-                         <div key={index}>
+           {
+             goToCourse?<Course/>:
+                 <div>
+                     <div className={"course-list-container"}>
+                         {
+                             courses.map((course, index) => {
+                                 return (
+                                     <div key={index}>
+                                         {
+                                             courseComponent(course.lecturerEntity.name, course.name, course.description)
+                                         }
+                                     </div>
+                                 )
+                             })
+                         }
+
+                     </div>
+
+                     <div className={"AddCourse"}>
+                         <h1>Add Course</h1>
+                         <input className={"Input"} type={"text"} value={courseName}
+                                onChange={(event) => setCourseName(event.target.value)}/>
+                         <input className={"Input"} type={"text"} value={description}
+                                onChange={(event) => setDescription(event.target.value)}/>
+                         <select className={"Input"} value={chosenLecturer}
+                                 onChange={(event) => setChosenLecturer(event.target.value)}>
                              {
-                                 courseComponent(course.lecturerEntity.name, course.name, course.description)
+                                 lecturers.map((lecturer, index) => {
+                                     return (
+                                         <option key={index} value={lecturer.name}>
+                                             {lecturer.name}
+                                         </option>
+                                     );
+                                 })
                              }
-                         </div>
-                     )
-                 })
-                }
-
-            </div>
-
-            <div className={"AddCourse"}>
-                <h1>Add Course</h1>
-                <input className={"Input"} type={"text"} value={courseName} onChange={(event) => setCourseName(event.target.value)}/>
-                <input className={"Input"} type={"text"} value={description} onChange={(event) => setDescription(event.target.value)}/>
-                <select className={"Input"} value={chosenLecturer} onChange={(event) => setChosenLecturer(event.target.value)}>
-                    {
-                        lecturers.map((lecturer, index) => {
-                            return (
-                                <option key={index} value={lecturer.name}>
-                                    {lecturer.name}
-                                </option>
-                            );
-                        })
-                    }
-                </select>
-                <button onClick={() => addCourse()}>Add Course</button>
-            </div>
+                         </select>
+                         <button onClick={() => addCourse()}>Add Course</button>
+                     </div>
+                 </div>
+           }
         </div>
     )
 }
