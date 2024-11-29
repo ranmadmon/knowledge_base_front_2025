@@ -67,10 +67,11 @@ export default function CoursesList(){
 
     return (
         <div>
-            <NavBar/>
+
            {
-             goToCourse?<Course course={currentCourse}/>:
+             goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
                  <div>
+                     <NavBar/>
                      <div className={"course-list-container"}>
                          {
                              courses.map((course, index) => {

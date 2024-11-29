@@ -9,6 +9,7 @@ import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
 
 import "./App.css"
+import Course from "./pages/Course.jsx";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/courses-list" element={<CoursesList/>}/>
+
                 <Route
                     element={
                         <NavBar/>

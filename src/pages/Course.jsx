@@ -10,6 +10,9 @@ export default function Course(props){
              <h1>
                  {props.course.name}
              </h1>
+            <div>
+                <button onClick={()=>props.setGoToCourse(false)}>GO-BACK</button>
+            </div>
         </div>
     )
 }
