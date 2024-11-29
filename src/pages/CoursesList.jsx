@@ -52,11 +52,6 @@ export default function CoursesList(){
                     <h2>Lecturer: {lecturer}</h2>
                     <h3>Description: {description}</h3>
                 </text>
-                <text className={"course-card"}>
-                    <h1>Course Name: {course}</h1>
-                    <h2>Lecturer: {lecturer}</h2>
-                    <h3>Description: {description}</h3>
-                </text>
             </div>
         )
     }
