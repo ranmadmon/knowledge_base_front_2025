@@ -1,7 +1,7 @@
 import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
-// import NavBar from "../Components/Dashboard/NavBar.jsx";
+import NavBar from "../Components/Dashboard/NavBar.jsx";
 export default function CoursesList(){
 
     const [lecturers, setLecturers] = useState([])
@@ -45,13 +45,18 @@ export default function CoursesList(){
 
     function courseComponent(lecturer, course, description){
         return (
-            <>
-                <text>
-                    Lecturer: <text>{lecturer}</text>
-                    Course: <text>{course}</text>
-                    Description: <text>{description}</text>
+            <div className="course-card-container">
+                <text className={"course-card"}>
+                    <h1>Course Name: {course}</h1>
+                    <h2>Lecturer: {lecturer}</h2>
+                    <h3>Description: {description}</h3>
                 </text>
-            </>
+                <text className={"course-card"}>
+                    <h1>Course Name: {course}</h1>
+                    <h2>Lecturer: {lecturer}</h2>
+                    <h3>Description: {description}</h3>
+                </text>
+            </div>
         )
     }
 
@@ -60,11 +65,10 @@ export default function CoursesList(){
         getAllCourses();
     }, []);
 
-
-    return(
+    return (
         <div>
-
-            <div className={"courses-container"}>
+            <NavBar/>
+            <div className={"course-list-container"}>
                 {
                  courses.map((course,index)=>{
                      return (
@@ -76,6 +80,7 @@ export default function CoursesList(){
                      )
                  })
                 }
+
             </div>
 
             <div className={"AddCourse"}>

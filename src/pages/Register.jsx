@@ -128,7 +128,7 @@ function Register() {
                         </div>
                         <div className={"have-an-account"}>
                             <label>Already have an account?</label>
-                            <button className={"have-an-account-button"} onClick={() => navigate('/login')}> Login Now!</button>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/')}> Login Now!</button>
                         </div>
 
                         <label> {showErrorCode()}</label>

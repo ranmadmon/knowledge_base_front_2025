@@ -30,45 +30,10 @@ body {
     display: flex;
     margin: 0;
 }
-.upper-container {
-    width: 100vw;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    background: var(--gradient-color);
-    color: white;
-    box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);
-    border-radius: 5px;
-}
+
 .Logo{
     margin-top: 10%;
     width: 50px;
     height: 50px;
+    cursor: pointer;
 }
-.search{
-    height: 80%;
-    width: 100%;
-    /*border: 8px solid white;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 40px;
-
-}
-
-.
-@keyframes border-bottom-animation {
-    from {
-        border-bottom-color: transparent;
-    }
-    to{
-        border-bottom-color: white;
-    }
-}
-
-
-
