@@ -36,12 +36,16 @@ function Login() {
     }
 
     function login(){
+        console.log("llllll")
+
         axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
             .then(response => {
                 if (response.data.success){
-                    if (!response.data.loginSuccessful){
+                    if (!response.data.success){
+                        console.log(response.data);
                         setErrorCode(response.data.errorCode)
                     }else{
+                        console.log(response.data);
                         const cookies = new Cookies(null, { path: '/' });
                         cookies.set('token', response.data.token);
                         navigate("/dashboard");
