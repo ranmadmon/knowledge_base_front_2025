@@ -19,10 +19,10 @@
     align-items: center;
     text-align: center;
     gap: 15rem;
-    background: var(--gradient-color);
+    background: var(--background-color);
     color: white;
     /*box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);*/
-    border-radius: 5px;
+    /*border-radius: 5px;*/
 }
 
 .search-courses{

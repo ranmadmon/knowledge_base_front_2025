@@ -17,11 +17,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--background-color);
     border-radius: 16px;
-    box-shadow: 0 0 20px violet;
+    box-shadow: 0 0 20px pink;
     text-align: center;
-    border: 1px solid violet;
+    border: 1px solid rgba(255, 192, 203, 0.56);
 
 }
 .input-container{
