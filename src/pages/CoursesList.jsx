@@ -9,6 +9,7 @@ export default function CoursesList(){
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
+    const[currentCourse, setCurrentCourse] = useState("try")
     const [description, setDescription] = useState("")
     const [goToCourse, setGoToCourse] = useState(false)
     const SERVER_URL = "http://localhost:8080"
@@ -49,7 +50,7 @@ export default function CoursesList(){
     function courseComponent(lecturer, course, description){
         return (
             //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
-            <div onClick={()=>setGoToCourse(true)} className="course-card-container">
+            <div onClick={()=>{setCurrentCourse(course);setGoToCourse(true)}} className="course-card-container">
                 <text className={"course-card"}>
                     <h1>Course Name: {course}</h1>
                     <h2>Lecturer: {lecturer}</h2>
@@ -68,7 +69,7 @@ export default function CoursesList(){
         <div>
             <NavBar/>
            {
-             goToCourse?<Course/>:
+             goToCourse?<Course name={currentCourse}/>:
                  <div>
                      <div className={"course-list-container"}>
                          {
