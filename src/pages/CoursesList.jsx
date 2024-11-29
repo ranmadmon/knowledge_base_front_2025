@@ -36,12 +36,13 @@ export default function CoursesList(){
     }
 
     function getLecturerId(){
-        console.log("try1111111111" + chosenLecturer)
         const temp = lecturers.filter(lecturer =>{return lecturer.name===chosenLecturer});
-        console.log(temp[0])
         return temp[0].id;
     }
 
+    // useEffect(()=>{
+    //     getAllCourses();
+    // },[courses])
 
     function courseComponent(lecturer, course, description){
         return (

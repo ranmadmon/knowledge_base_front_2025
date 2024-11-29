@@ -20,6 +20,8 @@ function Register() {
     const USERNAME_NOT_AVAILABLE = 103
 
     function register(){
+        console.log("rrrrr")
+
         axios.get(SERVER_URL+"/register?userName="+username + "&password=" + password
             +"&name="+name+ "&lastName="+lastName+"&email=" + email +"&role="+ jobTitle)
             .then(response => {
@@ -27,6 +29,7 @@ function Register() {
                     if (!response.data.registeredSuccessfully){
                         setErrorCode(USERNAME_NOT_AVAILABLE)
                     }else{
+                        console.log(response.data)
                         navigate("/login");
                     }
                 }
