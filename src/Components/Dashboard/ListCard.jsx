@@ -7,7 +7,9 @@ function ListCard(props) {
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);
 
-
+    useEffect(()=>{
+        setList(props.list)
+    },[props.list]);
 
 
     function renderList() {
