@@ -30,7 +30,7 @@ function Register() {
                         setErrorCode(USERNAME_NOT_AVAILABLE)
                     }else{
                         console.log(response.data)
-                        navigate("/login");
+                        navigate("/");
                     }
                 }
             })

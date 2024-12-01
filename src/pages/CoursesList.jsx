@@ -1,8 +1,6 @@
 import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
-import NavBar from "../Components/Dashboard/NavBar.jsx";
-import Course from "./Course.jsx";
 import {useNavigate} from "react-router-dom";
 export default function CoursesList(){
     const navigate = useNavigate();

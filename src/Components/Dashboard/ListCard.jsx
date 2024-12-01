@@ -39,9 +39,9 @@ function ListCard(props) {
     return (
         <nav className="ListCard">
             <h2 className="ListCard_header">{props.header}</h2>
-            <div>
-                <input type="text" placeholder="Search" className="ListCardSearch" />
-            </div>
+            {/*<div>*/}
+            {/*    <input type="text" placeholder="Search" className="ListCardSearch" />*/}
+            {/*</div>*/}
             <ul>
                 {renderList()}
             </ul>

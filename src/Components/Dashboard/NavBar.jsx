@@ -1,7 +1,7 @@
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import {Outlet, useNavigate} from "react-router-dom";
 import Cookies from 'universal-cookie';
-import "../../pages/NavBar.css"
+import "./NavBar.css"
 import React from "react";
 function NavBar() {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function NavBar() {
                     <li className={"navbar-button"}>
                             <text  onClick={
                                 () => {
-                                    const cookies = new Cookies(null, {path: '/login'});
+                                    const cookies = new Cookies(null, {path: '/'});
                                     cookies.remove("token");
                                     navigate("/");
                                 }
