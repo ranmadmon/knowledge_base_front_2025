@@ -35,7 +35,16 @@ export default function CoursesList(){
     }
     function addCourse(){
         console.log("try" + lecturers)
-        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId())
+        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId()).then(
+            response => {
+                getAllCourses();
+                // איפוס שדות הטופס
+                setCourseName("");
+                setDescription("");
+                setChosenLecturer("");
+            }
+        )
+
     }
 
     function getLecturerId(){
@@ -43,9 +52,7 @@ export default function CoursesList(){
         return temp[0].id;
     }
 
-    useEffect(()=>{
-        getAllCourses();
-    },[courses])
+
 
     function courseComponent(lecturer, course, description,courseId){
         return (
