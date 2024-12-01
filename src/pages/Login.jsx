@@ -40,7 +40,7 @@ function Login() {
 
         axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
             .then(response => {
-                if (response.data.success){
+
                     if (!response.data.success){
                         console.log(response.data);
                         setErrorCode(response.data.errorCode)
@@ -50,7 +50,7 @@ function Login() {
                         cookies.set('token', response.data.token);
                         navigate("/dashboard");
                     }
-                }
+
             })
     }
     const allFieldsFilled = () => {
