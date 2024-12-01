@@ -102,6 +102,8 @@ export default function CoursesList(){
                                onChange={(event) => setDescription(event.target.value)}/>
                         <select className={"Input"} value={chosenLecturer}
                                 onChange={(event) => setChosenLecturer(event.target.value)}>
+                            <option value="" disabled>Select lecturer</option>
+
                             {
                                 lecturers.map((lecturer, index) => {
                                     return (
