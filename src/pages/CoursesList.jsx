@@ -76,7 +76,7 @@ export default function CoursesList(){
     return (
         <div>
             {
-                // goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
+                 //goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
                 <div>
 
                     <div className={"course-list-container"}>
