@@ -85,30 +85,30 @@ export default function CoursesList(){
                             })
                         }
 
-                     </div>
+                    </div>
 
-                     <div className={"AddCourse"}>
-                         <h1>Add Course</h1>
-                         <input className={"Input"} type={"text"} value={courseName}
-                                onChange={(event) => setCourseName(event.target.value)}/>
-                         <input className={"Input"} type={"text"} value={description}
-                                onChange={(event) => setDescription(event.target.value)}/>
-                         <select className={"Input"} value={chosenLecturer}
-                                 onChange={(event) => setChosenLecturer(event.target.value)}>
-                             {
-                                 lecturers.map((lecturer, index) => {
-                                     return (
-                                         <option key={index} value={lecturer.name}>
-                                             {lecturer.name}
-                                         </option>
-                                     );
-                                 })
-                             }
-                         </select>
-                         <button onClick={() => addCourse()}>Add Course</button>
-                     </div>
-                 </div>
-           }
+                    <div className={"AddCourse"}>
+                        <h1>Add Course</h1>
+                        <input className={"Input"} type={"text"} value={courseName}
+                               onChange={(event) => setCourseName(event.target.value)}/>
+                        <input className={"Input"} type={"text"} value={description}
+                               onChange={(event) => setDescription(event.target.value)}/>
+                        <select className={"Input"} value={chosenLecturer}
+                                onChange={(event) => setChosenLecturer(event.target.value)}>
+                            {
+                                lecturers.map((lecturer, index) => {
+                                    return (
+                                        <option key={index} value={lecturer.name}>
+                                            {lecturer.name}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
+                        <button onClick={() => addCourse()}>Add Course</button>
+                    </div>
+                </div>
+            }
         </div>
     )
 }

@@ -61,9 +61,8 @@ function ListCard(props) {
 }
 
 ListCard.propTypes = {
-    list: PropTypes.array.isRequired,
-    perPage: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
+    perPage: PropTypes.number,
+    currentPage: PropTypes.number,
     render:PropTypes.func.isRequired,
     header:PropTypes.string.isRequired
 };
