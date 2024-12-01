@@ -7,7 +7,9 @@ function ListCard(props) {
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);
 
-
+    useEffect(()=>{
+        setList(props.list)
+    },[props.list]);
 
 
     function renderList() {
@@ -59,9 +61,8 @@ function ListCard(props) {
 }
 
 ListCard.propTypes = {
-    list: PropTypes.array.isRequired,
-    perPage: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
+    perPage: PropTypes.number,
+    currentPage: PropTypes.number,
     render:PropTypes.func.isRequired,
     header:PropTypes.string.isRequired
 };

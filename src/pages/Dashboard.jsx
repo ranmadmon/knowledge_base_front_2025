@@ -1,19 +1,19 @@
-import Courses from "../Components/Dashboard/Courses.jsx";
 import "./Dashboard.css";
-import LastMaterials from "../Components/Dashboard/LastMaterials.jsx";
+import LastActivity from "../Components/Dashboard/LastActivities.jsx";
 import {useEffect} from "react";
 import Cookies from "universal-cookie";
 import {useNavigate} from "react-router-dom";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import NotificationPanel from "../Components/Dashboard/NotificationPanel.jsx";
 
 function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const cookies = new Cookies(null, { path: '/' });
+        const cookies = new Cookies(null, { path: '/dashbord' });
         const token = cookies.get("token");
         if (!token) {
-            navigate("/");
+            // navigate("/");
         }
     }, []);
 
@@ -23,31 +23,22 @@ function Dashboard() {
                 <div className={"upper-container"}>
                     <div className={"search"}>
                         <h1>Search the knowledge base</h1>
-                        <div style={{display: "flex", justifyContent: "space-between"}}>
-                            <input style={{width: "18vw"}} className={"form-input"} type="search" placeholder="Search"/>
-                            <button style={{
-                                width: "50px",
-                                height: "50px",
-                                borderRadius: "5px",
-                                border: "none",
-                                background: "transparent",
-                                cursor: "pointer"
-                            }} type="submit" onClick={() => {
-                            }}>
-                                <SearchRoundedIcon style={{width: "50px", height: "50px", color: "white"}}/>
+                        <div className={"search-bar-container"}>
+                            <input className={"form-input"} type="search" placeholder="Search"/>
+                            <button className="search-button-s" type="submit" onClick={() => {freeSearch()}}>
+                                <SearchRoundedIcon className={"icon"}/>
                             </button>
                         </div>
                     </div>
-                    {/*<img style={{width: "350px", height: "300px"}} src={"src/assets/orange.png"} alt="people"/>*/}
-
                 </div>
-
-                <Courses/>
-                <LastMaterials/>
-                {/*<History/>*/}
+                <NotificationPanel/>
+                <LastActivity/>
             </div>
         </>
     );
 }
 
+function freeSearch(){
+
+}
 export default Dashboard;
