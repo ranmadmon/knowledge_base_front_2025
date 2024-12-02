@@ -50,8 +50,8 @@ export default function CoursesList(){
     function courseComponent(lecturer, course, description,courseId){
         return (
             //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
-            <div onClick={()=>{setCurrentCourse({name:course,id:courseId});setGoToCourse(true)}} className="course-card-container">
-                <text className={"course-card"}>
+            <div className="course-card-container">
+                <text onClick={()=>{setCurrentCourse({name:course,id:courseId});setGoToCourse(true)}}  className={"course-card"}>
                     <h1>Course Name: {course}</h1>
                     <h2>Lecturer: {lecturer}</h2>
                     <h3>Description: {description}</h3>
