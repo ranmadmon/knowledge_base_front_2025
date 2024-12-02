@@ -1,4 +1,4 @@
-.dashboard{
+.dashboard {
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -26,9 +26,9 @@
 
 }
 
-.search-courses{
-  padding: 10px;
-  margin-right:10px;
+.search-courses {
+    padding: 10px;
+    margin-right: 10px;
 }
 
 
@@ -85,3 +85,26 @@ button:focus, button:focus-visible {
     gap: 20px;
 }
 
+.search-button-s {
+    width: 50px;
+    height: 50px;
+    borderRadius: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    color: white;
+}
+
+.form-input {
+    width: 18vw;
+}
+
+.search-bar-container {
+    display: flex;
+    justifyContent: space-between;
+}

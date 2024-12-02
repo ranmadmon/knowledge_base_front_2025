@@ -1,10 +1,9 @@
 import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
-import NavBar from "../Components/Dashboard/NavBar.jsx";
-import Course from "./Course.jsx";
+import {useNavigate} from "react-router-dom";
 export default function CoursesList(){
-
+    const navigate = useNavigate();
     const [lecturers, setLecturers] = useState([])
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
@@ -35,7 +34,16 @@ export default function CoursesList(){
     }
     function addCourse(){
         console.log("try" + lecturers)
-        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId())
+        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId()).then(
+            response => {
+                getAllCourses();
+                // איפוס שדות הטופס
+                setCourseName("");
+                setDescription("");
+                setChosenLecturer("");
+            }
+        )
+
     }
 
     function getLecturerId(){
@@ -43,9 +51,7 @@ export default function CoursesList(){
         return temp[0].id;
     }
 
-    useEffect(()=>{
-        getAllCourses();
-    },[courses])
+
 
     function courseComponent(lecturer, course, description,courseId){
         return (
@@ -67,48 +73,49 @@ export default function CoursesList(){
 
     return (
         <div>
-            <NavBar/>
-           {
-             goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
-                 <div>
+            {
+                 //goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
+                <div>
 
-                     <div className={"course-list-container"}>
-                         {
-                             courses.map((course, index) => {
-                                 return (
-                                     <div key={index}>
-                                         {
-                                             courseComponent(course.lecturerEntity.name, course.name, course.description,index)
-                                         }
-                                     </div>
-                                 )
-                             })
-                         }
+                    <div className={"course-list-container"}>
+                        {
+                            courses.map((course, index) => {
+                                return (
+                                    <div key={index} onClick={()=>navigate("/course/"+course.id)}>
+                                        {
+                                            courseComponent(course.lecturerEntity.name, course.name, course.description,index)
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
 
-                     </div>
+                    </div>
 
-                     <div className={"AddCourse"}>
-                         <h1>Add Course</h1>
-                         <input className={"Input"} type={"text"} value={courseName}
-                                onChange={(event) => setCourseName(event.target.value)}/>
-                         <input className={"Input"} type={"text"} value={description}
-                                onChange={(event) => setDescription(event.target.value)}/>
-                         <select className={"Input"} value={chosenLecturer}
-                                 onChange={(event) => setChosenLecturer(event.target.value)}>
-                             {
-                                 lecturers.map((lecturer, index) => {
-                                     return (
-                                         <option key={index} value={lecturer.name}>
-                                             {lecturer.name}
-                                         </option>
-                                     );
-                                 })
-                             }
-                         </select>
-                         <button onClick={() => addCourse()}>Add Course</button>
-                     </div>
-                 </div>
-           }
+                    <div className={"AddCourse"}>
+                        <h1>Add Course</h1>
+                        <input className={"Input"} type={"text"} value={courseName}
+                               onChange={(event) => setCourseName(event.target.value)}/>
+                        <input className={"Input"} type={"text"} value={description}
+                               onChange={(event) => setDescription(event.target.value)}/>
+                        <select className={"Input"} value={chosenLecturer}
+                                onChange={(event) => setChosenLecturer(event.target.value)}>
+                            <option value="" disabled>Select lecturer</option>
+
+                            {
+                                lecturers.map((lecturer, index) => {
+                                    return (
+                                        <option key={index} value={lecturer.name}>
+                                            {lecturer.name}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
+                        <button onClick={() => addCourse()}>Add Course</button>
+                    </div>
+                </div>
+            }
         </div>
     )
 }

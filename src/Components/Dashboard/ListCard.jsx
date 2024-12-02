@@ -7,7 +7,9 @@ function ListCard(props) {
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);
 
-
+    useEffect(()=>{
+        setList(props.list)
+    },[props.list]);
 
 
     function renderList() {
@@ -37,9 +39,9 @@ function ListCard(props) {
     return (
         <nav className="ListCard">
             <h2 className="ListCard_header">{props.header}</h2>
-            <div>
-                <input type="text" placeholder="Search" className="ListCardSearch" />
-            </div>
+            {/*<div>*/}
+            {/*    <input type="text" placeholder="Search" className="ListCardSearch" />*/}
+            {/*</div>*/}
             <ul>
                 {renderList()}
             </ul>
@@ -59,9 +61,8 @@ function ListCard(props) {
 }
 
 ListCard.propTypes = {
-    list: PropTypes.array.isRequired,
-    perPage: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
+    perPage: PropTypes.number,
+    currentPage: PropTypes.number,
     render:PropTypes.func.isRequired,
     header:PropTypes.string.isRequired
 };
