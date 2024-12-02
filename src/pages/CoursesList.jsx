@@ -56,6 +56,7 @@ export default function CoursesList(){
     function courseComponent(lecturer, course, description,courseId){
         return (
             //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
+            // עשיתי :)
             <div className="course-card-container">
                 <text onClick={()=>{setCurrentCourse({name:course,id:courseId});setGoToCourse(true)}}  className={"course-card"}>
                     <h1>Course Name: {course}</h1>
