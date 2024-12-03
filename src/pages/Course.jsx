@@ -126,9 +126,9 @@ export default function Course() {
                       }
                   </select>
               </div>
-            <button onClick={()=>addMaterial()}>Add Material</button>
+            <button className={"add-material"} onClick={()=>addMaterial()}>Add Material</button>
             <div>
-                <button onClick={() => navigate("/courses-list")}>GO-BACK</button>
+                <button className={"add-material"} onClick={() => navigate("/courses-list")}>GO-BACK</button>
             </div>
         </div>
     )

@@ -129,7 +129,7 @@
     margin: 0 auto; /* מוודא ריווח מרכזי */
     font-size: 25px;
 }
-button{
+.add-material{
    width:8vw;
     height: 3vh;
     font-size: 20px;
