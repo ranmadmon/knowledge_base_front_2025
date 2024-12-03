@@ -36,7 +36,6 @@ function Login() {
     }
 
     function login(){
-        console.log("llllll")
 
         axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
             .then(response => {

@@ -12,20 +12,33 @@ export default function Course() {
     const [courseData, setCourseData] = useState({});
     const [material,setMaterial] = useState([]);
     const SERVER_URL = "http://localhost:8080/"
+    const [choosenTitle, setChoosenTitle] = useState("");
+    const [choosenDescription, setChoosenDescription] = useState("");
+    const [choosenContent, setChoosenContent] = useState("");
     const [types, setTypes] = useState([]);
     const [choosenType, setChoosenType] = useState("");
     const [tags, setTags] = useState([]);
     const [choosenTag, setChoosenTag] = useState("");
 
-    // /get-materials-by-course-id
+
+    //TODO  לבקש משי ללמד אותנו use contex
+    function addMaterial(){
+        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&username="+"shaig123"+"&token="+"E10ADC3949BA59ABBE56E057F20F883E"+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
+            .then(
+                response=>{
+                    getMaterials()
+                    setChoosenTitle("")
+                    setChoosenDescription("")
+                    setChoosenContent("")
+                }
+            )
+    }
 
     function getTypes(){
         axios.get(SERVER_URL+"get-types")
             .then(
                 response=>{
-                    console.log("response.data")
                     if (response.data!==null){
-                        console.log(response.data)
                         setTypes(response.data)
                     }
                 })
@@ -91,10 +104,10 @@ export default function Course() {
               <div>
                   <h1>Add material</h1>
                   <br/>
-                  <input placeholder={"title"} type={"text"}/>
-                  <input placeholder={"description"} type={"text"}/>
-                  <input placeholder={"content"} type={"text"}/>
-                  <select value={choosenType} >
+                  <input placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event)=>{setChoosenTitle(event.target.value)}}/>
+                  <input placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event)=>{setChoosenDescription(event.target.value)}}/>
+                  <input placeholder={"content"} type={"text"} value={choosenContent} onChange={(event)=>{setChoosenContent(event.target.value)}}/>
+                  <select value={choosenType} onChange={(event)=>{setChoosenType(event.target.value)}} >
                       <option value="" disabled>Choose type</option>
                       {types.map((type,index)=>{
                           return(
@@ -102,17 +115,18 @@ export default function Course() {
                           )
                       })}
                   </select>
-                  <select value={choosenTag}>
+                  <select value={choosenTag} onChange={(event)=>{setChoosenTag(event.target.value )}}>
                       <option value={""}>Choose tag</option>
                       {
                           tags.map((tag,index)=>{
                               return(
-                                  <option key={index} value={tag}>{tag.name}</option>
+                                  <option key={index} value={tag.name}>{tag.name}</option>
                               )
                           })
                       }
                   </select>
               </div>
+            <button onClick={()=>addMaterial()}>Add Material</button>
             <div>
                 <button onClick={() => navigate("/courses-list")}>GO-BACK</button>
             </div>
