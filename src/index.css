@@ -10,6 +10,8 @@
     --color-3-bright: rgb(210, 0, 255);
     --card-width: 60vw;
     --card-height: 70vh;
+    overflow: hidden;
+
 }
 @property --color-1{
     syntax: "<color>";

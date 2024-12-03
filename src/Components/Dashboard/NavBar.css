@@ -18,9 +18,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
+
     list-style-type: none;
     font-family: Inter, sans-serif;
     font-weight: bold;
@@ -29,25 +27,24 @@
 
 .navbar li:first-child{
     position: absolute;
-    left: 10%;
+    left: 12%;
     float: none;
 }
 .navbar li:nth-child(2){
     position: absolute;
-    left: 13.5%;
+    left: 16%;
+    float: none;
+}
+.navbar li:nth-child(3){
+    position: absolute;
+    left: 20%;
     float: none;
 }
 
 .navbar li:last-child{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
     position: absolute;
-    right: 10%;
-    float: none;
+    right: 12%;
+    float: left;
 }
 
 .search-bar-container {
@@ -71,21 +68,28 @@
 }
 
 .navbar-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
     color: white;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.4s ease;
 
 }
-.navbar-button:hover , .search-button:hover{
-    animation: border-bottom-animation 0.3s;
+.navbar-button:hover{
     box-shadow: 0 3px 0 0 white;
 }
 
-@keyframes border-bottom-animation {
-    from {
-        box-shadow: 0 3px 0 0 transparent;
-    }
-    to{
-        box-shadow: 0 3px 0 0 white;
-    }
+.navbar-button:focus{
+    box-shadow: 0 3px 0 0 white;
+    outline: none;
 }

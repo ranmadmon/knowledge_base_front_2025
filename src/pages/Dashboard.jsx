@@ -24,9 +24,9 @@ function Dashboard() {
                     <div className={"search"}>
                         <h1>Search the knowledge base</h1>
                         <div className={"search-bar-container"}>
-                            <input className={"form-input"} type="search" placeholder="Search"/>
-                            <button className="search-button-s" type="submit" onClick={() => {freeSearch()}}>
-                                <SearchRoundedIcon className={"icon"}/>
+                            <input className={"search-input"} type="search" placeholder="Search"/>
+                            <button className="search-button" type="submit" onClick={() => {freeSearch()}}>
+                                <SearchRoundedIcon fontSize={"large"}/>
                             </button>
                         </div>
                     </div>

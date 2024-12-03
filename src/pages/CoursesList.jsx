@@ -2,16 +2,18 @@ import "./Course.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+
 export default function CoursesList(){
     const navigate = useNavigate();
     const [lecturers, setLecturers] = useState([])
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
-    const[currentCourse, setCurrentCourse] = useState({name:"",id:""})
+    const [currentCourse, setCurrentCourse] = useState({name:"",id:""})
     const [description, setDescription] = useState("")
     const [goToCourse, setGoToCourse] = useState(false)
     const SERVER_URL = "http://localhost:8080"
+    const [newCourseVisibility, setNewCourseVisibility] = useState(false)
 
     function getLecturers(){
         axios.get(SERVER_URL+"/get-lecturers")
@@ -53,14 +55,16 @@ export default function CoursesList(){
 
     function courseComponent(lecturer, course, description,courseId){
         return (
-            //TODO רם תוכל בבקשה לעשות שהדיב יראה לחיץ? תודוש על הטודו
-            // עשיתי :)
-            <div className="course-card-container">
-                <text onClick={()=>{setCurrentCourse({name:course,id:courseId});setGoToCourse(true)}}  className={"course-card"}>
-                    <h1>Course Name: {course}</h1>
-                    <h2>Lecturer: {lecturer}</h2>
-                    <h3>Description: {description}</h3>
-                </text>
+
+            <div className={"course-card"} onClick={()=>navigate("/course/"+courseId)}>
+                <div className="course-card-content-image">
+                    <img style={{width:"100%", height:"100%"}} src={"src/assets/course-image-placeholder.png"} alt={"course image"} />
+                </div>
+                <div className="course-card-content-text">
+                    <text style={{color: "darkgrey", fontSize: "1.2rem", fontWeight: "bold"}}>{course} • {lecturer}</text>
+                    <text style={{color: "black", fontSize: "1.3rem", fontWeight: "bold"}}>{description}</text>
+                </div>
+
             </div>
         )
     }
@@ -70,51 +74,57 @@ export default function CoursesList(){
         getAllCourses();
     }, []);
 
+    function addCourseComponent(){
+        return(
+            <div className={newCourseVisibility ? "add-new-course-form" : "close-animation"}>
+                <h1>Add New Course</h1>
+                <input className={"new-course-input"} type={"text"} value={courseName}
+                       onChange={(event) => setCourseName(event.target.value)}/>
+                <input className={"new-course-input"} type={"text"} value={description}
+                       onChange={(event) => setDescription(event.target.value)}/>
+                <select className={"new-course-input"} value={chosenLecturer}
+                        onChange={(event) => setChosenLecturer(event.target.value)}>
+                    <option value="" disabled>Select lecturer</option>
+
+                    {
+                        lecturers.map((lecturer, index) => {
+                            return (
+                                <option key={index} value={lecturer.name}>
+                                    {lecturer.name}
+                                </option>
+                            );
+                        })
+                    }
+                </select>
+                <button className={"new-course-button"} onClick={() => addCourse()}>Add Course</button>
+            </div>
+        )
+    }
     return (
-        <div>
-            {
-                 //goToCourse?<Course course={currentCourse} setGoToCourse={setGoToCourse}/>:
-                <div>
+        <div className="courses-page">
+            <text className={"course-page-header"}>Courses</text>
+            <div className={"course-card-container"}>
+                {
+                    courses.map((course) => {
+                        return (
+                            courseComponent(course.lecturerEntity.name, course.name, course.description, course.id)
+                        )
+                    })
+                }
+            </div>
 
-                    <div className={"course-list-container"}>
-                        {
-                            courses.map((course, index) => {
-                                return (
-                                    <div key={index} onClick={()=>navigate("/course/"+course.id)}>
-                                        {
-                                            courseComponent(course.lecturerEntity.name, course.name, course.description,index)
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
-
-                    </div>
-
-                    <div className={"AddCourse"}>
-                        <h1>Add Course</h1>
-                        <input placeholder={"Course name"} className={"Input"} type={"text"} value={courseName}
-                               onChange={(event) => setCourseName(event.target.value)}/>
-                        <input className={"Input"} placeholder={"Description"} type={"text"} value={description}
-                               onChange={(event) => setDescription(event.target.value)}/>
-                        <select className={"Input"} value={chosenLecturer}
-                                onChange={(event) => setChosenLecturer(event.target.value)}>
-                            <option value="" disabled>Select lecturer</option>
-
-                            {
-                                lecturers.map((lecturer, index) => {
-                                    return (
-                                        <option key={index} value={lecturer.name}>
-                                            {lecturer.name}
-                                        </option>
-                                    );
-                                })
+            <div className="add-new-course-container">
+                <button className={"add-new-course"}
+                        onClick=
+                            {() =>
+                                setNewCourseVisibility(!newCourseVisibility)
                             }
-                        </select>
-                        <button onClick={() => addCourse()}>Add Course</button>
-                    </div>
-                </div>
-            }
+                >+</button>
+                {newCourseVisibility && addCourseComponent()}
+                {/*{addCourseComponent()}*/}
+            </div>
+
+
         </div>
     )
 }
