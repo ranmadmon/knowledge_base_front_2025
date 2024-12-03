@@ -12,8 +12,10 @@ export default function Course() {
     const [courseData, setCourseData] = useState({});
     const [material,setMaterial] = useState([]);
     const SERVER_URL = "http://localhost:8080/"
-    const [types,setTypes] = useState();
-    const [choosenType,setChoosenType] = ("");
+    const [types, setTypes] = useState([]);
+    const [choosenType, setChoosenType] = useState("");
+    const [tags, setTags] = useState([]);
+    const [choosenTag, setChoosenTag] = useState("");
 
     // /get-materials-by-course-id
 
@@ -21,9 +23,23 @@ export default function Course() {
         axios.get(SERVER_URL+"get-types")
             .then(
                 response=>{
-                    if (!response.data)
+                    console.log("response.data")
+                    if (response.data!==null){
+                        console.log(response.data)
                         setTypes(response.data)
+                    }
                 })
+    }
+
+    function getTags(){
+        axios.get(SERVER_URL+"get-tags")
+            .then(
+                response=>{
+                    if (response.data!==null){
+                        setTags(response.data)
+                    }
+                }
+            )
     }
 
     function getMaterials(){
@@ -44,6 +60,8 @@ export default function Course() {
         }
         fetchData()
         getMaterials()
+        getTypes()
+        getTags()
     }, []);
     return (
         <div className="course-material">
@@ -71,7 +89,7 @@ export default function Course() {
                 }
             </div>
               <div>
-                  <h1>Add course</h1>
+                  <h1>Add material</h1>
                   <br/>
                   <input placeholder={"title"} type={"text"}/>
                   <input placeholder={"description"} type={"text"}/>
@@ -83,6 +101,16 @@ export default function Course() {
                               <option key={index} value={type.name}>{type.name}</option>
                           )
                       })}
+                  </select>
+                  <select value={choosenTag}>
+                      <option value={""}>Choose tag</option>
+                      {
+                          tags.map((tag,index)=>{
+                              return(
+                                  <option key={index} value={tag}>{tag.name}</option>
+                              )
+                          })
+                      }
                   </select>
               </div>
             <div>
