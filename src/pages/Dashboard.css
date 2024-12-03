@@ -12,7 +12,7 @@
 
 .upper-container {
     width: 100vw;
-    height: 30vh;
+    height: 15vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -85,26 +85,23 @@ button:focus, button:focus-visible {
     gap: 20px;
 }
 
-.search-button-s {
+.search-button{
     width: 50px;
     height: 50px;
-    borderRadius: 5px;
     border: none;
     background: transparent;
     cursor: pointer;
 }
 
-.icon {
-    width: 50px;
-    height: 50px;
-    color: white;
-}
-
-.form-input {
+.search-input {
     width: 18vw;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
 }
 
 .search-bar-container {
     display: flex;
-    justifyContent: space-between;
+    justify-content: space-between;
 }
