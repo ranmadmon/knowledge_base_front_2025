@@ -6,6 +6,7 @@ export default function CourseMaterials( courseId ) {
     const [materials, setMaterials] = useState([]);
     const SERVER_URL = "http://localhost:8080"; // כתובת השרת שלך
 
+
     useEffect(() => {
         // קריאת API כדי להביא את החומרים של הקורס
         axios.get(`${SERVER_URL}/get-course-materials/${courseId}`)

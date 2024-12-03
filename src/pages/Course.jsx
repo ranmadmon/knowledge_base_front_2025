@@ -12,8 +12,19 @@ export default function Course() {
     const [courseData, setCourseData] = useState({});
     const [material,setMaterial] = useState([]);
     const SERVER_URL = "http://localhost:8080/"
+    const [types,setTypes] = useState();
+    const [choosenType,setChoosenType] = ("");
 
     // /get-materials-by-course-id
+
+    function getTypes(){
+        axios.get(SERVER_URL+"get-types")
+            .then(
+                response=>{
+                    if (!response.data)
+                        setTypes(response.data)
+                })
+    }
 
     function getMaterials(){
         axios.get(SERVER_URL+"get-materials-by-course-id?courseId="+courseID)
@@ -59,7 +70,21 @@ export default function Course() {
                     )
                 }
             </div>
-
+              <div>
+                  <h1>Add course</h1>
+                  <br/>
+                  <input placeholder={"title"} type={"text"}/>
+                  <input placeholder={"description"} type={"text"}/>
+                  <input placeholder={"content"} type={"text"}/>
+                  <select value={choosenType} >
+                      <option value="" disabled>Choose type</option>
+                      {types.map((type,index)=>{
+                          return(
+                              <option key={index} value={type.name}>{type.name}</option>
+                          )
+                      })}
+                  </select>
+              </div>
             <div>
                 <button onClick={() => navigate("/courses-list")}>GO-BACK</button>
             </div>
