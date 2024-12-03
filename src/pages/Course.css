@@ -112,34 +112,14 @@
     width: 50%;
     height: 60%;
     backdrop-filter: blur(10px);
-    background: rgba(102, 51, 153, 0.45);
+    background: rgba(102, 51, 153, 0.53);
     color: white;
     border-radius: 10px;
     border: 3px solid rebeccapurple;
-
-    transition: all 0.5s ease;
+    transition: transform 300ms ease 100ms;
 
 }
-.open-animation{
-    transform: scale(1.1);
-}
-.close-animation{
-    transform: scale(0);
-}
 
-/*.AddCourse h1 {*/
-/*    font-size: 3rem;*/
-/*    text-align: center;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.Input {*/
-/*    width: 20%;*/
-/*    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.75);*/
-/*}*/
-
-
-/*}*/
 /*.course-material {*/
 /*    display: flex; !* מאפשר שימוש ב-flexbox *!*/
 /*    flex-direction: column; !* מארגן את הילדים בעמודה *!*/

@@ -75,9 +75,11 @@ export default function CoursesList(){
 
     }, []);
 
+
+
     function addCourseComponent(){
         return(
-            <div className={"add-new-course-form"}>
+            <div className={'add-new-course-form'} style={newCourseVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
                     <h1>Add New Course</h1>
                     <input className={"new-course-input"} type={"text"} value={courseName}
                            onChange={(event) => setCourseName(event.target.value)}/>
@@ -121,8 +123,7 @@ export default function CoursesList(){
             <div className="add-new-course-container">
                 <button className={"add-new-course"}
                         onClick={() => setNewCourseVisibility(!newCourseVisibility)}>+</button>
-                {newCourseVisibility && addCourseComponent()}
-                {/*{addCourseComponent()}*/}
+                {addCourseComponent()}
             </div>
 
 
