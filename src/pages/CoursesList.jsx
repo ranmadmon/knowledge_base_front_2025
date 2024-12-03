@@ -77,7 +77,7 @@ export default function CoursesList(){
 
 
 
-    function addCourseComponent(){
+    function addNewCourseComponent(){
         return(
             <div className={'add-new-course-form'} style={newCourseVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
                     <h1>Add New Course</h1>
@@ -119,11 +119,10 @@ export default function CoursesList(){
                     })
                 }
             </div>
-
             <div className="add-new-course-container">
                 <button className={"add-new-course"}
                         onClick={() => setNewCourseVisibility(!newCourseVisibility)}>+</button>
-                {addCourseComponent()}
+                {addNewCourseComponent()}
             </div>
 
 

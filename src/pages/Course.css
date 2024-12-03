@@ -129,16 +129,16 @@
     margin: 0 auto; /* מוודא ריווח מרכזי */
     font-size: 25px;
 }
-/*button{*/
-/*   width:8vw;*/
-/*    height: 3vh;*/
-/*    font-size: 20px;*/
-/*    background-color: white;*/
-/*    color:rebeccapurple;*/
-/*    border:1px solid rebeccapurple;*/
-/*    margin-top: 20px;*/
-
-/*}*/
-/*bold{*/
-/*    color:rebeccapurple;*/
-/*}*/
+button{
+   width:8vw;
+    height: 3vh;
+    font-size: 20px;
+    background-color: white;
+    color:rebeccapurple;
+    border:1px solid rebeccapurple;
+    margin-top: 20px;
+    cursor: pointer;
+}
+bold{
+    color:rebeccapurple;
+}
