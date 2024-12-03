@@ -33,11 +33,9 @@ export default function CoursesList(){
             })
     }
     function addCourse(){
-        console.log("try" + lecturers)
         axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId()).then(
             response => {
                 getAllCourses();
-                // איפוס שדות הטופס
                 setCourseName("");
                 setDescription("");
                 setChosenLecturer("");
