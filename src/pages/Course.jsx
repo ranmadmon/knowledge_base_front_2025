@@ -35,20 +35,22 @@ export default function Course() {
         getMaterials()
     }, []);
     return (
-        <div>
+        <div className="course-material">
             <h1>
-                {courseData.name + "  " + courseData.description + "  by:" + courseData?.lecturerEntity?.name}
+                {courseData.name + "  " }
             </h1>
+            <h2>{ courseData.description + "  by:" + courseData?.lecturerEntity?.name}</h2>
             <div>
                 {
                     material.length > 0 && (
-                        <div>
+                        <div >
                             {
                                 material.map((item, index) => {
                                     return (
                                         <div key={index}>
-                                            <div>title: {item.title}</div>
-                                            <div>description: {item.description}</div>
+                                            <div><bold>title: </bold>{item.title}</div>
+                                            <div><bold>description:</bold> {item.description}</div>
+                                            <div><bold>user who uploaded the material:</bold> {item.userEntity.username}</div>
                                         </div>
                                     );
                                 })
