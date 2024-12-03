@@ -9,9 +9,9 @@ export default function CoursesList(){
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
-    const [currentCourse, setCurrentCourse] = useState({name:"",id:""})
+    // const [currentCourse, setCurrentCourse] = useState({name:"",id:""})
     const [description, setDescription] = useState("")
-    const [goToCourse, setGoToCourse] = useState(false)
+    // const [goToCourse, setGoToCourse] = useState(false)
     const SERVER_URL = "http://localhost:8080"
     const [newCourseVisibility, setNewCourseVisibility] = useState(false)
 
