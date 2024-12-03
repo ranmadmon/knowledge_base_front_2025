@@ -120,15 +120,15 @@
 
 }
 
-/*.course-material {*/
-/*    display: flex; !* מאפשר שימוש ב-flexbox *!*/
-/*    flex-direction: column; !* מארגן את הילדים בעמודה *!*/
-/*    align-items: center; !* מרכז אופקית *!*/
-/*    justify-content: center; !* מרכז אנכית *!*/
-/*    text-align: center; !* טקסט באמצע *!*/
-/*    margin: 0 auto; !* מוודא ריווח מרכזי *!*/
-/*    font-size: 25px;*/
-/*}*/
+.course-material {
+    display: flex; /* מאפשר שימוש ב-flexbox */
+    flex-direction: column; /* מארגן את הילדים בעמודה */
+    align-items: center; /* מרכז אופקית */
+    justify-content: center; /* מרכז אנכית */
+    text-align: center; /* טקסט באמצע */
+    margin: 0 auto; /* מוודא ריווח מרכזי */
+    font-size: 25px;
+}
 /*button{*/
 /*   width:8vw;*/
 /*    height: 3vh;*/
