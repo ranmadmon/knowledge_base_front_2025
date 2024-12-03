@@ -10,15 +10,21 @@ export default function Course() {
     const location = useLocation();
     const [courseID, setCourseID] = useState(location.pathname.split("/")[2]);
     const [courseData, setCourseData] = useState({});
-    const SERVER_URL = "http://localhost:8080"
+    const [material,setMaterial] = useState([]);
+    const SERVER_URL = "http://localhost:8080/"
 
     // /get-materials-by-course-id
 
     function getMaterials(){
         axios.get(SERVER_URL+"get-materials-by-course-id?courseId="+courseID)
             .then(response => {
-                console.log(response.data);
+                if (response.data) {
+                    setMaterial(response.data);
+                }
             })
+            .catch(error => {
+                console.error("Error fetching materials:", error);
+            });
     }
 
     useEffect(() => {
@@ -31,9 +37,27 @@ export default function Course() {
     return (
         <div>
             <h1>
-                {console.log(courseData.name)}
-                {courseData.name +"  "+courseData.description+"  by:" + courseData?.lecturerEntity?.name}
+                {courseData.name + "  " + courseData.description + "  by:" + courseData?.lecturerEntity?.name}
             </h1>
+            <div>
+                {
+                    material.length > 0 && (
+                        <div>
+                            {
+                                material.map((item, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <div>title: {item.title}</div>
+                                            <div>description: {item.description}</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    )
+                }
+            </div>
+
             <div>
                 <button onClick={() => navigate("/courses-list")}>GO-BACK</button>
             </div>
