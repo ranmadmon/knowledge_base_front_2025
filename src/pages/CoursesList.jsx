@@ -95,9 +95,9 @@ export default function CoursesList(){
 
                     <div className={"AddCourse"}>
                         <h1>Add Course</h1>
-                        <input className={"Input"} type={"text"} value={courseName}
+                        <input placeholder={"Course name"} className={"Input"} type={"text"} value={courseName}
                                onChange={(event) => setCourseName(event.target.value)}/>
-                        <input className={"Input"} type={"text"} value={description}
+                        <input className={"Input"} placeholder={"Description"} type={"text"} value={description}
                                onChange={(event) => setDescription(event.target.value)}/>
                         <select className={"Input"} value={chosenLecturer}
                                 onChange={(event) => setChosenLecturer(event.target.value)}>
