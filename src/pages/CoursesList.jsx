@@ -72,34 +72,39 @@ export default function CoursesList(){
     useEffect(() => {
         getLecturers();
         getAllCourses();
+
     }, []);
 
     function addCourseComponent(){
         return(
-            <div className={newCourseVisibility ? "add-new-course-form" : "close-animation"}>
-                <h1>Add New Course</h1>
-                <input className={"new-course-input"} type={"text"} value={courseName}
-                       onChange={(event) => setCourseName(event.target.value)}/>
-                <input className={"new-course-input"} type={"text"} value={description}
-                       onChange={(event) => setDescription(event.target.value)}/>
-                <select className={"new-course-input"} value={chosenLecturer}
-                        onChange={(event) => setChosenLecturer(event.target.value)}>
-                    <option value="" disabled>Select lecturer</option>
+            <div className={"add-new-course-form"}>
+                    <h1>Add New Course</h1>
+                    <input className={"new-course-input"} type={"text"} value={courseName}
+                           onChange={(event) => setCourseName(event.target.value)}/>
+                    <input className={"new-course-input"} type={"text"} value={description}
+                           onChange={(event) => setDescription(event.target.value)}/>
+                    <select className={"new-course-input"} value={chosenLecturer}
+                            onChange={(event) => setChosenLecturer(event.target.value)}>
+                        <option value="" disabled>Select lecturer</option>
 
-                    {
-                        lecturers.map((lecturer, index) => {
-                            return (
-                                <option key={index} value={lecturer.name}>
-                                    {lecturer.name}
-                                </option>
-                            );
-                        })
-                    }
-                </select>
-                <button className={"new-course-button"} onClick={() => addCourse()}>Add Course</button>
+                        {
+                            lecturers.map((lecturer, index) => {
+                                return (
+                                    <option key={index} value={lecturer.name}>
+                                        {lecturer.name}
+                                    </option>
+                                );
+                            })
+                        }
+                    </select>
+                    <button className={"new-course-button"} onClick={() => {
+                        addCourse()
+                        setNewCourseVisibility(false)
+                    }}>Add Course</button>
             </div>
         )
     }
+
     return (
         <div className="courses-page">
             <text className={"course-page-header"}>Courses</text>
@@ -115,11 +120,7 @@ export default function CoursesList(){
 
             <div className="add-new-course-container">
                 <button className={"add-new-course"}
-                        onClick=
-                            {() =>
-                                setNewCourseVisibility(!newCourseVisibility)
-                            }
-                >+</button>
+                        onClick={() => setNewCourseVisibility(!newCourseVisibility)}>+</button>
                 {newCourseVisibility && addCourseComponent()}
                 {/*{addCourseComponent()}*/}
             </div>
