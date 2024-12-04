@@ -31,8 +31,10 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <NotificationPanel/>
-                <LastActivity/>
+                <div className={"lower-container"}>
+                    <NotificationPanel/>
+                    <LastActivity/>
+                </div>
             </div>
         </>
     );
