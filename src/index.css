@@ -11,8 +11,8 @@
     --card-width: 60vw;
     --card-height: 70vh;
     overflow: hidden;
-
 }
+
 @property --color-1{
     syntax: "<color>";
     initial-value: transparent;

@@ -19,11 +19,13 @@ export default function Course() {
     const [choosenType, setChoosenType] = useState("");
     const [tags, setTags] = useState([]);
     const [choosenTag, setChoosenTag] = useState("");
+    const [username,setUsername] = useState("shaig123");
+    const [token,setToken] = useState("E10ADC3949BA59ABBE56E057F20F883E");
 
 
     //TODO  לבקש משי ללמד אותנו use contex
     function addMaterial(){
-        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&username="+"shaig123"+"&token="+"E10ADC3949BA59ABBE56E057F20F883E"+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
+        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&username="+username+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
             .then(
                 response=>{
                     getMaterials()
