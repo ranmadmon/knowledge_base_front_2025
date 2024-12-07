@@ -10,7 +10,7 @@ function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const cookies = new Cookies(null, { path: '/dashbord' });
+        const cookies = new Cookies(null, { path: '/dashboard' });
         const token = cookies.get("token");
         if (!token) {
             // navigate("/");

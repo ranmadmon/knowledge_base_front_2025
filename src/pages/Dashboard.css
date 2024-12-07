@@ -6,8 +6,6 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    /*cursor: poi.nter;*/
-    /*color: black;*/
 }
 
 .upper-container {
@@ -45,8 +43,8 @@ button:focus, button:focus-visible {
     margin-top: 1rem;
     margin-left: 1rem;
     padding: 2rem;
-    max-width: 30%;
-    min-width: 20%;
+    max-width: 60%;
+    min-width: 60%;
     max-height: 60%;
     position: page;
     display: inline-flex;
@@ -62,8 +60,8 @@ button:focus, button:focus-visible {
 .ListCard {
     margin-top: 1rem;
     padding: 2rem;
-    max-width: 30%;
-    min-width: 20%;
+    max-width: 60%;
+    min-width: 60%;
     max-height: 60%;
     position: relative;
     display: inline-flex;
@@ -111,6 +109,6 @@ button:focus, button:focus-visible {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
 
 }

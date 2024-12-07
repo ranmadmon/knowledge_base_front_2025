@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
 import {getNotifications} from "../../API/NotificationsAPI.jsx";
 
+
 function NotificationPanel() {
     const [notificationList, setNotificationList] = useState([]);
     useEffect(() => {
@@ -12,13 +13,12 @@ function NotificationPanel() {
     }, []);
     function renderCourseList(coursesList) {
         return (
-            <ul>
-                {coursesList.map((notification) => (
-                    <li key={notification.id}>
-                        <h3>{notification.id} - {notification.text}</h3>
-                    </li>
-                ))}
-            </ul>
+                coursesList.map((notification) => (
+                    <>
+                        <>id ----- course--------lactchurer</>
+                     <h3>{notification.id} - {notification.text}</h3>
+                    <div>-----------------</div></>
+                ))
         )
     }
 
