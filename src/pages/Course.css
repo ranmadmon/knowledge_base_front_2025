@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 1rem;
 }
 .course-page-header{
     display: flex;
@@ -20,30 +21,65 @@
     background-color: var(--background-color);
 }
 .course-card-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    overflow: auto;
-    padding: 2rem;
-    width: 100%;
-    height: 60%;
+    width: 90%;
+    height: 55%;
     gap: 2.0rem;
-}
-.course-card{
-    width: 20vw;
-    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
+
+    flex-wrap: wrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    flex-grow: 1;
+    /*transition: all 0.2s ease;*/
+    transition: flex 1000ms linear;
+}
+.add-new-form[aria-expanded="true"]{
+    flex: 0 0 auto;
+}
+.course-card-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+}
+.course-card-container::-webkit-scrollbar-track {
+    background: white;
+    margin-block: 2rem;
+    cursor: pointer;
+}
+.course-card-container::-webkit-scrollbar-thumb {
+    background: var(--background-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.course-card-container::-webkit-scrollbar-thumb:hover {
+    transform: scale(1.02);
+}
+.course-card{
+    min-width: 400px;
+    min-height: 600px;
+    max-width: 400px;
+    max-height: 600px;
+    margin-inline-start: 1.3rem;
+    margin-inline-end: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
     text-align: left;
     border: 3px solid rebeccapurple;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 0 3px rebeccapurple;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
+    white-space: wrap;
+
 }
 .course-card:hover{
     transform: scale(1.01);
@@ -55,7 +91,7 @@
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 40%;
+    height: 30%;
 }
 .course-card-content-text{
     display: flex;
@@ -67,14 +103,15 @@
 }
 .add-new-course-container{
     width: 100%;
-    height: 5%;
+    height: 10%;
+
 }
-.add-new-course{
+.add-new{
     width: 100px;
     height: 100px;
     position: absolute;
-    right: 5%;
-
+    right: 4%;
+    bottom: 8%;
     border-radius: 100%;
 
     background-color: var(--background-color);
@@ -85,39 +122,12 @@
     cursor: pointer;
     transition: all 0.5s ease;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
 }
-.add-new-course:hover{
+.add-new:hover{
     transform: scale(1.1);
     box-shadow: 0 0 10px rebeccapurple;
 }
 
-.add-new-course-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 1.1rem;
-
-    font-size: 25px;
-    position: absolute;
-    top: 16vw;
-    left: 25%;
-    width: 50%;
-    height: 60%;
-    backdrop-filter: blur(10px);
-    background: rgba(102, 51, 153, 0.53);
-    color: white;
-    border-radius: 10px;
-    border: 3px solid rebeccapurple;
-    transition: transform 300ms ease 100ms;
-
-}
 
 .course-material {
     display: flex; /* מאפשר שימוש ב-flexbox */
@@ -129,7 +139,7 @@
     font-size: 25px;
 }
 .add-material{
-   width:8vw;
+    width:8vw;
     height: 3vh;
     font-size: 20px;
     background-color: white;
@@ -137,7 +147,4 @@
     border:1px solid rebeccapurple;
     margin-top: 20px;
     cursor: pointer;
-}
-bold{
-    color:rebeccapurple;
 }

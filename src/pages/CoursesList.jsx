@@ -1,7 +1,9 @@
 import "./Course.css"
+import "./NewForm.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Pagination} from "@mui/material";
 
 export default function CoursesList(){
     const navigate = useNavigate();
@@ -52,19 +54,27 @@ export default function CoursesList(){
     }
 
 
-
-    function courseComponent(lecturer, course, description,courseId){
+    function handleNewCourseVisibility(){
+        setNewCourseVisibility(!newCourseVisibility)
+    }
+    function courseComponent(index, lecturer, course, description,courseId){
         return (
-
-            <div className={"course-card"} onClick={()=>navigate("/course/"+courseId)}>
-                <div className="course-card-content-image">
-                    <img style={{width:"100%", height:"100%"}} src={"src/assets/course-image-placeholder.png"} alt={"course image"} />
+            <div id={index}>
+                <div className={"course-card"} onClick={() => navigate("/course/" + courseId)}>
+                    <div className="course-card-content-image">
+                        <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
+                             alt={"course image"}/>
+                    </div>
+                    <div className="course-card-content-text">
+                        <text style={{
+                            color: "darkgrey",
+                            fontSize: "1.2rem",
+                            fontWeight: "bold",
+                            height:"15%"
+                        }}>{course} • {lecturer}</text>
+                        <text style={{color: "black", fontSize: "1.3rem", fontWeight: "bold", height:"85%"}}>{description}</text>
+                    </div>
                 </div>
-                <div className="course-card-content-text">
-                    <text style={{color: "darkgrey", fontSize: "1.2rem", fontWeight: "bold"}}>{course} • {lecturer}</text>
-                    <text style={{color: "black", fontSize: "1.3rem", fontWeight: "bold"}}>{description}</text>
-                </div>
-
             </div>
         )
     }
@@ -75,54 +85,70 @@ export default function CoursesList(){
 
     }, []);
 
+    function addNewCourseComponent() {
+        return (
+            <div className={`add-new-form`} aria-expanded={newCourseVisibility}
+                 style={newCourseVisibility ? {transform: "scale(1)"} : {transform: "scale(0)"}}>
+                {/*<div className={"right-side"} style={{width: "60%"}}>*/}
+                <div className="new-course-image">
+                    <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
+                         alt={"course image"}/>
+                </div>
+                {/*<h1>New Course</h1>*/}
+                <input className={"new-course-input"} type={"text"} value={courseName}
+                       onChange={(event) => setCourseName(event.target.value)} placeholder={"Course Name"}/>
+                <textarea className={"new-course-input-desc"} type={"text"} value={description}
+                          onChange={(event) => setDescription(event.target.value)} placeholder={"Description"}/>
+                <select className={"new-course-input-lecturer"} value={chosenLecturer}
+                        onChange={(event) => setChosenLecturer(event.target.value)}>
 
+                    <option value="" disabled>Select lecturer</option>
 
-    function addNewCourseComponent(){
-        return(
-            <div className={'add-new-course-form'} style={newCourseVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
-                    <h1>Add New Course</h1>
-                    <input className={"new-course-input"} type={"text"} value={courseName}
-                           onChange={(event) => setCourseName(event.target.value)}/>
-                    <input className={"new-course-input"} type={"text"} value={description}
-                           onChange={(event) => setDescription(event.target.value)}/>
-                    <select className={"new-course-input"} value={chosenLecturer}
-                            onChange={(event) => setChosenLecturer(event.target.value)}>
-                        <option value="" disabled>Select lecturer</option>
-
-                        {
-                            lecturers.map((lecturer, index) => {
-                                return (
-                                    <option key={index} value={lecturer.name}>
-                                        {lecturer.name}
-                                    </option>
-                                );
-                            })
-                        }
-                    </select>
-                    <button className={"new-course-button"} onClick={() => {
-                        addCourse()
-                        setNewCourseVisibility(false)
-                    }}>Add Course</button>
+                    {
+                        lecturers.map((lecturer, index) => {
+                            return (
+                                <option key={index} value={lecturer.name}>
+                                    {lecturer.name}
+                                </option>
+                            );
+                        })
+                    }
+                </select>
+                <button className={"new-course-button"} onClick={() => {
+                    addCourse()
+                    setNewCourseVisibility(false)
+                }}>Add Course
+                </button>
             </div>
+            // </div>
         )
     }
 
     return (
         <div className="courses-page">
-            <text className={"course-page-header"}>Courses</text>
+            <div className={"upper-container"}>
+                <text className={"course-page-header"}>Courses</text>
+            </div>
             <div className={"course-card-container"}>
+                {/*<Pagination count={10} variant={"outlined"} color={"secondary"}>*/}
+                {newCourseVisibility && addNewCourseComponent()}
+
                 {
-                    courses.map((course) => {
+                    courses.map((course, index) => {
                         return (
-                            courseComponent(course.lecturerEntity.name, course.name, course.description, course.id)
+                            courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)
                         )
                     })
                 }
+
+                {/*</Pagination>*/}
+
             </div>
             <div className="add-new-course-container">
-                <button className={"add-new-course"}
-                        onClick={() => setNewCourseVisibility(!newCourseVisibility)}>+</button>
-                {addNewCourseComponent()}
+                <button className={"add-new"}
+                        onClick={() => handleNewCourseVisibility()}>+
+                </button>
+                {/*{addNewCourseComponent()}*/}
             </div>
 
 

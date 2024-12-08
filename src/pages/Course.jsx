@@ -21,6 +21,7 @@ export default function Course() {
     const [choosenTag, setChoosenTag] = useState("");
     const [username,setUsername] = useState("shaig123");
     const [token,setToken] = useState("E10ADC3949BA59ABBE56E057F20F883E");
+    const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
 
 
     //TODO  לבקש משי ללמד אותנו use contex
@@ -78,23 +79,74 @@ export default function Course() {
         getTypes()
         getTags()
     }, []);
+
+    function addNewMaterialComponent(){
+        return (
+            <div className={'add-new-form'}
+                 style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
+                <h1>Add material</h1>
+                <br/>
+                <input placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
+                    setChoosenTitle(event.target.value)
+                }}/>
+                <input placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event) => {
+                    setChoosenDescription(event.target.value)
+                }}/>
+                <input placeholder={"content"} type={"text"} value={choosenContent} onChange={(event) => {
+                    setChoosenContent(event.target.value)
+                }}/>
+                <select value={choosenType} onChange={(event) => {
+                    setChoosenType(event.target.value)
+                }}>
+                    <option value="" disabled>Choose type</option>
+                    {types.map((type, index) => {
+                        return (
+                            <option key={index} value={type.name}>{type.name}</option>
+                        )
+                    })}
+                </select>
+                <select value={choosenTag} onChange={(event) => {
+                    setChoosenTag(event.target.value)
+                }}>
+                    <option value={""}>Choose tag</option>
+                    {
+                        tags.map((tag, index) => {
+                            return (
+                                <option key={index} value={tag.name}>{tag.name}</option>
+                            )
+                        })
+                    }
+                </select>
+                <button className={"add-material"} onClick={() => addMaterial()}>Add Material</button>
+
+            </div>
+        )
+    }
+
     return (
         <div className="course-material">
-            <h1>
-                {courseData.name + "  " }
-            </h1>
-            <h2>{ courseData.description + "  by:" + courseData?.lecturerEntity?.name}</h2>
+            <div className={"upper-container"}>
+                <h1>{courseData.name} • {courseData.lecturerEntity.name}</h1>
+            </div>
+
+            <h2>{courseData.description}</h2>
             <div>
                 {
                     material.length > 0 && (
-                        <div >
-                            {
+                        <div>
+                        {
                                 material.map((item, index) => {
                                     return (
                                         <div key={index}>
-                                            <div><bold>title: </bold>{item.title}</div>
-                                            <div><bold>description:</bold> {item.description}</div>
-                                            <div><bold>user who uploaded the material:</bold> {item.userEntity.username}</div>
+                                            <div>
+                                                <bold>title:</bold>
+                                                {item.title}</div>
+                                            <div>
+                                                <bold>description:</bold>
+                                                {item.description}</div>
+                                            <div>
+                                                <bold>user who uploaded the material:</bold>
+                                                {item.userEntity.username}</div>
                                         </div>
                                     );
                                 })
@@ -103,32 +155,12 @@ export default function Course() {
                     )
                 }
             </div>
-              <div>
-                  <h1>Add material</h1>
-                  <br/>
-                  <input placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event)=>{setChoosenTitle(event.target.value)}}/>
-                  <input placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event)=>{setChoosenDescription(event.target.value)}}/>
-                  <input placeholder={"content"} type={"text"} value={choosenContent} onChange={(event)=>{setChoosenContent(event.target.value)}}/>
-                  <select value={choosenType} onChange={(event)=>{setChoosenType(event.target.value)}} >
-                      <option value="" disabled>Choose type</option>
-                      {types.map((type,index)=>{
-                          return(
-                              <option key={index} value={type.name}>{type.name}</option>
-                          )
-                      })}
-                  </select>
-                  <select value={choosenTag} onChange={(event)=>{setChoosenTag(event.target.value )}}>
-                      <option value={""}>Choose tag</option>
-                      {
-                          tags.map((tag,index)=>{
-                              return(
-                                  <option key={index} value={tag.name}>{tag.name}</option>
-                              )
-                          })
-                      }
-                  </select>
-              </div>
-            <button className={"add-material"} onClick={()=>addMaterial()}>Add Material</button>
+            <div className="add-new-course-container">
+                <button className={"add-new"}
+                        onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>+
+                </button>
+                {addNewMaterialComponent()}
+            </div>
             <div>
                 <button className={"add-material"} onClick={() => navigate("/courses-list")}>GO-BACK</button>
             </div>

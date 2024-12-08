@@ -45,7 +45,7 @@ function Login() {
                         setErrorCode(response.data.errorCode)
                     }else{
                         console.log(response.data);
-                        const cookies = new Cookies(null, { path: '/' });
+                        const cookies = new Cookies(null, { path: '/login' });
                         cookies.set('token', response.data.token);
                         navigate("/dashboard");
                     }
@@ -58,15 +58,16 @@ function Login() {
             password.trim()
         );
     };
-    function getInput(title, value, setValue, type = "text") {
+    function getInput(title, value, setValue, type, requirement) {
         return (
             <div className={"input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
-                <input className={"form-input"}
+                <input required className={"form-input"}
                        type={type}
                        value={value}
                        onChange={(e) => setValue(e.target.value)}
                        placeholder={title}
+                       minLength={requirement}
                 />
             </div>
         );
@@ -88,8 +89,8 @@ function Login() {
                     <div className={"form"}>
 
                         <div className={"input-container"}>
-                            {getInput("Username", username, setUsername)}
-                            {getInput("Password", password, setPassword)}
+                            {getInput("Username", username, setUsername, "text", 5)}
+                            {getInput("Password", password, setPassword, "password", 8)}
                             <button className={"forgot-password-button"}>Forgot Password?</button>
 
                         </div>
