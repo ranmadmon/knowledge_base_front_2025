@@ -10,17 +10,14 @@
 
 .upper-container {
     width: 100vw;
-    height: 15vh;
+    height: 18vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 15rem;
     background: var(--background-color);
     color: white;
-    /*box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);*/
-    /*border-radius: 5px;*/
 
 }
 
@@ -43,8 +40,8 @@ button:focus, button:focus-visible {
     margin-top: 1rem;
     margin-left: 1rem;
     padding: 2rem;
-    max-width: 60%;
-    min-width: 60%;
+    max-width: 30%;
+    min-width: 20%;
     max-height: 60%;
     position: page;
     display: inline-flex;
@@ -60,8 +57,8 @@ button:focus, button:focus-visible {
 .ListCard {
     margin-top: 1rem;
     padding: 2rem;
-    max-width: 60%;
-    min-width: 60%;
+    max-width: 30%;
+    min-width: 20%;
     max-height: 60%;
     position: relative;
     display: inline-flex;
@@ -93,7 +90,7 @@ button:focus, button:focus-visible {
 }
 
 .search-input {
-    width: 18vw;
+    min-width: 350px;
     padding: 10px;
     border: none;
     border-radius: 5px;

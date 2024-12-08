@@ -1,5 +1,6 @@
 import "./Course.css"
 import "./NewForm.css"
+import "./Card.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
@@ -60,12 +61,13 @@ export default function CoursesList(){
     function courseComponent(index, lecturer, course, description,courseId){
         return (
             <div id={index}>
-                <div className={"course-card"} onClick={() => navigate("/course/" + courseId)}>
-                    <div className="course-card-content-image">
+                <div className={"card"}
+                     onClick={() => navigate("/course/" + courseId)}>
+                    <div className="card-content-image">
                         <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
                              alt={"course image"}/>
                     </div>
-                    <div className="course-card-content-text">
+                    <div className="card-content-text">
                         <text style={{
                             color: "darkgrey",
                             fontSize: "1.2rem",
@@ -87,19 +89,17 @@ export default function CoursesList(){
 
     function addNewCourseComponent() {
         return (
-            <div className={`add-new-form`} aria-expanded={newCourseVisibility}
-                 style={newCourseVisibility ? {transform: "scale(1)"} : {transform: "scale(0)"}}>
-                {/*<div className={"right-side"} style={{width: "60%"}}>*/}
-                <div className="new-course-image">
+            <div className={`add-new-form`}>
+                <div className="new-form-image">
                     <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
                          alt={"course image"}/>
                 </div>
                 {/*<h1>New Course</h1>*/}
-                <input className={"new-course-input"} type={"text"} value={courseName}
+                <input className={"new-form-input"} type={"text"} value={courseName}
                        onChange={(event) => setCourseName(event.target.value)} placeholder={"Course Name"}/>
-                <textarea className={"new-course-input-desc"} type={"text"} value={description}
+                <textarea className={"new-form-input-desc"} type={"text"} value={description}
                           onChange={(event) => setDescription(event.target.value)} placeholder={"Description"}/>
-                <select className={"new-course-input-lecturer"} value={chosenLecturer}
+                <select className={"new-form-input-select"} value={chosenLecturer}
                         onChange={(event) => setChosenLecturer(event.target.value)}>
 
                     <option value="" disabled>Select lecturer</option>
@@ -114,7 +114,7 @@ export default function CoursesList(){
                         })
                     }
                 </select>
-                <button className={"new-course-button"} onClick={() => {
+                <button className={"new-form-button"} onClick={() => {
                     addCourse()
                     setNewCourseVisibility(false)
                 }}>Add Course
@@ -123,30 +123,53 @@ export default function CoursesList(){
             // </div>
         )
     }
-
+    function coursesListComponent(){
+        return(
+            courses.map((course, index) => {
+                return (
+                    courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)
+                )
+            })
+        )
+    }
+    function nothingToShowComponent(){
+        return (
+            <div className={"nothing-to-show"}>
+                <text>Nothing to show here yet 🤷</text>
+                <br/>
+                <text>Maybe click on the + icon to add a new Course</text>
+            </div>
+        )
+    }
+    function handleComponentRendering(){
+        if (courses.length === 0 && !newCourseVisibility){
+            return nothingToShowComponent()
+        } else if (courses.length > 0) {
+            return coursesListComponent()
+        }
+    }
     return (
         <div className="courses-page">
             <div className={"upper-container"}>
-                <text className={"course-page-header"}>Courses</text>
+                <text className={"course-page-header"} style={{fontSize: "3rem"}}>Courses</text>
             </div>
-            <div className={"course-card-container"}>
+            <div className={"card-container"} aria-expanded={newCourseVisibility}>
                 {/*<Pagination count={10} variant={"outlined"} color={"secondary"}>*/}
                 {newCourseVisibility && addNewCourseComponent()}
-
                 {
-                    courses.map((course, index) => {
-                        return (
-                            courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)
-                        )
-                    })
+                    handleComponentRendering()
                 }
 
                 {/*</Pagination>*/}
 
             </div>
-            <div className="add-new-course-container">
+            <div className="add-new-form-container">
                 <button className={"add-new"}
-                        onClick={() => handleNewCourseVisibility()}>+
+                        onClick={() => handleNewCourseVisibility()}>
+                    <svg aria-expanded={newCourseVisibility} xmlns="http://www.w3.org/2000/svg" className="plus" viewBox="0 0 160 160" width="35" fill={"white"}>
+                        <rect className="vertical-line" x="70" width="20" height="160"/>
+                        <rect className="horizontal-line" y="70" width="160" height="20"/>
+                    </svg>
                 </button>
                 {/*{addNewCourseComponent()}*/}
             </div>

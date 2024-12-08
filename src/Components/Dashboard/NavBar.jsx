@@ -10,9 +10,10 @@ import React, {useEffect} from "react";
 
 function NavBar() {
     const navigate = useNavigate();
-    const [dataVisible, setDataVisible] = React.useState(false);
     const [homeClicked, setHomeClicked] = React.useState(false);
     const [courseClicked, setCourseClicked] = React.useState(false);
+    const [dataVisible, setDataVisible] = React.useState(false);
+
     function handleDataVisible(){
         setDataVisible(!dataVisible);
     }

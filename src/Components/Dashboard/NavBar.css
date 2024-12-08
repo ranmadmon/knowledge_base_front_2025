@@ -144,15 +144,11 @@
 }
 .hamburger .line{
     stroke-dasharray: 61 29 60 1000;
-    transition: 0.7s ease;
+    transition: 0.4s ease;
 }
 .hamburger .line[data-visible='true']{
     stroke-dasharray: 60 105 60 300;
     stroke-dashoffset: -90;
     translate: 50% -25px;
     rotate: 0.125turn;
-}
-
-.hamburger {
-    transition: translate 1s, rotate 1s;
 }

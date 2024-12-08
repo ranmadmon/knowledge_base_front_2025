@@ -86,16 +86,16 @@ export default function Course() {
                  style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
                 <h1>Add material</h1>
                 <br/>
-                <input placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
+                <input className={"new-form-input"} placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
                     setChoosenTitle(event.target.value)
                 }}/>
-                <input placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event) => {
+                <input className={"new-form-input"} placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event) => {
                     setChoosenDescription(event.target.value)
                 }}/>
-                <input placeholder={"content"} type={"text"} value={choosenContent} onChange={(event) => {
+                <textarea className={"new-form-input-desc"} placeholder={"content"} type={"text"} value={choosenContent} onChange={(event) => {
                     setChoosenContent(event.target.value)
                 }}/>
-                <select value={choosenType} onChange={(event) => {
+                <select className={"new-form-input-select"} value={choosenType} onChange={(event) => {
                     setChoosenType(event.target.value)
                 }}>
                     <option value="" disabled>Choose type</option>
@@ -105,7 +105,7 @@ export default function Course() {
                         )
                     })}
                 </select>
-                <select value={choosenTag} onChange={(event) => {
+                <select className={"new-form-input-select"} value={choosenTag} onChange={(event) => {
                     setChoosenTag(event.target.value)
                 }}>
                     <option value={""}>Choose tag</option>
@@ -117,53 +117,81 @@ export default function Course() {
                         })
                     }
                 </select>
-                <button className={"add-material"} onClick={() => addMaterial()}>Add Material</button>
+                <button className={"new-form-button"} onClick={() => addMaterial()}>Add Material</button>
 
             </div>
         )
     }
-
-    return (
-        <div className="course-material">
-            <div className={"upper-container"}>
-                <h1>{courseData.name} • {courseData?.lecturerEntity?.name}</h1>
-            </div>
-
-            <h2>{courseData.description}</h2>
-            <div>
+    function materialsComponent(){
+        return (
+            <div className={"card"}>
                 {
-                    material.length > 0 && (
-                        <div>
-                        {
-                                material.map((item, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <div>
-                                                <bold>title:</bold>
-                                                {item.title}</div>
-                                            <div>
-                                                <bold>description:</bold>
-                                                {item.description}</div>
-                                            <div>
-                                                <bold>user who uploaded the material:</bold>
-                                                {item.userEntity.username}</div>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    )
+                    material.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="card-content-text">
+                                    <text style={{
+                                        color: "black",
+                                        fontSize: "1.2rem",
+                                        fontWeight: "bold",
+                                        height: "15%"
+                                    }}>Title: {item.title}</text>
+                                    <text style={{
+                                        color: "black",
+                                        fontSize: "1.3rem",
+                                        fontWeight: "bold",
+                                        height: "85%"
+                                    }}>Description: {item.description}</text>
+                                    <text>By: {item.userEntity.username}</text>
+                                </div>
+                            </div>
+                        );
+                    })
                 }
             </div>
-            <div className="add-new-course-container">
+        )
+    }
+
+    function nothingToShowComponent() {
+        return (
+            <div className={"nothing-to-show"}>
+                <text>Nothing to show here yet 🤷</text>
+                <br/>
+                <text>Maybe click on the + icon to add a new Material</text>
+            </div>
+        )
+    }
+    function handleComponentRendering(){
+        if (material.length === 0 && !newMaterialVisibility){
+            return nothingToShowComponent()
+        } else if (material.length > 0) {
+            return materialsComponent()
+        }
+    }
+    return (
+        <div className="material-page">
+            <div className={"upper-container"} style={{flexDirection: "column", gap: "1.2rem"}}>
+                <text className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</text>
+                <text className={"course-page-description"}>{courseData.description}</text>
+            </div>
+
+            <div className={"card-container"}>
+                {newMaterialVisibility && addNewMaterialComponent()}
+                {handleComponentRendering()}
+            </div>
+            <div className="add-new-form-container">
                 <button className={"add-new"}
-                        onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>+
+                        onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
+                    <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
+                         viewBox="0 0 160 160" width="35" fill={"white"}>
+                        <rect className="vertical-line" x="70" width="20" height="160"/>
+                        <rect className="horizontal-line" y="70" width="160" height="20"/>
+                    </svg>
                 </button>
-                {addNewMaterialComponent()}
             </div>
-            <div>
-                <button className={"add-material"} onClick={() => navigate("/courses-list")}>GO-BACK</button>
-            </div>
+            {/*<div>*/}
+            {/*    <button className={"add-material"} onClick={() => navigate("/courses-list")}>GO-BACK</button>*/}
+            {/*</div>*/}
         </div>
     )
 }

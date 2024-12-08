@@ -3,8 +3,10 @@
     background: rgba(25, 3, 50, 0);
     color: var(--background-color);
     border: 3px solid rebeccapurple;
-    transition: transform 300ms ease 100ms;
+    transform: translateX(0%);
+
 }
+
 .add-new-form{
     display: flex;
     flex-direction: column;
@@ -13,9 +15,6 @@
     text-align: center;
     gap: 1.1rem;
 
-    /*position: absolute;*/
-    /*top: 17vw;*/
-    /*left: 42%;*/
     min-width: 400px;
     min-height: 600px;
     max-width: 400px;
@@ -45,7 +44,7 @@
 @keyframes angle {
     to {--angle: 1turn}
 }
-.new-course-input{
+.new-form-input{
     width: 85%;
     height: 4%;
     border-radius: 5px;
@@ -54,7 +53,7 @@
     font-weight: bold;
 
 }
-.new-course-input-desc{
+.new-form-input-desc{
     min-width: 85%;
     max-width: 85%;
     height: 10%;
@@ -64,7 +63,7 @@
     border: 1px solid #E8EAED;
     font-size: 1.2rem;
 }
-.new-course-input-lecturer{
+.new-form-input-select{
     width: 85%;
     height: 5%;
     border-radius: 5px;
@@ -75,7 +74,7 @@
     background: url('@mui/icons-material/KeyboardArrowDown') no-repeat right white;
 
 }
-.new-course-button {
+.new-form-button {
     width: 85%;
     height: 7%;
     border-radius: 5px;
@@ -90,6 +89,20 @@
 .new-course-button:hover{
     box-shadow: 0 0 10px rebeccapurple;
     scale: 1.02;
+}
+.plus .vertical-line, .plus .horizontal-line{
+    transition: all 0.3s ease;
+}
+
+.plus[aria-expanded="true"] .vertical-line{
+    rotate: 0.125turn;
+    translate: 50% -25px;
+
+}
+.plus[aria-expanded="true"] .horizontal-line{
+    rotate: 0.125turn;
+    translate: 50% -25px;
+
 }
 .new-course-input-lecturer select{
 
