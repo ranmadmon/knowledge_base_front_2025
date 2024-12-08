@@ -170,28 +170,26 @@ export default function Course() {
     }
     return (
         <div className="material-page">
-            <div className={"upper-container"} style={{flexDirection: "column", gap: "1.2rem"}}>
+            <div className={"upper-container"} style={{flexDirection: "column"}}>
                 <text className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</text>
                 <text className={"course-page-description"}>{courseData.description}</text>
             </div>
+            <div className={"lower-container"}>
+                <div className={"card-container"}>
+                    {newMaterialVisibility && addNewMaterialComponent()}
+                    {handleComponentRendering()}
+                    <button className={"add-new"}
+                            onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
+                        <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
+                             viewBox="0 0 160 160" width="35" fill={"white"}>
+                            <rect className="vertical-line" x="70" width="20" height="160"/>
+                            <rect className="horizontal-line" y="70" width="160" height="20"/>
+                        </svg>
+                    </button>
+                </div>
 
-            <div className={"card-container"}>
-                {newMaterialVisibility && addNewMaterialComponent()}
-                {handleComponentRendering()}
             </div>
-            <div className="add-new-form-container">
-                <button className={"add-new"}
-                        onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
-                    <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
-                         viewBox="0 0 160 160" width="35" fill={"white"}>
-                        <rect className="vertical-line" x="70" width="20" height="160"/>
-                        <rect className="horizontal-line" y="70" width="160" height="20"/>
-                    </svg>
-                </button>
-            </div>
-            {/*<div>*/}
-            {/*    <button className={"add-material"} onClick={() => navigate("/courses-list")}>GO-BACK</button>*/}
-            {/*</div>*/}
+
         </div>
     )
 }

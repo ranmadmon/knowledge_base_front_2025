@@ -11,40 +11,36 @@
     font-weight: bold;
 }
 .card-container{
-    width: 90%;
-    height: 55%;
-    gap: 2.0rem;
-    margin-top: -6rem;
+    width: 95%;
+    height: 60vh;
+    gap: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: flex-start;
-
     flex-wrap: wrap;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
     scroll-behavior: smooth;
-    flex-grow: 1;
+
 }
 .card-container::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-    cursor: pointer;
+    height: 0.8rem;
 }
 .card-container::-webkit-scrollbar-track {
-    background: white;
-    margin-block: 2rem;
-    cursor: pointer;
+    /*background: rgba(147, 112, 219, 0.38);*/
+    margin: 1.5rem;
 }
 .card-container::-webkit-scrollbar-thumb {
     background: var(--background-color);
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 5px;
 }
 .card-container::-webkit-scrollbar-thumb:hover {
-    transform: scale(1.02);
+    background: #8100ff;
+    /*transition: background 0.5s;*/
 }
 .card{
     min-width: 400px;
@@ -62,7 +58,7 @@
     border: 3px solid rebeccapurple;
     border-radius: 15px;
     box-shadow: 0 0 3px rebeccapurple;
-    transition: scale 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
     cursor: pointer;
     white-space: wrap;
 

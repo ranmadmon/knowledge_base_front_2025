@@ -153,25 +153,20 @@ export default function CoursesList(){
             <div className={"upper-container"}>
                 <text className={"course-page-header"} style={{fontSize: "3rem"}}>Courses</text>
             </div>
-            <div className={"card-container"} aria-expanded={newCourseVisibility}>
-                {/*<Pagination count={10} variant={"outlined"} color={"secondary"}>*/}
-                {newCourseVisibility && addNewCourseComponent()}
-                {
-                    handleComponentRendering()
-                }
+            <div className={"lower-container"}>
+                <div className={"card-container"} aria-expanded={newCourseVisibility}>
+                    {newCourseVisibility && addNewCourseComponent()}
+                    {handleComponentRendering()}
+                    <button className={"add-new"}
+                            onClick={() => handleNewCourseVisibility()}>
+                        <svg aria-expanded={newCourseVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
+                             viewBox="0 0 160 160" width="35" fill={"white"}>
+                            <rect className="vertical-line" x="70" width="20" height="160"/>
+                            <rect className="horizontal-line" y="70" width="160" height="20"/>
+                        </svg>
+                    </button>
+                </div>
 
-                {/*</Pagination>*/}
-
-            </div>
-            <div className="add-new-form-container">
-                <button className={"add-new"}
-                        onClick={() => handleNewCourseVisibility()}>
-                    <svg aria-expanded={newCourseVisibility} xmlns="http://www.w3.org/2000/svg" className="plus" viewBox="0 0 160 160" width="35" fill={"white"}>
-                        <rect className="vertical-line" x="70" width="20" height="160"/>
-                        <rect className="horizontal-line" y="70" width="160" height="20"/>
-                    </svg>
-                </button>
-                {/*{addNewCourseComponent()}*/}
             </div>
 
 
