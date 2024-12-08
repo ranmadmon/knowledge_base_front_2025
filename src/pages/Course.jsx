@@ -124,11 +124,11 @@ export default function Course() {
     }
     function materialsComponent(){
         return (
-            <div className={"card"}>
+            <div>
                 {
                     material.map((item, index) => {
                         return (
-                            <div key={index}>
+                            <div className={"card"} key={index}>
                                 <div className="card-content-text">
                                     <text style={{
                                         color: "black",
