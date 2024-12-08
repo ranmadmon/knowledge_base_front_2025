@@ -25,6 +25,7 @@
     overflow: hidden;
     place-self: center;
     place-content: center;
+
 }
 @property --angle{
     syntax: '<angle>';

@@ -24,6 +24,7 @@
     width: 90%;
     height: 55%;
     gap: 2.0rem;
+    margin-top: -6rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,7 +41,7 @@
     transition: flex 1000ms linear;
 }
 .add-new-form[aria-expanded="true"]{
-    flex: 0 0 auto;
+    flex-grow: 0.001;
 }
 .course-card-container::-webkit-scrollbar {
     width: 10px;
@@ -79,6 +80,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
     white-space: wrap;
+
 
 }
 .course-card:hover{

@@ -89,6 +89,7 @@ button:focus, button:focus-visible {
     border: none;
     background: transparent;
     cursor: pointer;
+    color: white;
 }
 
 .search-input {

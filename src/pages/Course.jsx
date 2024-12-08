@@ -126,7 +126,7 @@ export default function Course() {
     return (
         <div className="course-material">
             <div className={"upper-container"}>
-                <h1>{courseData.name} • {courseData.lecturerEntity.name}</h1>
+                <h1>{courseData.name} • {courseData?.lecturerEntity?.name}</h1>
             </div>
 
             <h2>{courseData.description}</h2>
