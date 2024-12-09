@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
 import {getMaterials} from "../../API/MaterialsAPI.jsx";
 import Table from "./Table.jsx";
+import formatDatetime from "../../Utils/formatDatetime.js";
 
 function LastActivities() {
     const [LastActivitiesList, setLastActivitiesList] = useState([]);
