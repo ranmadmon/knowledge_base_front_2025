@@ -27,8 +27,7 @@ function LastActivities() {
     function renderCourseList(lastActivitiesList) {
         const formattedList = lastActivitiesList.map((item) => ({
             ...item,
-            uploadDate: item.uploadDate?.replace("T", " "),
-        }));
+            uploadDate: formatDatetime(item.uploadDate)}));
         return (
             <>
                 <Table column={ columnDefs} row={formattedList}/>
