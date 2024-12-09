@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import "ag-grid-community/styles/ag-grid.css";
@@ -15,7 +14,7 @@ ListCard.propTypes = {
 };
 
 function ListCard(props) {
-    const [list, setList] = useState(props.list || []);
+    const [list, setList] = useState(props.list===undefined?[]:props.list );
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);
 
@@ -27,13 +26,11 @@ function ListCard(props) {
 
     function renderList() {
         const startIndex = (currentPg - 1) * perPage;
-        const endIndex = startIndex + perPage;
-        const relevantPageList = list.slice(startIndex, endIndex);
-
-        if (relevantPageList.length === 0) {
+        const endIndex = startIndex + perPage
+        if (list.length === 0) {
             return <p>No items to display.</p>;
         }
-
+        const relevantPageList = list.slice(startIndex, endIndex)
         return props.render(relevantPageList);
     }
 
