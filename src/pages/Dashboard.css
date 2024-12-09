@@ -66,9 +66,9 @@ button:focus, button:focus-visible {
 .ListCard {
     margin-top: 1rem;
     padding: 2rem;
-    max-width: 30%;
-    min-width: 20%;
-    max-height: 60%;
+    max-width: 60%;
+    min-width: 60%;
+    /*max-height: 60%;*/
     position: relative;
     display: flex;
     align-items: center;

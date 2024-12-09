@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
 import {getNotifications} from "../../API/NotificationsAPI.jsx";
+import Collapsible from "./Collapsable.jsx";
 
 
 function NotificationPanel() {
@@ -8,27 +9,34 @@ function NotificationPanel() {
     useEffect(() => {
         const fetchData = async () => {
             setNotificationList(await getNotifications());
+
         }
         fetchData()
     }, []);
+
     function renderCourseList(coursesList) {
         return (
-                coursesList.map((notification) => (
-                    <>
-                        <>id ----- course--------lactchurer</>
-                     <h3>{notification.id} - {notification.text}</h3>
-                    <div>-----------------</div></>
-                ))
+
+            coursesList.map((notification) => (
+                <>
+                    <Collapsible
+                        title={notification.title}
+                        date={notification.date}
+                        course={notification.course}
+                    >
+                        {notification.content}
+                    </Collapsible>
+                </>
+            ))
         )
     }
 
     return (
         <>
-            <ListCard render={renderCourseList} perPage={6} list={notificationList} header={"Notifications"} />
+            <ListCard render={renderCourseList} perPage={6} list={notificationList} header={"Notifications"}/>
         </>
     )
 }
-
 
 
 export default NotificationPanel;
