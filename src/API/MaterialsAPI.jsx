@@ -4,7 +4,7 @@ import * as Constants from "../Utils/Constants.jsx";
 export async function getMaterials() {
     try {
         const response = await axios.get(Constants.URL+"/get-materials", {})
-        console.log(response?.data);
+        console.log(response)
         return await response?.data;
 
     } catch (error) {
