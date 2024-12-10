@@ -1,15 +1,14 @@
 :root {
     --background-color: rebeccapurple;
     --gradient-angle: 129deg;
-    --color-1: rgb(87, 6, 213);
-    --color-2: #8243c4;
-    --color-3: rgb(161, 0, 194);
-    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
+    --color-1: rebeccapurple;
+    --color-2: #591999;
+    --color-3: rgb(99, 14, 173);
+    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 0%, var(--color-2) 50%, var(--color-3) 100%);
     --color-1-bright: rgb(115, 0, 255);
     --color-2-bright: rgb(221, 0, 255);
     --color-3-bright: rgb(247, 0, 255);
     --card-width: 60vw;
-
     --card-height: 70vh;
 }
 
