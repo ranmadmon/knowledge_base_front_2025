@@ -9,6 +9,7 @@ import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
 import "./App.css"
 import Course from "./pages/Course.jsx";
+import CodeInputComponent from "./pages/CodeInputComponent.jsx";
 
 function App() {
     return (
@@ -29,6 +30,8 @@ function App() {
                             <Route path="/matirals" element={<UploadMaterials/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/course/:id" element={<Course />} />
+                            <Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>
+
                         </>}/>
             </Routes>
         </Router>

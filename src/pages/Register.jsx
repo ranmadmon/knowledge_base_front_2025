@@ -13,7 +13,7 @@ function Register() {
     const [email, setEmail] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [errorCode, setErrorCode]= useState(-1);
-
+    const [phoneNumber,setPhoneNumber] = useState("")
     const navigate = useNavigate();
 
     const SERVER_URL = "http://localhost:8080"
@@ -22,22 +22,18 @@ function Register() {
 
     function register(){
         console.log("rrrrr")
-        axios.post("http://localhost:8080/register", {
-            userName: "shira",
-            password: "33",
-            name: "rr",
-            lastName: "rrr",
-            email: "shira200731",
-            role: "student",
-            phoneNumber: "0526808968"
-        })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
 
+        axios.get("http://localhost:8080/register?userName="+username+"&password="+password+"&name="+name+"&lastName="+lastName+"&email="+email+"&role="+jobTitle+"&phoneNumber="+phoneNumber)
+            .then(response => {
+                if (response.data.success){
+                    if (!response.data.registeredSuccessfully){
+                        setErrorCode(USERNAME_NOT_AVAILABLE)
+                    }else{
+                        console.log(response.data)
+                        navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"register"} });
+                    }
+                }
+            })
     }
     const allFieldsFilled = () => {
         return (
@@ -123,6 +119,9 @@ function Register() {
                         <div className="input-pair">
                             {getInput("Password", password, setPassword, "password", 8)}
                             {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password", 8)}
+                        </div>
+                        <div>
+                            {getInput("Phone-number", phoneNumber, setPhoneNumber, "number", 0)}
                         </div>
                     </form>
                     <div className={"submit-container"}>
