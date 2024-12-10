@@ -66,12 +66,10 @@ button:focus, button:focus-visible {
 .ListCard {
     margin-top: 1rem;
     padding: 2rem;
-    max-width: 60%;
-    min-width: 60%;
-    /*max-height: 60%;*/
+    width: 50%;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: normal;
     justify-content: center;
     align-content: center;
     justify-items: center;
@@ -81,8 +79,9 @@ button:focus, button:focus-visible {
 }
 
 .buttons {
-    display: flex;
+    display: inline;
     flex-direction: row;
+    align-items: center;
     align-content: center;
     justify-items: stretch;
     padding: 1rem;

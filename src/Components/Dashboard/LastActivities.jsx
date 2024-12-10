@@ -10,6 +10,7 @@ function LastActivities() {
     const [columnDefs, setColumnDefs] = useState([
         {field: "title",headerName:"name", filter: true,},
         {field: "description",headerName:"lecturer", filter: true},
+        {field: "content",headerName:"course", filter: true},
         {field: "uploadDate",headerName:"date", filter: true, cellDataType: 'dateString'}
 
     ]);
@@ -23,16 +24,15 @@ function LastActivities() {
 
     }, []);
 
-
     function renderCourseList(lastActivitiesList) {
         const formattedList = lastActivitiesList.map((item) => ({
             ...item,
-            uploadDate: formatDatetime(item.uploadDate)}));
+            uploadDate:  formatDatetime(item.uploadDate)
+        }));
         return (
-            <>
-                <Table column={ columnDefs} row={formattedList}/>
-            </>
-
+            <div>
+                <Table  column={ columnDefs} row={formattedList}/>
+            </div>
         )
     }
 
@@ -42,7 +42,5 @@ function LastActivities() {
         </>
     )
 }
-
-
 
 export default LastActivities;
