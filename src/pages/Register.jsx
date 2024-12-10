@@ -22,19 +22,22 @@ function Register() {
 
     function register(){
         console.log("rrrrr")
-
-        axios.get(SERVER_URL+"/register?userName="+username + "&password=" + password
-            +"&name="+name+ "&lastName="+lastName+"&email=" + email +"&role="+ jobTitle)
+        axios.post("http://localhost:8080/register", {
+            userName: "shira",
+            password: "33",
+            name: "rr",
+            lastName: "rrr",
+            email: "shira200731",
+            role: "student",
+            phoneNumber: "0526808968"
+        })
             .then(response => {
-                if (response.data.success){
-                    if (!response.data.registeredSuccessfully){
-                        setErrorCode(USERNAME_NOT_AVAILABLE)
-                    }else{
-                        console.log(response.data)
-                        navigate("/");
-                    }
-                }
+                console.log(response.data);
             })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
     }
     const allFieldsFilled = () => {
         return (
@@ -123,7 +126,7 @@ function Register() {
                         </div>
                     </form>
                     <div className={"submit-container"}>
-                        <button id={"submit-button"} type="submit"
+                        <button onClick={()=>register()} id={"submit-button"} type="submit"
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
                             Register Now
