@@ -69,6 +69,7 @@ function Login() {
                        placeholder={title}
                        minLength={requirement}
                 />
+                {type === "password" && <button className={"forgot-password-button"}>Forgot Password?</button>}
             </div>
         );
     }
@@ -83,18 +84,15 @@ function Login() {
                 <div className={"right-side"}>
                     <div className={"form-headers"}>
                         <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
-                        <h1 style={{height: "30px"}}>Login</h1>
-                        <h3 style={{height: "30px"}}>Hi! welcome back 😊</h3>
+                        <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Login</text>
+                        <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                     </div>
-                    <div className={"form"}>
-
-                        <div className={"input-container"}>
+                    <div className={"form"} id="login">
+                            <label> {showErrorCode()}</label>
                             {getInput("Username", username, setUsername, "text", 5)}
                             {getInput("Password", password, setPassword, "password", 8)}
-                            <button className={"forgot-password-button"}>Forgot Password?</button>
-
-                        </div>
-                        {/*<button id={"submit-button"} onClick={login}>Login</button>*/}
+                    </div>
+                    <div className={"submit-container"}>
                         <button id={"submit-button"} type="submit" onClick={login}
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
@@ -102,16 +100,17 @@ function Login() {
                         </button>
                         <div className={"have-an-account"}>
                             <label>Dont have an account?</label>
-                            <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create Now!</button>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create
+                                Now!
+                            </button>
                         </div>
-
                     </div>
-                    <label> {showErrorCode()}</label>
 
                 </div>
                 <div className={"left-side"}>
                     <div className={"image-container"}>
-                        <img style={{width: "25vw", height: "40vh"}} src={"src/assets/image10.png"}
+                        <img className={"form-image"} style={{width: "500px", height: "500px"}}
+                             src={"src/assets/image10.png"}
                              alt={"login-page-image"}/>
                     </div>
                 </div>
