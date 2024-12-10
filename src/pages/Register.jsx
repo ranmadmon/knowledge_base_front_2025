@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Form.css';
 import axios from "axios";
+import {teal} from "@mui/material/colors";
 
 function Register() {
     const [name, setName] = useState("");
@@ -47,15 +48,18 @@ function Register() {
         );
     };
 
-    function getInput(title, value, setValue, type = "text") {
+    function getInput(title, value, setValue, type, minLengthRequirement) {
         return (
             <div className={"input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
-                <input className={"form-input"}
-                    type={type}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    placeholder={title}
+                <input required
+                       className={"form-input"}
+                       type={type}
+                       value={value}
+                       onChange={(e) => setValue(e.target.value)}
+                       placeholder={title}
+                       minLength={minLengthRequirement}
+                       size={1}
                 />
             </div>
         );
@@ -88,31 +92,23 @@ function Register() {
                 <div className={"right-side"}>
                     <div className={"form-headers"}>
                         <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
-                        <h1 style={{height: "40px"}}>Register</h1>
-                        <h3 style={{height: "5px"}}>Thank you for joining us</h3>
-                        <h4 style={{height: "5px"}}>please provide all the info below to get started 🫡</h4>
+                        <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Register</text>
+                        <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
 
-                    <form className={"form"} onSubmit={handleRegister}>
+                    <form className={"form register"} onSubmit={handleRegister}>
+                        <label> {showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName)}
-                            {getInput("Last Name", lastName, setLastName)}
+                            {getInput("Name", name, setName, "text", 0)}
+                            {getInput("Last Name", lastName, setLastName, "text", 0)}
                         </div>
-
+                        {getInput("Email", email, setEmail, "email", 0)}
                         <div className="input-pair">
                             {getInput("Username", username, setUsername)}
-                            {getInput("Email", email, setEmail, "email")}
-                        </div>
-                        <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password")}
-                            {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password")}
-                        </div>
-
-                        <div className="input-pair">
                             <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
-                                <select className={"form-input"} value={jobTitle}
+                                <select required className={"form-input"} value={jobTitle}
                                         onChange={(e) => setJobTitle(e.target.value)}>
                                     <option value="" disabled>Select Job Title</option>
                                     <option value="Student">Student</option>
@@ -120,28 +116,30 @@ function Register() {
                                     <option value="Admin">Admin</option>
                                 </select>
                             </div>
-                            <div className="input-container">
-                                <label className={"form-label"}></label>
-                                <button id={"submit-button"} type="submit"
-                                        className={allFieldsFilled() ? "active" : ""}
-                                        disabled={!allFieldsFilled()}>
-                                    Register Now
-                                </button>
-                            </div>
                         </div>
+                        <div className="input-pair">
+                            {getInput("Password", password, setPassword, "password", 8)}
+                            {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password", 8)}
+                        </div>
+                    </form>
+                    <div className={"submit-container"}>
+                        <button id={"submit-button"} type="submit"
+                                className={allFieldsFilled() ? "active" : ""}
+                                disabled={!allFieldsFilled()}>
+                            Register Now
+                        </button>
                         <div className={"have-an-account"}>
                             <label>Already have an account?</label>
-                            <button className={"have-an-account-button"} onClick={() => navigate('/')}> Login Now!</button>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/')}> Login Now!
+                            </button>
                         </div>
-
-                        <label> {showErrorCode()}</label>
-                    </form>
+                    </div>
                 </div>
                 <div className={"left-side"}>
                     <div className={"image-container"}>
-                        <img style={{width: "25vw", height: "40vh"}} src={"src/assets/image11.png"}
+                        <img className={"form-image"} style={{width: "500px", height: "500px"}}
+                             src={"src/assets/image11.png"}
                              alt={"register-page-image"}/>
-
                     </div>
 
                 </div>
