@@ -11,6 +11,8 @@ const CodeInputComponent = () => {
     const [code, setCode] = useState("");
     const navigate = useNavigate();
 
+
+
     const handleSubmit = () => {
        if(type==="register"){
 
@@ -33,11 +35,17 @@ const CodeInputComponent = () => {
                        if (!response.data.success){
                            console.log("no" + userName)
                        }else{
-                           console.log(response.data)
-                           const cookies = new Cookies(null, { path: '/login' });
+                           const cookies = new Cookies();
+                           console.log(response.data.token);
+
+                           cookies.set('token', response.data.token, { path: '/' });
                            const token = cookies.get("token");
+
                            if (token) {
+                               console.log(token);
                                navigate("/dashboard");
+                           } else {
+                               console.log("Token not found");
                            }
                        }
                    }

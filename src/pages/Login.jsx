@@ -45,8 +45,6 @@ function Login() {
                     setErrorCode(response.data.errorCode)
                 }else{
                     console.log(response.data);
-                    const cookies = new Cookies(null, { path: '/login' });
-                    cookies.set('token', response.data.token);
                     navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"login"} });
                 }
 
