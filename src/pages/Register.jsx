@@ -1,8 +1,7 @@
-import { useState } from "react";
+import {useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import './Form.css';
 import axios from "axios";
-import {teal} from "@mui/material/colors";
 
 function Register() {
     const [name, setName] = useState("");
@@ -10,20 +9,23 @@ function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [revealPassword, setRevealPassword] = useState(false);
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [errorCode, setErrorCode]= useState(-1);
-    const [phoneNumber,setPhoneNumber] = useState("")
+    const formRef = useRef(null);
     const navigate = useNavigate();
 
     const SERVER_URL = "http://localhost:8080"
     const INVALID_REPEAT_PASSWORD = 102;
+    const FORM_INVALID = 101;
     const USERNAME_NOT_AVAILABLE = 103
 
     function register(){
         console.log("rrrrr")
 
-        axios.get("http://localhost:8080/register?userName="+username+"&password="+password+"&name="+name+"&lastName="+lastName+"&email="+email+"&role="+jobTitle+"&phoneNumber="+phoneNumber)
+        axios.get("http://localhost:8080/register?userName="+username+"&password="+password+"&name="+name+"&lastName="+lastName+"&email="+email+"&role="+jobTitle+"&phoneNumber="+phone)
             .then(response => {
                 if (response.data.success){
                     if (!response.data.registeredSuccessfully){
@@ -46,7 +48,18 @@ function Register() {
             jobTitle.trim()
         );
     };
-
+    function handleRevealPassword(){
+        setRevealPassword(!revealPassword)
+        if(document.querySelector('input[title="Password"]')!=null){
+            if (revealPassword){
+                document.querySelector('input[title="Password"]').setAttribute('type', 'text');
+            } else {
+                document.querySelector('input[title="Password"]').setAttribute('type', 'password');
+            }
+        }
+        console.log(document.querySelector('input[title="Password"]'));
+        console.log(revealPassword)
+    }
     function getInput(title, value, setValue, type, minLengthRequirement) {
         return (
             <div className={"input-container"} key={title}>
@@ -59,6 +72,7 @@ function Register() {
                        placeholder={title}
                        minLength={minLengthRequirement}
                        size={1}
+                       pattern={(type==="tel")&&"[0-9]{3}-[0-9]{3}[0-9]{4}"}
                 />
             </div>
         );
@@ -66,11 +80,17 @@ function Register() {
 
     function handleRegister(event) {
         event.preventDefault(); // מונע רענון של הדף
-        if (password !== passwordConfirm) {
-            setErrorCode(INVALID_REPEAT_PASSWORD);
+        const isFormValid = formRef.current.checkValidity();
+        if(isFormValid){
+            if (password !== passwordConfirm) {
+                setErrorCode(INVALID_REPEAT_PASSWORD);
+            } else {
+                register();
+            }
         } else {
-            register();
+            setErrorCode(FORM_INVALID);
         }
+
     }
 
     function showErrorCode(){
@@ -96,15 +116,18 @@ function Register() {
                     </div>
 
                     <form className={"form register"} onSubmit={handleRegister}>
-                        <label> {showErrorCode()}</label>
+                        <label onClick={handleRevealPassword}> {showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
                             {getInput("Name", name, setName, "text", 0)}
                             {getInput("Last Name", lastName, setLastName, "text", 0)}
                         </div>
-                        {getInput("Email", email, setEmail, "email", 0)}
+                        <div className={"input-pair"}>
+                            {getInput("Email", email, setEmail, "email", 0)}
+                            {getInput("Phone", phone, setPhone, "tel", 0)}
+                        </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername)}
+                            {getInput("Username", username, setUsername, "text", 5)}
                             <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
                                 <select required className={"form-input"} value={jobTitle}
@@ -120,12 +143,9 @@ function Register() {
                             {getInput("Password", password, setPassword, "password", 8)}
                             {getInput("Password Confirm", passwordConfirm, setPasswordConfirm, "password", 8)}
                         </div>
-                        <div>
-                            {getInput("Phone-number", phoneNumber, setPhoneNumber, "number", 0)}
-                        </div>
                     </form>
                     <div className={"submit-container"}>
-                        <button onClick={()=>register()} id={"submit-button"} type="submit"
+                        <button id={"submit-button"} type="submit"
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
                             Register Now

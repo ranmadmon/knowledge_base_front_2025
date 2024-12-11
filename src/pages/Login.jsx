@@ -8,15 +8,15 @@ import Cookies from 'universal-cookie';
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [revealPassword, setRevealPassword] = useState(false);
     const [errorCode, setErrorCode]= useState(-1);
-
     const navigate = useNavigate();
     const SERVER_URL = "http://localhost:8080"
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
 
     useEffect(() => {
-        const cookies = new Cookies(null, { path: '/' });
+        const cookies = new Cookies(null, { path: '/login' });
         const token = cookies.get("token");
         if (token) {
             navigate("/dashboard");
@@ -29,8 +29,8 @@ function Login() {
         switch (errorCode){
 
             case -1 : errorMessage = "Please fill in all fields"; break;
-            case  USER_NOT_EXIST :errorMessage = "Not exist, SIGN-UP 😁";break;
-            case ERROR_PASSWORD : errorMessage = "Error password";break;
+            case  USER_NOT_EXIST :errorMessage = "Username doesn't exist, SIGN-UP 😁";break;
+            case ERROR_PASSWORD : errorMessage = "Wrong Password";break;
         }
         return errorMessage;
     }
@@ -58,6 +58,18 @@ function Login() {
             password.trim()
         );
     };
+    function handleRevealPassword(){
+        setRevealPassword(!revealPassword)
+        if(document.querySelector('input[title="Password"]')!=null){
+            if (revealPassword){
+                document.querySelector('input[title="Password"]').setAttribute('type', 'text');
+            } else {
+                document.querySelector('input[title="Password"]').setAttribute('type', 'password');
+            }
+        }
+        console.log(document.querySelector('input[title="Password"]'));
+        console.log(revealPassword)
+    }
     function getInput(title, value, setValue, type, requirement) {
         return (
             <div className={"input-container"} key={title}>
@@ -88,9 +100,10 @@ function Login() {
                         <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                     </div>
                     <div className={"form"} id="login">
-                            <label> {showErrorCode()}</label>
-                            {getInput("Username", username, setUsername, "text", 5)}
-                            {getInput("Password", password, setPassword, "password", 8)}
+                        {getInput("Username", username, setUsername, "text", 5)}
+                        {getInput("Password", password, setPassword, "password", 8)}
+                        <label onClick={handleRevealPassword}> {showErrorCode()}</label>
+
                     </div>
                     <div className={"submit-container"}>
                         <button id={"submit-button"} type="submit" onClick={login}

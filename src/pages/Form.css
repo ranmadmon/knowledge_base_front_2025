@@ -122,11 +122,13 @@
     border-radius: 5px;
     font-size: 1rem;
     transition: outline-color 0.5s ease;
+    text-indent: 0.2rem;
 }
 
 .form-input[type="email"]{
+    text-indent: 2rem;
     background-image: url("src/assets/form/mail.png");
-    background-position: 98%;
+    background-position: 0.2rem center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
     /*padding-left: 30px;*/
@@ -135,12 +137,21 @@
     background-image: url("src/assets/form/mail_check.png");
 }
 .form-input[type="password"]{
+    text-indent: 2rem;
     background-image: url("src/assets/form/password_eye.png");
-    background-position: 98%;
+    background-position: 0.2rem center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
-    /*padding-left: 30px;*/
 }
+
+.form-input[type="tel"]{
+    text-indent: 2rem;
+    background-image: url("src/assets/form/contact_phone.png");
+    background-position: 0.2rem center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+}
+
 .form-input:not(:focus){
     outline: 3px solid rgba(128, 128, 128, 0.41);
 }
@@ -188,8 +199,8 @@
     cursor: pointer;
     color: white;
     border: 1px solid white;
-    background: linear-gradient(var(--gradient-angle), var(--color-1), var(--color-2), var(--color-3));
-    transition: --color-1 1s, --color-2 1s, --color-3 1s;
+    background: linear-gradient(var(--gradient-angle), var(--color-1-bright), var(--color-2-bright));
+    transition: --color-1-bright 1s, --color-2-bright 1s, scale 0.3s ease;
 }
 
 #submit-button:disabled {
@@ -198,9 +209,9 @@
 }
 
 #submit-button.active:hover{
-    --color-1: var(--color-1-bright);
-    --color-2: var(--color-2-bright);
-    --color-3: var(--color-3-bright);
+    --color-1-bright: var(--color-1-brighter);
+    --color-2-bright: var(--color-2-brighter);
+    scale: 1.1;
 }
 .forgot-password-button{
     width: 100%;
