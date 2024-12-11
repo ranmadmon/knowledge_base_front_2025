@@ -1,0 +1,114 @@
+.add-new-form {
+    backdrop-filter: blur(10px);
+    background: rgba(25, 3, 50, 0);
+    color: var(--background-color);
+    border: 3px solid rebeccapurple;
+    margin-inline-start: 1.3rem;
+    margin-inline-end: 1.3rem;
+    transform: translateX(0%);
+
+}
+
+.add-new-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    gap: 1.1rem;
+
+    min-width: 400px;
+    min-height: 600px;
+    max-width: 400px;
+    max-height: 600px;
+    border-radius: 15px;
+    font-size: 25px;
+    overflow: hidden;
+    place-self: center;
+    place-content: center;
+
+}
+@property --angle{
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+.add-new-form::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -1em;
+    border: solid 1.25em;
+    border-image: conic-gradient(from var(--angle), #891eff, rgb(148, 55, 255), rgb(0, 165, 255), #0bcbff) 1;
+    filter: blur(.75em);
+    animation: angle 20s infinite;
+}
+@keyframes angle {
+    to {--angle: 1turn}
+}
+.new-form-input{
+    width: 85%;
+    height: 4%;
+    border-radius: 5px;
+    border: 1px solid #E8EAED;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+}
+.new-form-input-desc{
+    min-width: 85%;
+    max-width: 85%;
+    height: 10%;
+    min-height: 10%;
+    max-height: 30%;
+    border-radius: 5px;
+    border: 1px solid #E8EAED;
+    font-size: 1.2rem;
+}
+.new-form-input-select{
+    width: 85%;
+    height: 5%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    appearance: none;
+    border: 1px solid #E8EAED;
+    cursor: pointer;
+    background: url('@mui/icons-material/KeyboardArrowDown') no-repeat right white;
+
+}
+.new-form-button {
+    width: 85%;
+    height: 7%;
+    border-radius: 5px;
+    border: 3px solid rebeccapurple;
+    background-color: transparent;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 300ms ease-in, scale 300ms ease;
+}
+.new-course-button:hover{
+    box-shadow: 0 0 10px rebeccapurple;
+    scale: 1.02;
+}
+.plus .vertical-line, .plus .horizontal-line{
+    transition: all 0.3s ease;
+}
+
+.plus[aria-expanded="true"] .vertical-line{
+    rotate: 0.125turn;
+    translate: 50% -25px;
+
+}
+.plus[aria-expanded="true"] .horizontal-line{
+    rotate: 0.125turn;
+    translate: 50% -25px;
+
+}
+.new-course-input-lecturer select{
+
+}
+textarea{
+    min-height: 10%;
+}

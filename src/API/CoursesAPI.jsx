@@ -1,17 +1,25 @@
 import axios from "axios"
 import * as Constants from "../Utils/Constants.jsx";
+
 export async function getCourses() {
-    try {
-        const url = `${Constants.URL} getCourses`;
-        const response = await axios.get(url);
-        if(response.data.success){
-            return response.data.courses;
-        } else {
-            console.error("Error fetching courses:", response.data.message);
-            return [];
+        try {
+            const response = await axios.get(Constants.URL+"/get-all-courses", {})
+            return await response?.data;
+
+        } catch (error) {
+            console.error('Error:', error);
         }
+
+}
+export async function getCourse(id) {
+    const params = {id: id}
+
+    try {
+        const response = await axios.get("http://localhost:8080//get-course", {params})
+        return await response?.data;
+
     } catch (error) {
-        console.error("Error fetching courses:", error);
-        return [];
+        console.error('Error:', error);
     }
+
 }

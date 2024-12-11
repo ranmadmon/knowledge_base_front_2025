@@ -1,21 +1,25 @@
 :root {
+    --background-color: rebeccapurple;
     --gradient-angle: 129deg;
-    --color-1: rgb(66, 11, 169);
-    --color-2: rgb(81, 1, 113);
-    --color-3: rgb(70, 1, 98);
-    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 10%, var(--color-2) 50%, var(--color-3) 90%);
-    --color-1-bright: rgb(88, 0, 255);
-    --color-2-bright: rgb(183, 0, 255);
-    --color-3-bright: rgb(210, 0, 255);
+    --color-1: rebeccapurple;
+    --color-2: #591999;
+    --color-3: rgb(99, 14, 173);
+    --gradient-color: linear-gradient(var(--gradient-angle), var(--color-1) 0%, var(--color-2) 50%, var(--color-3) 100%);
+    --color-1-bright: rgba(115, 0, 255, 0.71);
+    --color-2-bright: rgba(160, 0, 255, 0.56);
+    --color-1-brighter: rgb(115, 0, 255);
+    --color-2-brighter: rgb(164, 0, 255);
+    --color-3-brighter: rgb(247, 0, 255);
     --card-width: 60vw;
     --card-height: 70vh;
 }
-@property --color-1{
+
+@property --color-1-bright{
     syntax: "<color>";
     initial-value: transparent;
     inherits: true;
 }
-@property --color-2{
+@property --color-2-bright{
     syntax: "<color>";
     initial-value: transparent;
     inherits: true;
@@ -30,45 +34,10 @@ body {
     display: flex;
     margin: 0;
 }
-.upper-container {
-    width: 100vw;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    background: var(--gradient-color);
-    color: white;
-    box-shadow: -1px 3px 13px 0 rgba(83,45,117,1);
-    border-radius: 5px;
-}
+
 .Logo{
     margin-top: 10%;
     width: 50px;
     height: 50px;
+    cursor: pointer;
 }
-.search{
-    height: 80%;
-    width: 100%;
-    /*border: 8px solid white;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 40px;
-
-}
-
-.
-@keyframes border-bottom-animation {
-    from {
-        border-bottom-color: transparent;
-    }
-    to{
-        border-bottom-color: white;
-    }
-}
-
-
-
