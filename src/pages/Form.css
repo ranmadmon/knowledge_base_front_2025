@@ -136,9 +136,16 @@
 .form-input[type="email"]:not(:placeholder-shown):valid{
     background-image: url("src/assets/form/mail_check.png");
 }
-.form-input[type="password"]{
+.form-input[name="Password"]{
     text-indent: 2rem;
-    background-image: url("src/assets/form/password_eye.png");
+    /*background-image: url("../assets/form/show_password.png");*/
+    background-position: 0.2rem center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+}
+.form-input[name="Confirm Password"]{
+    text-indent: 2rem;
+    /*background-image: url("../assets/form/show_password.png");*/
     background-position: 0.2rem center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
@@ -153,16 +160,19 @@
 }
 
 .form-input:not(:focus){
-    outline: 3px solid rgba(128, 128, 128, 0.41);
+    outline: 3px solid rgba(188, 188, 188, 0.41);
+    --webkit-outline: transparent;
 }
-.form-input:not(:placeholder-shown):valid{
-    outline: 3px solid rgb(127, 255, 101);
-}
-.form-input:not(:placeholder-shown):invalid{
+
+.form-input[required]:not(:placeholder-shown):invalid{
     outline: 3px solid rgb(255, 108, 108);
 }
-.form-input:not(:placeholder-shown):invalid:focus{
+.form-input[required]:not(:placeholder-shown):invalid:focus{
     outline: 3px solid rgb(255, 222, 118);
+}
+.form-input[required]:not(:placeholder-shown):valid{
+    outline: 3px solid rgb(127, 255, 101);
+    --webkit-outline: transparent;
 }
 .input-pair{
     width: 99%;
