@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 const CodeInputComponent = () => {
     const location = useLocation();
@@ -33,7 +34,11 @@ const CodeInputComponent = () => {
                            console.log("no" + userName)
                        }else{
                            console.log(response.data)
-                           navigate("/dashboard");
+                           const cookies = new Cookies(null, { path: '/login' });
+                           const token = cookies.get("token");
+                           if (token) {
+                               navigate("/dashboard");
+                           }
                        }
                    }
                })
