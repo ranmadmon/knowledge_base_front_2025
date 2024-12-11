@@ -77,8 +77,9 @@ function Register() {
                            value={value}
                            onChange={(e) => setValue(e.target.value)}
                            placeholder={title}
-                           minLength={minLengthRequirement}
+                           pattern=".{0}|.{8,}"
                            size={1}
+
                     />
                 </div>
 
