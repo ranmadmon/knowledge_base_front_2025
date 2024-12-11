@@ -19,8 +19,8 @@ export default function Course() {
     const [choosenType, setChoosenType] = useState("");
     const [tags, setTags] = useState([]);
     const [choosenTag, setChoosenTag] = useState("");
-    const [username,setUsername] = useState("shaig123");
-    const [token,setToken] = useState("E10ADC3949BA59ABBE56E057F20F883E");
+    const [username,setUsername] = useState("shaig");
+    const [token,setToken] = useState("FE8C078136ECF7132909C98F53B8131B");
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
 
 
@@ -57,6 +57,7 @@ export default function Course() {
                 }
             )
     }
+
 
     function getMaterials(){
         axios.get(SERVER_URL+"get-materials-by-course-id?courseId="+courseID)
@@ -96,7 +97,7 @@ export default function Course() {
                     setChoosenContent(event.target.value)
                 }}/>
                 <select className={"new-form-input-select"} value={choosenType} onChange={(event) => {
-                    setChoosenType(event.target.value)
+                    setChoosenType(event.target.value);console.log(choosenType)
                 }}>
                     <option value="" disabled>Choose type</option>
                     {types.map((type, index) => {
@@ -106,9 +107,9 @@ export default function Course() {
                     })}
                 </select>
                 <select className={"new-form-input-select"} value={choosenTag} onChange={(event) => {
-                    setChoosenTag(event.target.value)
+                    setChoosenTag(event.target.value);console.log(event.target.value)
                 }}>
-                    <option value={""}>Choose tag</option>
+                    <option value={""} disabled>Choose tag</option>
                     {
                         tags.map((tag, index) => {
                             return (
