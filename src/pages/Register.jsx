@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './Form.css';
 import axios from "axios";
 import {teal} from "@mui/material/colors";
+import CodeInputComponent from "./CodeInputComponent.jsx";
 
 function Register() {
     const [name, setName] = useState("");
@@ -12,6 +13,7 @@ function Register() {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showOtpComponent,setShowOtpComponent] = useState(false);
     const [email, setEmail] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [errorCode, setErrorCode]= useState(-1);
@@ -31,12 +33,26 @@ function Register() {
                         setErrorCode(USERNAME_NOT_AVAILABLE)
                     }else{
                         console.log(response.data)
-                        navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"register"} });
+                        setShowOtpComponent(true);
+                        // navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"register"} });
                     }
                 }
             })
     }
-
+    const onOtpSubmit = (otp) => {
+        axios.get("http://localhost:8080/check-otp-to-register?username="+username+"&otp="+otp)
+            .then(response => {
+                if (response.data.success){
+                    if (!response.data.registeredSuccessfully){
+                        console.log("no" + username)
+                    }else{
+                        setShowOtpComponent(false);
+                        console.log(response.data)
+                        navigate("/");
+                    }
+                }
+            })
+    }
     const allFieldsFilled = () => {
         return (
             name.trim() &&
@@ -48,28 +64,23 @@ function Register() {
             jobTitle.trim()
         );
     };
-    function getInput(title, value, setValue, type, minLengthRequirement) {
+    function pattern(type){
+        switch(type){
+            case "password": return (".{0}|.{8,}");
+            case "text": return (".{0}|.{3,}");
+            case "email": return (".{0}|.{0,}");
+            case "username": return (".{0}|.{5,}");
+            case "tel": return (".{0}|.{10,}");
+        }
+    }
+    function getInput(title, value, setValue, type) {
         return (
             <div className={"input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
                 <div style={{ display: "flex", width:"100%" }}>
-                    {type === "password" &&
-                        <button className={"show-password"} style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                            width: "40px",
-                            height: "40px",
-                            position: "absolute",
-                            cursor:"pointer",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "25px 25px",
-                            backgroundImage:'url("src/assets/form/show_password.png")',
-                            backgroundPosition: "0.2rem 0.35rem",
-                        }}
-                                onClick={(event) => {
-                                    title==="Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
-                                }}
-                        ></button>}
+                    {type === "password" && <button className={"show-password"} style={{}}
+                                                    onClick={(event) => {title==="Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)}}
+                    ></button>}
                     <input required
                            className={"form-input"}
                            type={type}
@@ -77,7 +88,7 @@ function Register() {
                            value={value}
                            onChange={(e) => setValue(e.target.value)}
                            placeholder={title}
-                           pattern=".{0}|.{8,}"
+                           pattern={pattern(type)}
                            size={1}
 
                     />
@@ -119,7 +130,6 @@ function Register() {
             event.currentTarget.style.backgroundImage = 'url("src/assets/form/show_password.png")';
             input.setAttribute("type", "password");
         }
-
     }
     return (
         <div className="form-page">
@@ -135,15 +145,15 @@ function Register() {
                         <label> {showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName, "text", 0)}
-                            {getInput("Last Name", lastName, setLastName, "text", 0)}
+                            {getInput("Name", name, setName, "text")}
+                            {getInput("Last Name", lastName, setLastName, "text")}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", 0)}
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel", 0)}
+                            {getInput("Email", email, setEmail, "email")}
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel")}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername)}
+                            {getInput("Username", username, setUsername,"username")}
                             <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
                                 <select required className={"form-input"} value={jobTitle}
@@ -156,8 +166,8 @@ function Register() {
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", 8)}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", 8)}
+                            {getInput("Password", password, setPassword, "password")}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password")}
                         </div>
 
                     </div>
@@ -183,6 +193,7 @@ function Register() {
 
                 </div>
             </div>
+            {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
         </div>
 
     );

@@ -30,7 +30,7 @@ function App() {
                             <Route path="/matirals" element={<UploadMaterials/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/course/:id" element={<Course />} />
-                            <Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>
+                            {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
 
                         </>}/>
             </Routes>

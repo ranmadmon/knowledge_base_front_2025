@@ -124,7 +124,11 @@
     transition: outline-color 0.5s ease;
     text-indent: 0.2rem;
 }
-
+.form-input::-webkit-outer-spin-button,
+.form-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 .form-input[type="email"]{
     text-indent: 2rem;
     background-image: url("src/assets/form/mail.png");
@@ -174,6 +178,18 @@
     outline: 3px solid rgb(127, 255, 101);
     --webkit-outline: transparent;
 }
+.show-password{
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-image: url("src/assets/form/show_password.png");
+    background-position: 0.2rem 0.35rem;
+}
 .input-pair{
     width: 99%;
     display:flex;
@@ -204,6 +220,10 @@
     align-items: center;
     text-align: center;
 }
+#submit-button:disabled {
+    background: #ccc;
+    cursor: default;
+}
 
 #submit-button.active {
     cursor: pointer;
@@ -212,12 +232,6 @@
     background: linear-gradient(var(--gradient-angle), var(--color-1-bright), var(--color-2-bright));
     transition: --color-1-bright 1s, --color-2-bright 1s, scale 0.3s ease;
 }
-
-#submit-button:disabled {
-    background: #ccc;
-    cursor: default;
-}
-
 #submit-button.active:hover{
     --color-1-bright: var(--color-1-brighter);
     --color-2-bright: var(--color-2-brighter);
@@ -248,4 +262,53 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
+}
+
+.code-container{
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4rem;
+    position: absolute;
+    background-color: rgba(136, 69, 196, 0.67);
+    box-shadow: 0 0 10px pink;
+    border: 1px solid rgba(255, 192, 203, 0.56);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    scale: 1;
+    transition: scale 0.4s ease;
+}
+.otp-input{
+    width: 100%;
+    height: 2rem;
+    text-align: center;
+    gap: 1rem;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    /*border-bottom: 3px solid rgba(255, 255, 255, 0.8);*/
+    user-select: none;
+}
+.otp-input:focus{
+    outline:none;
+}
+.otp-input:not(:focus){
+    border-bottom: 3px solid rgba(255, 255, 255, 0.41);
+    --webkit-outline: transparent;
+}
+.otp-input[required]:not(:placeholder-shown):invalid{
+    border-bottom: 3px solid rgb(255, 108, 108);
+}
+.otp-input[required]:not(:placeholder-shown):invalid:focus{
+    border-bottom: 3px solid rgb(255, 222, 118);
+}
+.otp-input[required]:not(:placeholder-shown):valid{
+    border-bottom: 3px solid rgb(127, 255, 101);
+    --webkit-border-bottom: transparent;
 }
