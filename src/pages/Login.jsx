@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
 import Cookies from 'universal-cookie';
+import CodeInputComponent from "./CodeInputComponent.jsx";
 
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [revealPassword, setRevealPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showOtpComponent,setShowOtpComponent] = useState(false);
     const [errorCode, setErrorCode]= useState(-1);
     const navigate = useNavigate();
     const SERVER_URL = "http://localhost:8080"
@@ -22,7 +24,6 @@ function Login() {
             navigate("/dashboard");
         }
     }, []);
-
     function showErrorCode(){
 
         let errorMessage = "";
@@ -34,9 +35,7 @@ function Login() {
         }
         return errorMessage;
     }
-
     function login(){
-
         axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
             .then(response => {
 
@@ -45,9 +44,35 @@ function Login() {
                     setErrorCode(response.data.errorCode)
                 }else{
                     console.log(response.data);
-                    navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"login"} });
+                    setShowOtpComponent(true);
+                    // navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"login"} });
                 }
+            })
+    }
+    const onOtpSubmit = (otp) => {
+        console.log(otp);
+        axios.get("http://localhost:8080/check-otp?username="+username+"&password="+password+"&otp="+otp)
+            .then(response => {
+                if (response.data != null){
+                    if (!response.data.success){
+                        console.log("no" + username)
+                    }else{
+                        const cookies = new Cookies();
+                        console.log(response.data.token);
 
+                        cookies.set('token', response.data.token, { path: '/' });
+                        const token = cookies.get("token");
+
+                        console.log("token: "+token);
+                        console.log("otp: "+otp)
+                        if (token) {
+                            console.log(token);
+                            navigate("/dashboard");
+                        } else {
+                            console.log("Token not found");
+                        }
+                    }
+                }
             })
     }
     const allFieldsFilled = () => {
@@ -56,79 +81,91 @@ function Login() {
             password.trim()
         );
     };
-    function handleRevealPassword(){
-        setRevealPassword(!revealPassword)
-        if(document.querySelector('input[title="Password"]')!=null){
-            if (revealPassword){
-                document.querySelector('input[title="Password"]').setAttribute('type', 'text');
-            } else {
-                document.querySelector('input[title="Password"]').setAttribute('type', 'password');
-            }
+    function handleShowPassword(event){
+        setShowPassword(!showPassword);
+        let input = event.target.closest("div").lastChild;
+        console.log(input)
+        if (showPassword) {
+            event.currentTarget.style.backgroundImage = 'url("src/assets/form/hide_password.png")';
+            input.setAttribute("type", "text");
+        } else{
+            event.currentTarget.style.backgroundImage = 'url("src/assets/form/show_password.png")';
+            input.setAttribute("type", "password");
         }
-        console.log(document.querySelector('input[title="Password"]'));
-        console.log(revealPassword)
     }
-    function getInput(title, value, setValue, type, requirement) {
+    function pattern(type){
+        switch(type){
+            case "password": return (".{0}|.{8,}");
+            case "text": return (".{0}|.{5,}");
+        }
+    }
+    function getInput(title, value, setValue, type) {
         return (
             <div className={"input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
-                <input required className={"form-input"}
-                       type={type}
-                       value={value}
-                       onChange={(e) => setValue(e.target.value)}
-                       placeholder={title}
-                       minLength={requirement}
-                />
+                <div style={{ display: "flex", width:"100%" }}>
+                    {type === "password" && <button className={"show-password"} style={{}}
+                                                    onClick={(event) => {title==="Password" && handleShowPassword(event)}}
+                    ></button>}
+                    <input required
+                           className={"form-input"}
+                           type={type}
+                           name={title}
+                           value={value}
+                           onChange={(e) => setValue(e.target.value)}
+                           placeholder={title}
+                           pattern={pattern(type)}
+                           size={1}
+
+                    />
+                </div>
                 {type === "password" && <button className={"forgot-password-button"}>Forgot Password?</button>}
             </div>
         );
     }
 
-    function handleLogin() {
-        //some login logic here
-    }
+                return (
+                <div className="form-page">
+                    <div className="form-container">
+                        <div className={"right-side"}>
+                            <div className={"form-headers"}>
+                                <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
+                                <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Login</text>
+                                <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
+                            </div>
+                            <div className={"form"} id="login">
+                                {getInput("Username", username, setUsername, "text", 5)}
+                                {getInput("Password", password, setPassword, "password", 8)}
+                                <label> {showErrorCode()}</label>
 
-    return (
-        <div className="form-page">
-            <div className="form-container">
-                <div className={"right-side"}>
-                    <div className={"form-headers"}>
-                        <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
-                        <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Login</text>
-                        <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
-                    </div>
-                    <div className={"form"} id="login">
-                        {getInput("Username", username, setUsername, "text", 5)}
-                        {getInput("Password", password, setPassword, "password", 8)}
-                        <label onClick={handleRevealPassword}> {showErrorCode()}</label>
+                            </div>
+                            <div className={"submit-container"}>
+                                <button id={"submit-button"} type="submit" onClick={()=>login()}
+                                        className={allFieldsFilled() ? "active" : ""}
+                                        disabled={!allFieldsFilled()}>
+                                    Login
+                                </button>
+                                <div className={"have-an-account"}>
+                                    <label>Dont have an account?</label>
+                                    <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create
+                                        Now!
+                                    </button>
+                                </div>
+                            </div>
 
-                    </div>
-                    <div className={"submit-container"}>
-                        <button id={"submit-button"} type="submit" onClick={login}
-                                className={allFieldsFilled() ? "active" : ""}
-                                disabled={!allFieldsFilled()}>
-                            Login
-                        </button>
-                        <div className={"have-an-account"}>
-                            <label>Dont have an account?</label>
-                            <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create
-                                Now!
-                            </button>
+                        </div>
+                        <div className={"left-side"}>
+                            <div className={"image-container"}>
+                                <img className={"form-image"} style={{width: "500px", height: "500px"}}
+                                     src={"src/assets/image10.png"}
+                                     alt={"login-page-image"}/>
+                            </div>
                         </div>
                     </div>
+                    {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
 
                 </div>
-                <div className={"left-side"}>
-                    <div className={"image-container"}>
-                        <img className={"form-image"} style={{width: "500px", height: "500px"}}
-                             src={"src/assets/image10.png"}
-                             alt={"login-page-image"}/>
-                    </div>
-                </div>
-            </div>
+                );
+                }
 
-        </div>
-    );
-}
-
-export default Login;
+                export default Login;
