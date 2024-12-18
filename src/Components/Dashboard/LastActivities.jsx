@@ -1,44 +1,38 @@
 import React, {useEffect, useState} from "react";
-import ListCard from "./ListCard.jsx";
 import {getMaterialsHistory} from "../../API/MaterialsAPI.jsx";
 import Table from "./Table.jsx";
 import formatDatetime from "../../Utils/formatDatetime.js";
+import {Card, Typography} from "@mui/material";
 
 function LastActivities() {
-    const [LastActivitiesList, setLastActivitiesList] = useState([]);
+    const [lastActivitiesList, setLastActivitiesList] = useState([]);
 
     const [columnDefs, setColumnDefs] = useState([
-        {field: "title",headerName:"name", filter: true,},
-        {field: "description",headerName:"lecturer", filter: true},
-        {field: "content",headerName:"course", filter: true},
-        {field: "uploadDate",headerName:"date", filter: true, cellDataType: 'dateString'}
+        {field: "title", headerName: "name", filter: true,},
+        {field: "description", headerName: "lecturer", filter: true},
+        {field: "content", headerName: "course", filter: true},
+        {field: "uploadDate", headerName: "date", filter: true, cellDataType: 'dateString'}
 
     ]);
 
     useEffect(() => {
 
         const fetchData = async () => {
-            setLastActivitiesList(await getMaterialsHistory());
+            await getMaterialsHistory().then(response => response.map((item) => ({
+                ...item,
+                uploadDate: formatDatetime(item.uploadDate)
+            }))).then(list => setLastActivitiesList(list));
         }
         fetchData()
-
     }, []);
 
-    function renderCourseList(lastActivitiesList) {
-        const formattedList = lastActivitiesList.map((item) => ({
-            ...item,
-            uploadDate:  formatDatetime(item.uploadDate)
-        }));
-        return (
-            <div>
-                <Table  column={ columnDefs} row={formattedList}/>
-            </div>
-        )
-    }
 
     return (
         <>
-            <ListCard render={renderCourseList} perPage={6} list={LastActivitiesList} header={"Last Activities"} />
+            <Card sx={{ width: "100%", height: "100%", marginTop:2 ,minHeight: 400, minWidth:"60%"}}  elevation={6}  >
+                <Typography margin={2} variant={"h4"}>Last Activities</Typography>
+                <Table column={columnDefs} row={lastActivitiesList}/>
+            </Card>
         </>
     )
 }

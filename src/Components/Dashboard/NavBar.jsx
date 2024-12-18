@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import "./NavBar.css"
 import React, {useEffect} from "react";
 import ClickOutside from "../../pages/ClickOutside.jsx";
+import {DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
 
 
 
@@ -44,7 +45,7 @@ function NavBar() {
                             <li>
                                 <button aria-expanded={homeClicked ? "true" : "false"}
                                         className={"navbar-button"} onClick={() => {
-                                    navigate("/dashboard")
+                                    navigate(DASHBOARD_URL)
                                     handleDataVisible()
                                     setHomeClicked(true);
                                     setCourseClicked(false);
@@ -72,7 +73,7 @@ function NavBar() {
                                     () => {
                                         const cookies = new Cookies(null, {path: '/'});
                                         cookies.remove("token");
-                                        navigate("/");
+                                        navigate(LOGIN_URL);
                                         handleDataVisible()
                                     }
                                 }>Logout

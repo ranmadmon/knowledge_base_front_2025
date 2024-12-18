@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -9,36 +9,51 @@ import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
 import "./App.css"
 import Course from "./pages/Course.jsx";
-import CodeInputComponent from "./pages/CodeInputComponent.jsx";
+import Cookies from "universal-cookie";
+import {COURSE_URL, DASHBOARD_URL, LOGIN_URL, MATERIALS_URL, PROFILE_URL, REGISTER_URL} from "./Utils/Constants.jsx";
 
 function App() {
+    const cookies = new Cookies(null, {path: '/'});
+    const token = cookies.get("token");
+
     return (
         <Router>
             <Routes>
-                <Route path='/*' element={<ErrorPage/>}/>
-                <Route path="/" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}
-                       />
-                <Route
-                    element={
-                        <NavBar/>
-                    }
-                    children={
-                        <>
-                            <Route path={'/dashboard'} element={<Dashboard/>}/>
-                            <Route path="/Courses-list" element={<CoursesList/>}/>
-                            <Route path="/matirals" element={<UploadMaterials/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
-                            <Route path="/course/:id" element={<Course />} />
-                            {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
+                {token === undefined && (
+                    <>
+                        <Route path={LOGIN_URL} element={<Login/>}/>
+                        <Route path={REGISTER_URL} element={<Register/>}
+                        />
+                    </>
+                )
+                }
+                {token !== undefined && (
+                    <>
+                        <Route
+                            element={
+                                <NavBar/>
+                            }
+                            children={
+                                <>
+                                    <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
+                                    <Route path="/Courses-list" element={<CoursesList/>}/>
+                                    <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
+                                    <Route path={PROFILE_URL} element={<Profile/>}/>
+                                    <Route path={COURSE_URL+":id"} element={<Course/>}/>
+                                    {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
 
-                        </>}/>
+                                </>}/>
+                    </>
+                )
+                }
+                <Route path='/*' element={<ErrorPage/>}/>
+
+
             </Routes>
         </Router>
     )
         ;
 }
-
 
 
 export default App;

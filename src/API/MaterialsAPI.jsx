@@ -11,7 +11,6 @@ export async function getMaterialsHistory() {
     }
     try {
         const response = await axios.get(Constants.URL+"/get-material-history", {params})
-        console.log(response)
         return await response?.data;
 
     } catch (error) {
