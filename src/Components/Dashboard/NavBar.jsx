@@ -1,4 +1,4 @@
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet, replace, useLocation, useNavigate} from "react-router-dom";
 import Cookies from 'universal-cookie';
 import "./NavBar.css"
 import React, {useEffect} from "react";
@@ -19,6 +19,7 @@ function NavBar() {
     useEffect(() => {
         document.querySelector(".navbar ul").setAttribute("data-visible", dataVisible.toString());
     }, [dataVisible]);
+
 
 
     return (
@@ -70,10 +71,11 @@ function NavBar() {
                         <div className={"left-buttons"}>
                             <li>
                                 <button className={"navbar-button"} onClick={
-                                    () => {
+                                    async () => {
                                         const cookies = new Cookies(null, {path: '/'});
-                                        cookies.remove("token");
-                                        navigate(LOGIN_URL);
+                                        await cookies.remove("token")
+                                        navigate(LOGIN_URL)
+                                        window.location.reload()
                                         handleDataVisible()
                                     }
                                 }>Logout
