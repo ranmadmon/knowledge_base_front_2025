@@ -10,7 +10,15 @@ import NavBar from "./Components/Dashboard/NavBar.jsx";
 import "./App.css"
 import Course from "./pages/Course.jsx";
 import Cookies from "universal-cookie";
-import {COURSE_URL, DASHBOARD_URL, LOGIN_URL, MATERIALS_URL, PROFILE_URL, REGISTER_URL} from "./Utils/Constants.jsx";
+import {
+    COURSE_LIST_URL,
+    COURSE_URL,
+    DASHBOARD_URL,
+    LOGIN_URL,
+    MATERIALS_URL,
+    PROFILE_URL,
+    REGISTER_URL
+} from "./Utils/Constants.jsx";
 
 function App() {
     const cookies = new Cookies(null, {path: '/'});
@@ -36,7 +44,7 @@ function App() {
                             children={
                                 <>
                                     <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
-                                    <Route path="/Courses-list" element={<CoursesList/>}/>
+                                    <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
                                     <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
                                     <Route path={PROFILE_URL} element={<Profile/>}/>
                                     <Route path={COURSE_URL+":id"} element={<Course/>}/>
