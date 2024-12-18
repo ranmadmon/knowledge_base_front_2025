@@ -13,7 +13,7 @@ function Dashboard() {
         const cookies = new Cookies(null, { path: '/dashboard' });
         const token = cookies.get("token");
         if (!token) {
-            navigate("/dashboard");
+           navigate("/");
         }
     }, []);
 
