@@ -21,20 +21,25 @@ function Register() {
     const navigate = useNavigate();
 
     const SERVER_URL = "http://localhost:8080"
-    const INVALID_REPEAT_PASSWORD = 102;
-    const USERNAME_NOT_AVAILABLE = 103
+    const USERNAME_TAKEN = 1001;
+    const PHONE_TAKEN = 1002;
+    const EMAIL_TAKEN = 1003;
+    const INVALID_REPEAT_PASSWORD = 1004;
+
 
     function register(){
-        console.log("rrrrr")
         axios.get("http://localhost:8080/register?userName="+username+"&password="+password+"&name="+name+"&lastName="+lastName+"&email="+email+"&role="+jobTitle+"&phoneNumber="+phoneNumber)
-            .then(response => {
-                if (response.data.success){
-                    if (!response.data.registeredSuccessfully){
-                        setErrorCode(USERNAME_NOT_AVAILABLE)
-                    }else{
+            .then(response=>{
+                console.log(response.data)
+                if (response.data!=null){
+                    if (!response.data.success){
                         console.log(response.data)
+                        setEmailErrorCode(response.data.emailTaken)
+                        setUsernameErrorCode(response.data.usernameTaken)
+                        setPhoneErrorCode(response.data.phoneTaken)
+                    }else {
+                        console.log("ok")
                         setShowOtpComponent(true);
-                        // navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"register"} });
                     }
                 }
             })
@@ -44,7 +49,7 @@ function Register() {
             .then(response => {
                 if (response.data.success){
                     if (!response.data.registeredSuccessfully){
-                        console.log("no" + username)
+                        alert("הקוד לא תקין נסה שוב")
                     }else{
                         setShowOtpComponent(false);
                         console.log(response.data)
@@ -54,13 +59,23 @@ function Register() {
             })
     }
     const allFieldsFilled = () => {
+
         return (
-            name.trim() &&
-            lastName.trim() &&
-            username.trim() &&
-            password.trim() &&
-            passwordConfirm.trim() &&
-            email.trim() &&
+            name.length>2 &&
+            lastName.length>2 &&
+            username.length>4 &&
+            (
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password) &&
+                /[!@#$%^&*_=+-]/.test(password)
+            )&&
+            password.length>7&&
+            passwordConfirm===password &&
+            email.trim()&&
+            emailErrorCode===null&&
+            phoneErrorCode===null&&
+            usernameErrorCode===null&&
             jobTitle.trim()
         );
     };
@@ -86,7 +101,7 @@ function Register() {
                            type={type}
                            name={title}
                            value={value}
-                           onChange={(e) => setValue(e.target.value)}
+                           onChange={(e) => {setValue(e.target.value); setError(null)}}
                            placeholder={title}
                            pattern={pattern(type)}
                            size={1}
@@ -98,13 +113,16 @@ function Register() {
             </div>
         );
     }
+
     function showErrorCode() {
         let errorMessage = "";
         switch (errorCode){
 
             case -1 : errorMessage = "Please fill in all fields"; break;
-            case  USERNAME_NOT_AVAILABLE :errorMessage = "Username not available";break;
-            case INVALID_REPEAT_PASSWORD : errorMessage ="Invalid repeat password ";break;
+            case  USERNAME_TAKEN :errorMessage = "username not available";break;
+            case  PHONE_TAKEN :errorMessage = "phone-number not available";break;
+            case  EMAIL_TAKEN :errorMessage = "email is not available";break;
+            case  INVALID_REPEAT_PASSWORD : errorMessage ="Invalid repeat password ";break;
         }
         return errorMessage;
     }
@@ -149,11 +167,13 @@ function Register() {
                             {getInput("Last Name", lastName, setLastName, "text")}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email")}
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel")}
+                            {getInput("Email", email, setEmail, "email", emailErrorCode, "email is taken", setEmailErrorCode)}
+
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername,"username")}
+                            {getInput("Username", username, setUsername, "username", usernameErrorCode, "username is taken", setUsernameErrorCode)}
+
                             <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
                                 <select required className={"form-input"} value={jobTitle}
@@ -161,7 +181,6 @@ function Register() {
                                     <option value="" disabled>Select Job Title</option>
                                     <option value="Student">Student</option>
                                     <option value="Lecturer">Lecturer</option>
-                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                         </div>
@@ -172,7 +191,7 @@ function Register() {
 
                     </div>
                     <div className={"submit-container"}>
-                        <button onClick={()=>register()} id={"submit-button"}
+                        <button onClick={() => register()} id={"submit-button"}
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
                             Register Now

@@ -37,6 +37,7 @@ function Login() {
     }
     function login(){
         axios.get(SERVER_URL+"/login?username=" + username + "&password=" + password)
+
             .then(response => {
 
                 if (!response.data.success){
@@ -56,6 +57,7 @@ function Login() {
                 if (response.data != null){
                     if (!response.data.success){
                         console.log("no" + username)
+                        alert("הקוד לא תקין נסה שוב")
                     }else{
                         const cookies = new Cookies();
                         console.log(response.data.token);
@@ -77,8 +79,13 @@ function Login() {
     }
     const allFieldsFilled = () => {
         return (
-            username.trim() &&
-            password.trim()
+            username.length>2 &&
+            (
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password) &&
+                /[!@#$%^&*_=+-]/.test(password)
+            )
         );
     };
     function handleShowPassword(event){
