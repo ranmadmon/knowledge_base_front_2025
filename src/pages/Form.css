@@ -308,7 +308,27 @@
 .otp-input[required]:not(:placeholder-shown):invalid:focus{
     border-bottom: 3px solid rgb(255, 222, 118);
 }
-.otp-input[required]:not(:placeholder-shown):valid{
+.otp-input[required]:not(:placeholder-shown):valid {
     border-bottom: 3px solid rgb(127, 255, 101);
     --webkit-border-bottom: transparent;
+}
+
+.password-requirement-bubble{
+    width: 50px;
+    height: 50px;
+}
+.form-input[type="password"] + .password-tooltip{
+    width: 100%;
+    height: 50px;
+    background-color:blue;
+    opacity:1;
+    transition: background-color .3s ease;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-input[type="password"]:focus + .password-tooltip{
+        background-color: red;
 }

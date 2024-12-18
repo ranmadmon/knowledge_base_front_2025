@@ -18,7 +18,13 @@ function Register() {
     const [jobTitle, setJobTitle] = useState("");
     const [errorCode, setErrorCode]= useState(-1);
     const [phoneNumber,setPhoneNumber] = useState("")
+
     const navigate = useNavigate();
+
+    const [usernameErrorCode, setUsernameErrorCode] = useState(null);
+    const [phoneErrorCode, setPhoneErrorCode] = useState(null);
+    const [emailErrorCode, setEmailErrorCode] = useState(null);
+    const [passwordErrorCode, setPasswordErrorCode] = useState(null);
 
     const SERVER_URL = "http://localhost:8080"
     const USERNAME_TAKEN = 1001;
@@ -81,21 +87,26 @@ function Register() {
     };
     function pattern(type){
         switch(type){
-            case "password": return (".{0}|.{8,}");
+            case "password": return ("(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
             case "text": return (".{0}|.{3,}");
             case "email": return (".{0}|.{0,}");
             case "username": return (".{0}|.{5,}");
             case "tel": return (".{0}|.{10,}");
         }
     }
-    function getInput(title, value, setValue, type) {
+    function getInput(title, value, setValue, type, error, message, setError) {
         return (
             <div className={"input-container"} key={title}>
-                <label className={"form-label"}>{title}:</label>
+                <label className={"form-label"}>{title}:{errorCodeComponent(error,message)}</label>
+
                 <div style={{ display: "flex", width:"100%" }}>
-                    {type === "password" && <button className={"show-password"} style={{}}
-                                                    onClick={(event) => {title==="Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)}}
-                    ></button>}
+                    {type === "password" &&
+                            <button className={"show-password"}
+                                    style={{}}
+                                    onClick={(event) => {
+                                        title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
+                                    }}></button>
+                    }
                     <input required
                            className={"form-input"}
                            type={type}
@@ -103,8 +114,9 @@ function Register() {
                            value={value}
                            onChange={(e) => {setValue(e.target.value); setError(null)}}
                            placeholder={title}
-                           pattern={pattern(type)}
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                            size={1}
+                           aria-expanded={false}
 
                     />
                 </div>
@@ -117,7 +129,6 @@ function Register() {
     function showErrorCode() {
         let errorMessage = "";
         switch (errorCode){
-
             case -1 : errorMessage = "Please fill in all fields"; break;
             case  USERNAME_TAKEN :errorMessage = "username not available";break;
             case  PHONE_TAKEN :errorMessage = "phone-number not available";break;
@@ -149,6 +160,24 @@ function Register() {
             input.setAttribute("type", "password");
         }
     }
+    function errorCodeComponent(error, message){
+        return(
+            <>
+                {error!==null&&
+                    (<label style={{ color: "red", marginTop: "5px" }}>
+                            {message}
+                        </label>
+                    )}
+            </>
+        )
+    }
+    function passwordRequirmentsComponent(){
+        return (
+            <div className={"password-requirement-bubble"}>
+                <label></label>
+            </div>
+        )
+    }
     return (
         <div className="form-page">
             <div className="form-container">
@@ -159,8 +188,8 @@ function Register() {
                         <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
 
-                    <div className={"form register"} >
-                        <label> {showErrorCode()}</label>
+                    <div className={"form register"}>
+                        <label>{showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
                             {getInput("Name", name, setName, "text")}
@@ -186,9 +215,10 @@ function Register() {
                         </div>
                         <div className="input-pair">
                             {getInput("Password", password, setPassword, "password")}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password")}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", passwordErrorCode, "the passwords don't match")}
                         </div>
-
+                        <label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,
+                            "length>8"</label>
                     </div>
                     <div className={"submit-container"}>
                         <button onClick={() => register()} id={"submit-button"}

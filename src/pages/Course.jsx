@@ -141,7 +141,7 @@ export default function Course() {
     }
     function materialsComponent(){
         return (
-            <div>
+            <div className={"card-container"}>
                 {
                     material.map((item, index) => {
                         return (
