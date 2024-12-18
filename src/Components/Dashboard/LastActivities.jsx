@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
-import {getMaterials} from "../../API/MaterialsAPI.jsx";
+import {getMaterialsHistory} from "../../API/MaterialsAPI.jsx";
 import Table from "./Table.jsx";
 import formatDatetime from "../../Utils/formatDatetime.js";
 
@@ -18,7 +18,7 @@ function LastActivities() {
     useEffect(() => {
 
         const fetchData = async () => {
-            setLastActivitiesList(await getMaterials());
+            setLastActivitiesList(await getMaterialsHistory());
         }
         fetchData()
 
