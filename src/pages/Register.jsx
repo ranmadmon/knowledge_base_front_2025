@@ -4,6 +4,7 @@ import './Form.css';
 import axios from "axios";
 import {teal} from "@mui/material/colors";
 import CodeInputComponent from "./CodeInputComponent.jsx";
+import {LOGIN_URL} from "../Utils/Constants.jsx";
 
 function Register() {
     const [name, setName] = useState("");
@@ -59,7 +60,7 @@ function Register() {
                     }else{
                         setShowOtpComponent(false);
                         console.log(response.data)
-                        navigate("/");
+                        navigate(LOGIN_URL);
                     }
                 }
             })
@@ -228,7 +229,7 @@ function Register() {
                         </button>
                         <div className={"have-an-account"}>
                             <label>Already have an account?</label>
-                            <button className={"have-an-account-button"} onClick={() => navigate('/')}> Login Now!
+                            <button className={"have-an-account-button"} onClick={() => navigate(LOGIN_URL)}> Login Now!
                             </button>
                         </div>
                     </div>

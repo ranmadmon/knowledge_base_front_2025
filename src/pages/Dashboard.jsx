@@ -20,7 +20,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <Stack   margin={2} spacing={4} sx={{ m:4 }}>
+                <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{ m:4 }}>
                     <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
                         <NotificationPanel/>
                     </Box>

@@ -29,8 +29,8 @@ function LastActivities() {
 
     return (
         <>
-            <Card sx={{ width: "100%", height: "100%", marginTop:2 ,minHeight: 400, minWidth:"60%"}}  elevation={6}  >
-                <Typography margin={2} variant={"h4"}>Last Activities</Typography>
+            <Card sx={{backgroundColor: "rgb(101,51,152)" , width: "100%", height: "100%", marginTop:2 ,minHeight: 400, minWidth:"60%"}}  elevation={6}  >
+                <Typography color={"white"} margin={2} variant={"h4"}>Last Activities</Typography>
                 <Table column={columnDefs} row={lastActivitiesList}/>
             </Card>
         </>

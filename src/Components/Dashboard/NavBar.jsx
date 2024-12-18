@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import "./NavBar.css"
 import React, {useEffect} from "react";
 import ClickOutside from "../../pages/ClickOutside.jsx";
-import {DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
+import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
 
 
 
@@ -58,7 +58,7 @@ function NavBar() {
                                     aria-expanded={courseClicked ? "true" : "false"}
                                     className={"navbar-button"}
                                     onClick={() => {
-                                        navigate("/courses-list")
+                                        navigate(COURSE_LIST_URL)
                                         handleDataVisible()
                                         setCourseClicked(true);
                                         setHomeClicked(false);

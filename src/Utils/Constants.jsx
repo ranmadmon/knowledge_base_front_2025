@@ -6,3 +6,5 @@ export const COURSE_URL = "/Course/" ;
 export const PROFILE_URL = "/Profile" ;
 export const MATERIALS_URL = "/Materials" ;
 // export const PROFILE_URL = "/Profile" ;
+export const COURSE_LIST_URL = "/Course-List" ;
+
