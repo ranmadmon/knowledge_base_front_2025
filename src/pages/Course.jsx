@@ -4,6 +4,7 @@ import axios from "axios";
 import NavBar from "../Components/Dashboard/NavBar.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getCourse} from "../API/CoursesAPI.jsx";
+import Cookies from "universal-cookie";
 
 export default function Course() {
     const navigate = useNavigate();
@@ -19,14 +20,20 @@ export default function Course() {
     const [choosenType, setChoosenType] = useState("");
     const [tags, setTags] = useState([]);
     const [choosenTag, setChoosenTag] = useState("");
-    const [username,setUsername] = useState("shaig");
     const [token,setToken] = useState("FE8C078136ECF7132909C98F53B8131B");
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
 
+    useEffect(() => {
+        const cookies = new Cookies(null, { path: '/login' });
+        const token = cookies.get("token");
+        if (token) {
+            setToken(token);
+            console.log(token)
+        }
+    }, []);
 
-    //TODO  לבקש משי ללמד אותנו use contex
     function addMaterial(){
-        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&username="+username+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
+        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
             .then(
                 response=>{
                     getMaterials()
@@ -123,13 +130,22 @@ export default function Course() {
             </div>
         )
     }
+    function addToMaterialHistory(materialId){
+        console.log(materialId)
+        axios.get(SERVER_URL+"/add-material-to-history?token="+token+"&materialId="+materialId)
+        axios.get(SERVER_URL+"/get-material-history?token="+token).then(
+            response=>{
+                console.log("kjnkjnkj"+response.data)
+            }
+        )
+    }
     function materialsComponent(){
         return (
             <div>
                 {
                     material.map((item, index) => {
                         return (
-                            <div className={"card"} key={index}>
+                            <div onClick={()=>addToMaterialHistory(item.id)} className={"card"} key={index}>
                                 <div className="card-content-text">
                                     <text style={{
                                         color: "black",
