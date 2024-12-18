@@ -43,10 +43,10 @@
     /*transition: background 0.5s;*/
 }
 .card{
-    min-width: 400px;
-    min-height: 600px;
-    max-width: 400px;
-    max-height: 600px;
+    min-width: 300px;
+    min-height: 500px;
+    max-width: 300px;
+    max-height: 500px;
     margin-inline-start: 1.3rem;
     margin-inline-end: 1.3rem;
     display: flex;

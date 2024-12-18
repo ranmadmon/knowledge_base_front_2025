@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './Form.css';
 import axios from "axios";
 import {teal} from "@mui/material/colors";
+import CodeInputComponent from "./CodeInputComponent.jsx";
 
 function Register() {
     const [name, setName] = useState("");
@@ -12,73 +13,111 @@ function Register() {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showOtpComponent,setShowOtpComponent] = useState(false);
     const [email, setEmail] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [errorCode, setErrorCode]= useState(-1);
     const [phoneNumber,setPhoneNumber] = useState("")
+
     const navigate = useNavigate();
 
+    const [usernameErrorCode, setUsernameErrorCode] = useState(null);
+    const [phoneErrorCode, setPhoneErrorCode] = useState(null);
+    const [emailErrorCode, setEmailErrorCode] = useState(null);
+    const [passwordErrorCode, setPasswordErrorCode] = useState(null);
+
     const SERVER_URL = "http://localhost:8080"
-    const INVALID_REPEAT_PASSWORD = 102;
-    const USERNAME_NOT_AVAILABLE = 103
+    const USERNAME_TAKEN = 1001;
+    const PHONE_TAKEN = 1002;
+    const EMAIL_TAKEN = 1003;
+    const INVALID_REPEAT_PASSWORD = 1004;
+
 
     function register(){
-        console.log("rrrrr")
         axios.get("http://localhost:8080/register?userName="+username+"&password="+password+"&name="+name+"&lastName="+lastName+"&email="+email+"&role="+jobTitle+"&phoneNumber="+phoneNumber)
-            .then(response => {
-                if (response.data.success){
-                    if (!response.data.registeredSuccessfully){
-                        setErrorCode(USERNAME_NOT_AVAILABLE)
-                    }else{
+            .then(response=>{
+                console.log(response.data)
+                if (response.data!=null){
+                    if (!response.data.success){
                         console.log(response.data)
-                        navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"register"} });
+                        setEmailErrorCode(response.data.emailTaken)
+                        setUsernameErrorCode(response.data.usernameTaken)
+                        setPhoneErrorCode(response.data.phoneTaken)
+                    }else {
+                        console.log("ok")
+                        setShowOtpComponent(true);
                     }
                 }
             })
     }
-
+    const onOtpSubmit = (otp) => {
+        axios.get("http://localhost:8080/check-otp-to-register?username="+username+"&otp="+otp)
+            .then(response => {
+                if (response.data.success){
+                    if (!response.data.registeredSuccessfully){
+                        alert("הקוד לא תקין נסה שוב")
+                    }else{
+                        setShowOtpComponent(false);
+                        console.log(response.data)
+                        navigate("/");
+                    }
+                }
+            })
+    }
     const allFieldsFilled = () => {
+
         return (
-            name.trim() &&
-            lastName.trim() &&
-            username.trim() &&
-            password.trim() &&
-            passwordConfirm.trim() &&
-            email.trim() &&
+            name.length>2 &&
+            lastName.length>2 &&
+            username.length>4 &&
+            (
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password) &&
+                /[!@#$%^&*_=+-]/.test(password)
+            )&&
+            password.length>7&&
+            passwordConfirm===password &&
+            email.trim()&&
+            emailErrorCode===null&&
+            phoneErrorCode===null&&
+            usernameErrorCode===null&&
             jobTitle.trim()
         );
     };
-    function getInput(title, value, setValue, type, minLengthRequirement) {
+    function pattern(type){
+        switch(type){
+            case "password": return ("(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
+            case "text": return (".{0}|.{3,}");
+            case "email": return (".{0}|.{0,}");
+            case "username": return (".{0}|.{5,}");
+            case "tel": return (".{0}|.{10,}");
+        }
+    }
+    function getInput(title, value, setValue, type, error, message, setError) {
         return (
             <div className={"input-container"} key={title}>
-                <label className={"form-label"}>{title}:</label>
+                <label className={"form-label"}>{title}:{errorCodeComponent(error,message)}</label>
+
                 <div style={{ display: "flex", width:"100%" }}>
                     {type === "password" &&
-                        <button className={"show-password"} style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                            width: "40px",
-                            height: "40px",
-                            position: "absolute",
-                            cursor:"pointer",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "25px 25px",
-                            backgroundImage:'url("src/assets/form/show_password.png")',
-                            backgroundPosition: "0.2rem 0.35rem",
-                        }}
-                                onClick={(event) => {
-                                    title==="Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
-                                }}
-                        ></button>}
+                            <button className={"show-password"}
+                                    style={{}}
+                                    onClick={(event) => {
+                                        title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
+                                    }}></button>
+                    }
                     <input required
                            className={"form-input"}
                            type={type}
                            name={title}
                            value={value}
-                           onChange={(e) => setValue(e.target.value)}
+                           onChange={(e) => {setValue(e.target.value); setError(null)}}
                            placeholder={title}
-                           minLength={minLengthRequirement}
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                            size={1}
+                           aria-expanded={false}
+
                     />
                 </div>
 
@@ -86,13 +125,15 @@ function Register() {
             </div>
         );
     }
+
     function showErrorCode() {
         let errorMessage = "";
         switch (errorCode){
-
             case -1 : errorMessage = "Please fill in all fields"; break;
-            case  USERNAME_NOT_AVAILABLE :errorMessage = "Username not available";break;
-            case INVALID_REPEAT_PASSWORD : errorMessage ="Invalid repeat password ";break;
+            case  USERNAME_TAKEN :errorMessage = "username not available";break;
+            case  PHONE_TAKEN :errorMessage = "phone-number not available";break;
+            case  EMAIL_TAKEN :errorMessage = "email is not available";break;
+            case  INVALID_REPEAT_PASSWORD : errorMessage ="Invalid repeat password ";break;
         }
         return errorMessage;
     }
@@ -118,7 +159,24 @@ function Register() {
             event.currentTarget.style.backgroundImage = 'url("src/assets/form/show_password.png")';
             input.setAttribute("type", "password");
         }
-
+    }
+    function errorCodeComponent(error, message){
+        return(
+            <>
+                {error!==null&&
+                    (<label style={{ color: "red", marginTop: "5px" }}>
+                            {message}
+                        </label>
+                    )}
+            </>
+        )
+    }
+    function passwordRequirmentsComponent(){
+        return (
+            <div className={"password-requirement-bubble"}>
+                <label></label>
+            </div>
+        )
     }
     return (
         <div className="form-page">
@@ -130,19 +188,21 @@ function Register() {
                         <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
 
-                    <div className={"form register"} >
-                        <label> {showErrorCode()}</label>
+                    <div className={"form register"}>
+                        <label>{showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName, "text", 0)}
-                            {getInput("Last Name", lastName, setLastName, "text", 0)}
+                            {getInput("Name", name, setName, "text")}
+                            {getInput("Last Name", lastName, setLastName, "text")}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", 0)}
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel", 0)}
+                            {getInput("Email", email, setEmail, "email", emailErrorCode, "email is taken", setEmailErrorCode)}
+
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername)}
+                            {getInput("Username", username, setUsername, "username", usernameErrorCode, "username is taken", setUsernameErrorCode)}
+
                             <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
                                 <select required className={"form-input"} value={jobTitle}
@@ -150,18 +210,18 @@ function Register() {
                                     <option value="" disabled>Select Job Title</option>
                                     <option value="Student">Student</option>
                                     <option value="Lecturer">Lecturer</option>
-                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", 8)}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", 8)}
+                            {getInput("Password", password, setPassword, "password")}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", passwordErrorCode, "the passwords don't match")}
                         </div>
-
+                        <label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,
+                            "length>8"</label>
                     </div>
                     <div className={"submit-container"}>
-                        <button onClick={()=>register()} id={"submit-button"}
+                        <button onClick={() => register()} id={"submit-button"}
                                 className={allFieldsFilled() ? "active" : ""}
                                 disabled={!allFieldsFilled()}>
                             Register Now
@@ -182,6 +242,7 @@ function Register() {
 
                 </div>
             </div>
+            {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
         </div>
 
     );

@@ -1,74 +1,107 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import "./Form.css"
 
-import axios from "axios";
-import Cookies from "universal-cookie";
 
-const CodeInputComponent = () => {
-    const location = useLocation();
-    const { userName = "Guest", password = "" ,type=""} = location.state || {}; // ברירת מחדל
-    const [code, setCode] = useState("");
-    const navigate = useNavigate();
+const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
+    const [otp, setOtp] = useState(new Array(length).fill(""));
+    const [otpToSubmit, setOtpToSubmit] = useState("");
+    const inputRef = useRef([]);
 
-    const handleSubmit = () => {
-       if(type==="register"){
+    useEffect(() => {
+        if (inputRef.current [0]){
+            inputRef.current[0].focus();
+        }
+    },[])
+    const handleChange = (e,index) => {
 
-           axios.get("http://localhost:8080/check-otp-to-register?username="+userName+"&otp="+code)
-               .then(response => {
-                   if (response.data.success){
-                       if (!response.data.registeredSuccessfully){
-                           console.log("no" + userName)
-                       }else{
-                           console.log(response.data)
-                           navigate("/");
-                       }
-                   }
-               })
-       }else if(type==="login"){
+        if (isNaN(e.target.value)){return "";}
+        const value = e.target.value;
+        const newOtp = [...otp];
+        newOtp[index] = value.substring(value.length-1);
+        setOtp(newOtp);
 
-           axios.get("http://localhost:8080/check-otp?username="+userName+"&password="+password+"&otp="+code)
-               .then(response => {
-                   if (response.data.success){
-                       if (!response.data.success){
-                           console.log("no" + userName)
-                       }else{
-                           console.log(response.data)
-                           const cookies = new Cookies(null, { path: '/login' });
-                           const token = cookies.get("token");
-                           if (token) {
-                               navigate("/dashboard");
-                           }
-                       }
-                   }
-               })
+        const combinedOtp = newOtp.join("");
+        if (combinedOtp.length === length){
+            setOtpToSubmit(combinedOtp);
+        }
+        if(value && (index < length-1 ) && inputRef.current[index + 1]) {
+            inputRef.current[index+1].focus();
+        }
+
+    }
+    const onPaste = (e) => {
+        if (isNaN(e.target.value)){return "";}
+        e.preventDefault();
+        const clipboard = e.clipboardData.getData("text");
+        const pastedOtp = clipboard.split("", 6)
+        pastedOtp.forEach((char, index)=>{
+            if (isNaN(char)) pastedOtp[index] = "";
+        })
+        if (pastedOtp.length === 6){
+            setOtp(pastedOtp)
+        } else if (pastedOtp.length > 6){
+
+        }
+    }
+    const handleKeyDown = (e,index) => {
+        const key = e.key.toLowerCase()
+        console.log(key)
+        if ((key === "backspace" || key === "delete") && !otp[index] && index>0 && inputRef.current[index-1]) {
+            inputRef.current[index-1].focus();
+        }
+        if ((key === "arrowleft") && otp[index] && index>0 && inputRef.current[index-1]) {
+            e.preventDefault()
+            inputRef.current[index-1].focus();
+        }
+       if ((key === "arrowright") && otp[index] && (index < length-1 ) && inputRef.current[index+1]){
+           inputRef.current[index+1].focus();
        }
 
-    };
-
+    }
+    const handleClick = (index) => {
+        inputRef.current[index].setSelectionRange(1,1);
+        const indexOfEmpty = otp.indexOf("");
+        inputRef.current[indexOfEmpty].focus();
+    }
     return (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <h1>Enter Code</h1>
-            <p>Welcome, {userName}</p>
-            <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Enter your code"
-                style={{ padding: "10px", fontSize: "16px", width: "300px" }}
-            />
-            <br />
-            <button
-                onClick={handleSubmit}
-                style={{
-                    marginTop: "10px",
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                }}
-            >
-                Submit
-            </button>
+        <div className={"code-container"} style={{textAlign: "center", marginTop: "20px"}}>
+            <div className={"form-headers"}>
+                <text style={{fontSize: "2.3rem", fontWeight: "bold"}}>Security Check</text>
+                <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Welcome {username}, {<br/>}Your code was sent to you via SMS</text>
+            </div>
+            <div className={"input-container"} style={{gap: "1.5rem"}}>
+                <div className={"otp-input-field"} style={{display: "flex", gap: "1.3rem"}}>
+                    {otp.map((data,index) => {
+                        return (
+                            <input
+                                required
+                                className={"otp-input"}
+                                ref={ (input) => (inputRef.current[index] = input)}
+                                id={"box"}
+                                type="text"
+                                value={data}
+                                maxLength={1}
+                                onChange={(e) => {handleChange(e, index)}}
+                                onKeyDown={(e) => {handleKeyDown(e, index)}}
+                                onClick={() => handleClick(index)}
+                                onPaste={(e) => onPaste(e)}
+                                style={{width: "1.8rem",textAlign:"center",padding:0,margin:0}}/>)
+                    })}
+                </div>
+
+                <button
+                    className={(otpToSubmit.length === 6) ? "active" : ""}
+                    disabled={otpToSubmit.length < 6}
+                    style={{width: "13rem"}}
+                    id={"submit-button"}
+                    onClick={() => {
+                        onOtpSubmit(otpToSubmit);
+                    }}
+                >
+                    Submit
+                </button>
+            </div>
+
         </div>
     );
 };

@@ -3,6 +3,7 @@ import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import PropTypes from "prop-types";
+import {replace, useNavigate} from "react-router-dom";
 
 Table.propTypes = {
     row: PropTypes.array,
@@ -11,6 +12,7 @@ Table.propTypes = {
 };
 
 function Table(props) {
+    const navigate = useNavigate();
     const [rowData, setRowData] = useState(props.row);
     const [columnDefs, setColumnDefs] = useState(props.column);
     const defaultColDef = useMemo(() => {
@@ -19,8 +21,10 @@ function Table(props) {
             floatingFilter: true,
         };
     }, []);
+
     const onRowClicked = (params) => {
-        console.log(params);
+        const  id = params?.data.courseEntity?.id
+        navigate(`/course/${id}`,{replace:true});
     }
 
 
