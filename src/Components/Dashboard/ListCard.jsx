@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import {Button, Card, Stack, Typography} from "@mui/material";
 
 
 ListCard.propTypes = {
@@ -14,7 +15,7 @@ ListCard.propTypes = {
 };
 
 function ListCard(props) {
-    const [list, setList] = useState(props.list===undefined?[]:props.list );
+    const [list, setList] = useState(props.list === undefined ? [] : props.list);
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);
 
@@ -47,22 +48,29 @@ function ListCard(props) {
     }
 
     return (
-        <nav className="ListCard">
-            <h2 className="ListCard_header">{props.header}</h2>
+        <Card sx={{backgroundColor: "rgb(101,51,152)"}}  elevation={6}  minHeight={"50%"}>
+            <Typography color={"white"} margin={2} variant={"h4"}>
+                {props.header}
+            </Typography>
             {renderList()}
 
-            <div className={"buttons"}>
-                <button onClick={previousPage} disabled={currentPg === 1}>
+            <Stack sx={{flex: 1, m: 2}} justifyContent="center" alignItems="center" direction="row" spacing={2}>
+                <Button
+                    onClick={previousPage}
+                    variant="contained"
+                    disabled={currentPg === 1}
+                >
                     Previous Page
-                </button>
-                <button
+                </Button>
+                <Button
+                    variant="contained"
                     onClick={nextPage}
                     disabled={currentPg * perPage >= list.length}
                 >
                     Next Page
-                </button>
-            </div>
-        </nav>
+                </Button>
+            </Stack>
+        </Card>
     );
 }
 

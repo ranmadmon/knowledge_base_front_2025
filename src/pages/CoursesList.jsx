@@ -5,6 +5,7 @@ import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Pagination} from "@mui/material";
+import {COURSE_URL} from "../Utils/Constants.jsx";
 
 export default function CoursesList(){
     const navigate = useNavigate();
@@ -62,7 +63,7 @@ export default function CoursesList(){
         return (
             <div id={index}>
                 <div className={"card"}
-                     onClick={() => navigate("/course/" + courseId)}>
+                     onClick={() => navigate(COURSE_URL + courseId)}>
                     <div className="card-content-image">
                         <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
                              alt={"course image"}/>

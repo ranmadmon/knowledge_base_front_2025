@@ -1,7 +1,7 @@
 function formatDatetime(datetimeString) {
     const datetimeObj = new Date(datetimeString);
 
-    return datetimeObj.toLocaleString('eng-US', {
+    return datetimeObj.toLocaleString('eng-Uk', {
         hour: '2-digit',
         minute: '2-digit',
         day: '2-digit',

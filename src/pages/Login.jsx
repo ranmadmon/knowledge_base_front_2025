@@ -4,6 +4,7 @@ import './Form.css';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import CodeInputComponent from "./CodeInputComponent.jsx";
+import {DASHBOARD_URL, REGISTER_URL} from "../Utils/Constants.jsx";
 
 
 function Login() {
@@ -17,13 +18,6 @@ function Login() {
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
 
-    useEffect(() => {
-        const cookies = new Cookies(null, { path: '/login' });
-        const token = cookies.get("token");
-        if (token) {
-            navigate("/dashboard");
-        }
-    }, []);
     function showErrorCode(){
 
         let errorMessage = "";
@@ -69,7 +63,7 @@ function Login() {
                         console.log("otp: "+otp)
                         if (token) {
                             console.log(token);
-                            navigate("/dashboard");
+                            navigate(DASHBOARD_URL);
                         } else {
                             console.log("Token not found");
                         }
@@ -154,7 +148,7 @@ function Login() {
                                 </button>
                                 <div className={"have-an-account"}>
                                     <label>Dont have an account?</label>
-                                    <button className={"have-an-account-button"} onClick={() => navigate('/register')}> Create
+                                    <button className={"have-an-account-button"} onClick={() => navigate(REGISTER_URL)}> Create
                                         Now!
                                     </button>
                                 </div>

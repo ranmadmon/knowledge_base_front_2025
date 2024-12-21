@@ -1,8 +1,9 @@
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet, replace, useLocation, useNavigate} from "react-router-dom";
 import Cookies from 'universal-cookie';
 import "./NavBar.css"
 import React, {useEffect} from "react";
 import ClickOutside from "../../pages/ClickOutside.jsx";
+import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
 
 
 
@@ -18,6 +19,7 @@ function NavBar() {
     useEffect(() => {
         document.querySelector(".navbar ul").setAttribute("data-visible", dataVisible.toString());
     }, [dataVisible]);
+
 
 
     return (
@@ -44,7 +46,7 @@ function NavBar() {
                             <li>
                                 <button aria-expanded={homeClicked ? "true" : "false"}
                                         className={"navbar-button"} onClick={() => {
-                                    navigate("/dashboard")
+                                    navigate(DASHBOARD_URL)
                                     handleDataVisible()
                                     setHomeClicked(true);
                                     setCourseClicked(false);
@@ -57,7 +59,7 @@ function NavBar() {
                                     aria-expanded={courseClicked ? "true" : "false"}
                                     className={"navbar-button"}
                                     onClick={() => {
-                                        navigate("/courses-list")
+                                        navigate(COURSE_LIST_URL)
                                         handleDataVisible()
                                         setCourseClicked(true);
                                         setHomeClicked(false);
@@ -69,10 +71,11 @@ function NavBar() {
                         <div className={"left-buttons"}>
                             <li>
                                 <button className={"navbar-button"} onClick={
-                                    () => {
+                                    async () => {
                                         const cookies = new Cookies(null, {path: '/'});
-                                        cookies.remove("token");
-                                        navigate("/");
+                                        await cookies.remove("token")
+                                        navigate(LOGIN_URL)
+                                        window.location.reload()
                                         handleDataVisible()
                                     }
                                 }>Logout
