@@ -3,8 +3,8 @@
     background: rgba(25, 3, 50, 0);
     color: var(--background-color);
     border: 3px solid rebeccapurple;
-    margin-inline-start: 1.3rem;
-    margin-inline-end: 1.3rem;
+    /*margin-inline-start: 1.3rem;*/
+    /*margin-inline-end: 1.3rem;*/
     transform: translateX(0%);
 
 }
@@ -17,16 +17,18 @@
     text-align: center;
     gap: 1.1rem;
     position: absolute;
-    min-width: 400px;
-    min-height: 600px;
-    max-width: 400px;
-    max-height: 600px;
+    min-width: 350px;
+    min-height: 550px;
+    max-width: 350px;
+    max-height: 550px;
     border-radius: 15px;
     font-size: 25px;
     overflow: hidden;
     place-self: center;
     place-content: center;
-    margin-block-start: 5rem;
+    margin-block-start: 1rem;
+    align-self: center;
+    justify-self: center;
 }
 @property --angle{
     syntax: '<angle>';
