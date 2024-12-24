@@ -298,12 +298,22 @@
         background-color: red;
 }
 
-@media ( max-width:1500px){
+@media (max-width:1500px){
+    .image-container img{
+        scale: 0.9;
+    }
+}
+@media (max-width:1300px){
     .image-container img{
         scale: 0.8;
     }
 }
-@media (max-width: 1300px){
+@media (max-width:1150px){
+    .image-container img{
+        scale: 0.7;
+    }
+}
+@media (max-width: 1000px){
     .right-side{
         width: 0;
     }
