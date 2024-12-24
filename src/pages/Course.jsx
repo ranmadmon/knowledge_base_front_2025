@@ -31,9 +31,16 @@ export default function Course() {
             console.log(token)
         }
     }, []);
-
+function getTypeId(){
+    const filteredType = types.filter(type => type.name === choosenType);
+    return filteredType[0].id;
+}
+    function getTagId(){
+        const filteredTag = tags.filter(tag => tag.name === choosenTag);
+        return filteredTag[0].id;
+    }
     function addMaterial(){
-        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
+        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+getTypeId()+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+getTagId()+"&content="+choosenContent)
             .then(
                 response=>{
                     getMaterials()

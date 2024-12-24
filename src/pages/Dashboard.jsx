@@ -1,10 +1,21 @@
 import "./Dashboard.css";
 import LastActivity from "../Components/Dashboard/LastActivities.jsx";
+import {useEffect} from "react";
+import Cookies from "universal-cookie";
+import {useNavigate} from "react-router-dom";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import NotificationPanel from "../Components/Dashboard/NotificationPanel.jsx";
-import {Box, Stack} from "@mui/material";
 
 function Dashboard() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const cookies = new Cookies(null, { path: '/dashboard' });
+        const token = cookies.get("token");
+        if (!token) {
+            navigate("/dashboard");
+        }
+    }, []);
 
     return (
         <>
@@ -20,14 +31,10 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{ m:4 }}>
-                    <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                        <NotificationPanel/>
-                    </Box>
-                    <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                        <LastActivity/>
-                    </Box>
-                </Stack>
+                <div className={"lower-container"}>
+                    <NotificationPanel/>
+                    <LastActivity/>
+                </div>
             </div>
         </>
     );
