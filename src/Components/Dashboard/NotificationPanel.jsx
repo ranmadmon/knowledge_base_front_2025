@@ -20,16 +20,16 @@ function NotificationPanel() {
     function renderCourseList(coursesList) {
         return (
 
-            coursesList.map((notification) => (
+            coursesList.map((notification ) => (
                 <>
-                    <Accordion>
+                    <Accordion >
                         <AccordionSummary expandIcon={<ArrowDropDown/>}>
                             <Typography variant="h5">
                                 {notification.title}
                             </Typography>
 
                         </AccordionSummary>
-                        <AccordionDetails>
+                        <AccordionDetails >
                             <Typography>
                                 {formatDatetime(notification.date)}
                             </Typography>
@@ -49,7 +49,7 @@ function NotificationPanel() {
 
     return (
         <>
-            <Accordion  maxWidth="60%" minWidth="60%">
+            <Accordion >
                 <ListCard render={renderCourseList} perPage={6} list={notificationList} header={"Notifications"}/>
             </Accordion>
         </>
