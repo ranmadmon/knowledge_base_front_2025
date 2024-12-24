@@ -34,7 +34,7 @@ function NavBar() {
                             handleDataVisible()
                         }}>
                     {/*{dataVisible ? <CloseIcon fontSize={"large"}/>  : <MenuRoundedIcon fontSize={"large"}/>}*/}
-                    <svg data-visible={dataVisible} stroke="white" fill="none" className="hamburger" viewBox="-10 15 120 120"
+                    <svg data-visible={dataVisible} stroke="var(--color-scheme)" fill="none" className="hamburger" viewBox="-10 15 120 120"
                          width="80">
                         <path data-visible={dataVisible} className="line" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round"
                               d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">

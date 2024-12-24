@@ -92,7 +92,7 @@ export default function Course() {
         return (
             <div className={'add-new-form'}
                  style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
-                <h1>Add material</h1>
+                <label className={"add-new-form-header"}>Add material</label>
                 <br/>
                 <input className={"new-form-input"} placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
                     setChoosenTitle(event.target.value)
@@ -193,18 +193,17 @@ export default function Course() {
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"}>
-                    {newMaterialVisibility && addNewMaterialComponent()}
                     {handleComponentRendering()}
                     <button className={"add-new"}
                             onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
                         <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
-                             viewBox="0 0 160 160" width="35" fill={"white"}>
+                             viewBox="0 0 160 160" width="35" fill={"var(--color-scheme)"}>
                             <rect className="vertical-line" x="70" width="20" height="160"/>
                             <rect className="horizontal-line" y="70" width="160" height="20"/>
                         </svg>
                     </button>
                 </div>
-
+                {newMaterialVisibility && addNewMaterialComponent()}
             </div>
 
         </div>

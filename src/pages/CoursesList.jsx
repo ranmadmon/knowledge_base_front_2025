@@ -69,13 +69,8 @@ export default function CoursesList(){
                              alt={"course image"}/>
                     </div>
                     <div className="card-content-text">
-                        <text style={{
-                            color: "darkgrey",
-                            fontSize: "1.2rem",
-                            fontWeight: "bold",
-                            height:"15%"
-                        }}>{course} • {lecturer}</text>
-                        <text style={{color: "black", fontSize: "1.3rem", fontWeight: "bold", height:"85%"}}>{description}</text>
+                        <label className={"card-content-header"}>{course} • By {lecturer}</label>
+                        <label className={"card-content-desc"}>{description}</label>
                     </div>
                 </div>
             </div>
@@ -156,18 +151,17 @@ export default function CoursesList(){
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"} aria-expanded={newCourseVisibility}>
-                    {newCourseVisibility && addNewCourseComponent()}
                     {handleComponentRendering()}
                     <button className={"add-new"}
                             onClick={() => handleNewCourseVisibility()}>
                         <svg aria-expanded={newCourseVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
-                             viewBox="0 0 160 160" width="35" fill={"white"}>
+                             viewBox="0 0 160 160" width="35" fill={"var(--color-scheme)"}>
                             <rect className="vertical-line" x="70" width="20" height="160"/>
                             <rect className="horizontal-line" y="70" width="160" height="20"/>
                         </svg>
                     </button>
                 </div>
-
+                {newCourseVisibility && addNewCourseComponent()}
             </div>
 
 

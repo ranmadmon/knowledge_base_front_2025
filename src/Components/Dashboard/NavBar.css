@@ -12,81 +12,24 @@
 
 }
 .navbar{
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     z-index: 999;
     margin: 0;
-    width: 100vw;
-    height: 7vh;
+    width: 100%;
+    height: var(--navbar-height);
     display: flex;
     flex-direction: row;
-    color: white;
     background-color: var(--background-color);
-
+    box-shadow: 0 32px 10px -30px var(--color-scheme);
 }
 .hamburger-button{
     display: none;
+    color: var(--color-scheme);
 }
 
-@media (max-width: 60rem){
-    .navbar-logo-container{
-        width: 100%;
-        transition: width 2s ease;
-        will-change: width;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    .navbar-logo{
-        margin-inline-start: 0;
-        scale: 1.3;
-    }
-    .hamburger-button{
-        display: block;
-        position: absolute;
-        top: 1.7rem;
-        right: 2rem !important;
-        z-index: 999;
-        color: white;
-        background: transparent;
-        border: none;
-        font-size: x-large;
-        cursor: pointer;
-        /*transform: translateX(100%);*/
 
-    }
-    .navbar ul{
-        position:fixed;
-        width: 50% !important;
-        inset-inline-end: -1rem !important;
-        margin: 0 !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-        gap: 45rem !important;
-        background: rgba(102, 51, 153, 0.59);
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
-        border: 3px solid rebeccapurple;
-
-        transform: translateX(100%);
-    }
-    .navbar ul:not(:focus){
-        transform: translateX(100%);
-    }
-    .navbar ul[data-visible='true']{
-        transform: translateX(0%);
-    }
-    .right-buttons, .left-buttons{
-        /*justify-content: flex-start !important;*/
-        align-items: flex-start !important;
-        flex-direction: column;
-
-    }
-    .navbar-button{
-        font-size: 2.5rem !important;
-        gap: 2rem !important;
-    }
-}
 .navbar ul {
     display: flex;
     flex-direction: row;
@@ -101,7 +44,7 @@
 
     height: 100%;
     width: 100%;
-    margin-top: 0;
+    margin-block-start: 0.2em;
     margin-inline-end: 8rem;
     gap: 1rem;
 
@@ -121,18 +64,18 @@
     border: none;
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
+    color: var(--color-scheme);
     text-decoration: none;
     cursor: pointer;
     transition: box-shadow 0.4s ease;
 
 }
 .navbar-button:hover{
-    box-shadow: 0 5px 0 0 white;
+    box-shadow: 0 5px 0 0 var(--color-scheme);
 }
 
 .navbar-button[aria-expanded="true"]{
-    box-shadow: 0 5px 0 0 white, 0 15px 6px -7px #b5f0ff;
+    box-shadow: 0 5px 0 0 var(--color-scheme), 0 15px 6px -7px rgba(105, 27, 183, 0.55);
     transition: box-shadow 0.3s ease;
     outline: none;
 }
@@ -151,4 +94,63 @@
     stroke-dashoffset: -90;
     translate: 50% -25px;
     rotate: 0.125turn;
+}
+
+@media (max-width: 60rem){
+    .navbar-logo-container{
+        width: 100%;
+        transition: width 2s ease;
+        will-change: width;
+        align-items: center;
+        justify-content: center;
+    }
+    .navbar-logo{
+        margin-inline-start: 0;
+        scale: 1.3;
+    }
+    .hamburger-button{
+        display: block;
+        position: absolute;
+        top: 1.7rem;
+        right: 2rem;
+        z-index: 999;
+        color: white;
+        background: transparent;
+        border: none;
+        font-size: x-large;
+        cursor: pointer;
+        /*transform: translateX(100%);*/
+
+    }
+    .navbar ul{
+        position:fixed;
+        width: 50%;
+        inset-inline-end: -1rem;
+        margin: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 45rem;
+        background: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        border: 3px solid rebeccapurple;
+
+        transform: translateX(100%);
+    }
+    .navbar ul:not(:focus){
+        transform: translateX(100%);
+    }
+    .navbar ul[data-visible='true']{
+        transform: translateX(0%);
+    }
+    .right-buttons, .left-buttons{
+        align-items: flex-start;
+        flex-direction: column;
+
+    }
+    .navbar-button{
+        font-size: 2.5rem;
+        gap: 2rem;
+    }
 }

@@ -1,5 +1,6 @@
 :root {
-    --background-color: rebeccapurple;
+    --background-color: white;
+    --color-scheme: #260847;
     --gradient-angle: 129deg;
     --color-1: rebeccapurple;
     --color-2: #591999;
@@ -10,8 +11,10 @@
     --color-1-brighter: rgb(115, 0, 255);
     --color-2-brighter: rgb(164, 0, 255);
     --color-3-brighter: rgb(247, 0, 255);
-    --card-width: 60vw;
-    --card-height: 70vh;
+    --navbar-height: 6em;
+    --upper-container-height: 5em
+    /*--card-width: 60vw;*/
+    /*--card-height: 70vh;*/
 }
 
 @property --color-1-bright{
@@ -33,11 +36,33 @@
 body {
     display: flex;
     margin: 0;
+    color: var(--color-scheme);
 }
-
 .Logo{
     margin-top: 10%;
     width: 50px;
     height: 50px;
     cursor: pointer;
+}
+.upper-container {
+    width: 100%;
+    margin-top: var(--navbar-height);
+    min-height: 15em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--background-color);
+    color: var(--color-scheme);
+}
+.lower-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: calc(100vh - 25rem);
+    color: var(--color-scheme);
 }
