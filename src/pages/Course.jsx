@@ -78,6 +78,7 @@ function getTypeId(){
             .then(response => {
                 if (response.data) {
                     setMaterial(response.data);
+                    console.log(material)
                 }
             })
             .catch(error => {
@@ -140,16 +141,13 @@ function getTypeId(){
     function addToMaterialHistory(materialId){
         console.log(materialId)
         axios.get(SERVER_URL+"/add-material-to-history?token="+token+"&materialId="+materialId)
-        axios.get(SERVER_URL+"/get-material-history?token="+token).then(
-            response=>{
-                console.log("kjnkjnkj"+response.data)
-            }
-        )
+
     }
     function materialsComponent(){
         return (
             <div className={"card-container"}>
                 {
+
                     material.map((item, index) => {
                         return (
                             <div onClick={()=>addToMaterialHistory(item.id)} className={"card"} key={index}>
@@ -166,6 +164,7 @@ function getTypeId(){
                                         fontWeight: "bold",
                                         height: "85%"
                                     }}>Description: {item.description}</text>
+                                    <text>content: {item.content} </text>
                                     <text>By: {item.userEntity.username}</text>
                                 </div>
                             </div>
@@ -197,6 +196,7 @@ function getTypeId(){
             <div className={"upper-container"} style={{flexDirection: "column"}}>
                 <text className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</text>
                 <text className={"course-page-description"}>{courseData.description}</text>
+
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"}>
