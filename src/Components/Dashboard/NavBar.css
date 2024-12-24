@@ -44,7 +44,7 @@
 
     height: 100%;
     width: 100%;
-    margin-block-start: 0.2em;
+    margin-inline-start: 2rem;
     margin-inline-end: 8rem;
     gap: 1rem;
 
@@ -130,7 +130,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        gap: 45rem;
+        gap: 35em;
+
         background: transparent;
         backdrop-filter: blur(10px);
         border-radius: 10px;
@@ -147,7 +148,7 @@
     .right-buttons, .left-buttons{
         align-items: flex-start;
         flex-direction: column;
-
+        margin-inline-start: 1.3em;
     }
     .navbar-button{
         font-size: 2.5rem;

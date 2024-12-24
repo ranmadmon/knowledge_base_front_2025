@@ -171,10 +171,11 @@ function Register() {
             </>
         )
     }
-    function passwordRequirmentsComponent(){
+    function passwordRequirementsComponent(){
         return (
             <div className={"password-requirement-bubble"}>
-                <label></label>
+                <label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,*/
+                    "length>8"</label>
             </div>
         )
     }
@@ -221,8 +222,6 @@ function Register() {
                             {getInput("Password", password, setPassword, "password")}
                             {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", passwordErrorCode, "the passwords don't match")}
                         </div>
-                        {/*<label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,*/}
-                        {/*    "length>8"</label>*/}
                     </div>
                     <div className={"submit-container"}>
                         <div className={"input-pair"}>

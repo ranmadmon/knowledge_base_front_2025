@@ -1,6 +1,6 @@
 .form-page{
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     flex-direction: column;
     font-family: Inter, sans-serif;
     color: var(--color-scheme);
@@ -48,13 +48,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 1rem;
 }
 #login{
     gap: 1rem;
-}
-.login{
     height: auto;
 }
+
 .image-container{
     width: 100%;
     height: 100%;

@@ -5,10 +5,11 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-weight: 600;
     /*border: 6px solid green;*/
     /*overflow: hidden;*/
+    font-family: Inter, sans-serif;
 }
 
 .course-page-header{
@@ -41,7 +42,7 @@
 .add-new{
     width: 100px;
     height: 100px;
-    position: absolute;
+    position: fixed;
     right: 4%;
     bottom: 3%;
     border-radius: 100%;
@@ -67,7 +68,7 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-weight: 600;
 }
 .course-content{

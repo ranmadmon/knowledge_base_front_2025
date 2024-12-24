@@ -104,7 +104,7 @@ function Login() {
         return (
             <div className={"flex input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
-                <div style={{}}>
+                <div style={{ display: "flex", width:"100%" }}>
                     {type === "password" && <button className={"show-password"}
                                                     onClick={(event) => {title==="Password" && handleShowPassword(event)}}
                     ></button>}
@@ -135,7 +135,7 @@ function Login() {
                                 <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Login</text>
                                 <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                             </div>
-                            <div className={"flex form login"} id="login">
+                            <div className={"flex form"} id="login">
                                 {getInput("Username", username, setUsername, "text", 5)}
                                 {getInput("Password", password, setPassword, "password", 8)}
                                 {/*<label> {showErrorCode()}</label>*/}
