@@ -7,7 +7,6 @@ import {Box, Stack} from "@mui/material";
 function Dashboard() {
 
     return (
-        <>
             <div className={"dashboard"}>
                 <div className={"upper-container"}>
                     <div className={"search"}>
@@ -20,16 +19,17 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{ m:4 }}>
-                    <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                        <NotificationPanel/>
-                    </Box>
-                    <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                        <LastActivity/>
-                    </Box>
-                </Stack>
+                <div className={"lower-container"}>
+                    <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{ m:4 }}>
+                        <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
+                            <NotificationPanel/>
+                        </Box>
+                        <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
+                            <LastActivity/>
+                        </Box>
+                    </Stack>
+                </div>
             </div>
-        </>
     );
 }
 

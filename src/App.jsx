@@ -25,42 +25,42 @@ function App() {
     const token = cookies.get("token");
 
     return (
-        <Router>
-            <Routes>
-                {token === undefined && (
-                    <>
-                        <Route path={LOGIN_URL} element={<Login/>}/>
-                        <Route path={REGISTER_URL} element={<Register/>}
-                        />
-                    </>
-                )
-                }
-                {token !== undefined && (
-                    <>
-                        <Route
-                            element={
-                                <NavBar/>
-                            }
-                            children={
-                                <>
-                                    <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
-                                    <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
-                                    <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
-                                    <Route path={PROFILE_URL} element={<Profile/>}/>
-                                    <Route path={COURSE_URL+":id"} element={<Course/>}/>
-                                    {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
+            <Router>
+                <Routes>
+                    {token === undefined && (
+                        <>
+                            <Route path={LOGIN_URL} element={<Login/>}/>
+                            <Route path={REGISTER_URL} element={<Register/>}
+                            />
+                        </>
+                    )
+                    }
+                    {token !== undefined && (
+                        <>
+                            <Route
+                                element={
+                                    <NavBar/>
+                                }
+                                children={
+                                    <>
+                                        <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
+                                        <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
+                                        <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
+                                        <Route path={PROFILE_URL} element={<Profile/>}/>
+                                        <Route path={COURSE_URL+":id"} element={<Course/>}/>
+                                        {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
 
-                                </>}/>
-                    </>
-                )
-                }
-                <Route path='/*' element={<ErrorPage/>}/>
+                                    </>}/>
+                        </>
+                    )
+                    }
+                    <Route path='/*' element={<ErrorPage/>}/>
 
 
-            </Routes>
-        </Router>
-    )
-        ;
+                </Routes>
+            </Router>
+
+    );
 }
 
 
