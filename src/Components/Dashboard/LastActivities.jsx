@@ -12,12 +12,10 @@ function LastActivities() {
         {
             field: "material.title",
             headerName: "Title",
-            // filter: 'agSetColumnFilter',
         },
         {
             field: "user.fullName",
             headerName: "Uploaded By",
-            // filter: 'agSetColumnFilter',
         },
         {
             field: "material.uploadDate",
@@ -70,7 +68,6 @@ function LastActivities() {
                 .then(list => list.reverse())
                 .then(list => setLastActivitiesList(list));
         }
-
         fetchData()
     }, []);
 

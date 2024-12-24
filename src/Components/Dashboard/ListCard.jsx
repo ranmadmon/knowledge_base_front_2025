@@ -28,9 +28,7 @@ function ListCard(props) {
     function renderList() {
         const startIndex = (currentPg - 1) * perPage;
         const endIndex = startIndex + perPage
-        if (list.length === 0) {
-            return <p>No items to display.</p>;
-        }
+
         const relevantPageList = list.slice(startIndex, endIndex)
         return props.render(relevantPageList);
     }

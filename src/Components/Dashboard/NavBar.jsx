@@ -24,7 +24,7 @@ function NavBar() {
 
     return (
         <>
-        <ClickOutside action={console.log("working")}>
+        <ClickOutside >
             <nav className="navbar">
                 <div className="navbar-logo-container">
                     <img className={"navbar-logo"} src={"src/assets/navbar/book-logo.PNG"} alt={"logo"}/>

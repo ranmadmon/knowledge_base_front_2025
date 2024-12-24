@@ -28,19 +28,11 @@ export default function Course() {
         const token = cookies.get("token");
         if (token) {
             setToken(token);
-            console.log(token)
         }
     }, []);
-function getTypeId(){
-    const filteredType = types.filter(type => type.name === choosenType);
-    return filteredType[0].id;
-}
-    function getTagId(){
-        const filteredTag = tags.filter(tag => tag.name === choosenTag);
-        return filteredTag[0].id;
-    }
+
     function addMaterial(){
-        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+getTypeId()+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+getTagId()+"&content="+choosenContent)
+        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
             .then(
                 response=>{
                     getMaterials()
@@ -78,7 +70,6 @@ function getTypeId(){
             .then(response => {
                 if (response.data) {
                     setMaterial(response.data);
-                    console.log(material)
                 }
             })
             .catch(error => {
@@ -115,20 +106,20 @@ function getTypeId(){
                     setChoosenType(event.target.value);console.log(choosenType)
                 }}>
                     <option value="" disabled>Choose type</option>
-                    {types.map((type, index) => {
+                    {types.map((type) => {
                         return (
-                            <option key={index} value={type.name}>{type.name}</option>
+                            <option key={type.id} value={type.id}>{type.name}</option>
                         )
                     })}
                 </select>
                 <select className={"new-form-input-select"} value={choosenTag} onChange={(event) => {
-                    setChoosenTag(event.target.value);console.log(event.target.value)
+                    setChoosenTag(event.target.value);
                 }}>
                     <option value={""} disabled>Choose tag</option>
                     {
-                        tags.map((tag, index) => {
+                        tags.map((tag) => {
                             return (
-                                <option key={index} value={tag.name}>{tag.name}</option>
+                                <option key={tag.id} value={tag.id}>{tag.name}</option>
                             )
                         })
                     }
@@ -139,7 +130,6 @@ function getTypeId(){
         )
     }
     function addToMaterialHistory(materialId){
-        console.log(materialId)
         axios.get(SERVER_URL+"/add-material-to-history?token="+token+"&materialId="+materialId)
 
     }
