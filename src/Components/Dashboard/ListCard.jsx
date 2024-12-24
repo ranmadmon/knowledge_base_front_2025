@@ -48,10 +48,11 @@ function ListCard(props) {
     }
 
     return (
-        <Card sx={{backgroundColor: "rgb(101,51,152)"}}  elevation={6}  minHeight={"50%"}>
-            <Typography color={"white"} margin={2} variant={"h4"}>
+        <Card  elevation={6}>
+            <Typography  margin={2} variant={"h4"}>
                 {props.header}
             </Typography>
+
             {renderList()}
 
             <Stack sx={{flex: 1, m: 2}} justifyContent="center" alignItems="center" direction="row" spacing={2}>
