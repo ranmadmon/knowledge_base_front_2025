@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './Form.css';
 import axios from "axios";
 import {teal} from "@mui/material/colors";
-import OtpComponent from "./OtpComponent.jsx";
-import {LOGIN_URL} from "../Utils/Constants.jsx";
+import CodeInputComponent from "./CodeInputComponent.jsx";
 
 function Register() {
     const [name, setName] = useState("");
@@ -60,12 +59,13 @@ function Register() {
                     }else{
                         setShowOtpComponent(false);
                         console.log(response.data)
-                        navigate(LOGIN_URL);
+                        navigate("/");
                     }
                 }
             })
     }
     const allFieldsFilled = () => {
+
         return (
             name.length>2 &&
             lastName.length>2 &&
@@ -85,52 +85,47 @@ function Register() {
             jobTitle.trim()
         );
     };
-
-    function getInput(title, value, setValue, type, pattern, error, message, setError) {
+    function pattern(type){
+        switch(type){
+            case "password": return ("(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
+            case "text": return (".{0}|.{3,}");
+            case "email": return (".{0}|.{0,}");
+            case "username": return (".{0}|.{5,}");
+            case "tel": return (".{0}|.{10,}");
+        }
+    }
+    function getInput(title, value, setValue, type, error, message, setError) {
         return (
-            <div className={"flex input-container"} key={title}>
+            <div className={"input-container"} key={title}>
                 <label className={"form-label"}>{title}:{errorCodeComponent(error,message)}</label>
+
                 <div style={{ display: "flex", width:"100%" }}>
                     {type === "password" &&
-                        <button className={"show-password"}
-                                style={{}}
-                                onClick={(event) => {
-                                    title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
-                                }}></button>
+                            <button className={"show-password"}
+                                    style={{}}
+                                    onClick={(event) => {
+                                        title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
+                                    }}></button>
                     }
                     <input required
                            className={"form-input"}
-                           id={title}
                            type={type}
                            name={title}
                            value={value}
-                           pattern={pattern}
-                           onChange={(e) => {
-                               setValue(e.target.value);
-                               // setError("");
-                               checkValidity(title,message)}}
+                           onChange={(e) => {setValue(e.target.value); setError(null)}}
                            placeholder={title}
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                            size={1}
                            aria-expanded={false}
-                           // onInvalid={(e) => {
-                           //     e.target.setCustomValidity("shit")
-                           // }}
 
                     />
                 </div>
+
+
             </div>
         );
     }
-    function checkValidity(title,message){
-        let form = document.getElementById(title);
-        if (!form.checkValidity()){
-            form.setCustomValidity(message)
-            console.log(form.checkValidity());
-        } else{
-            form.setCustomValidity()
-            console.log(form.reportValidity());
-        }
-    }
+
     function showErrorCode() {
         let errorMessage = "";
         switch (errorCode){
@@ -176,80 +171,69 @@ function Register() {
             </>
         )
     }
-    function passwordRequirementsComponent(){
+    function passwordRequirmentsComponent(){
         return (
             <div className={"password-requirement-bubble"}>
-                <label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,*/
-                    "length>8"</label>
+                <label></label>
             </div>
         )
     }
-
     return (
-        <div className="flex form-page">
-            <button onClick={()=>{
-                checkValidity("Email")
-            }}>check valid</button>
-            <div className="flex form-container">
-                <div className={"flex left-side"}>
-                    <div className={"flex form-headers"}>
+        <div className="form-page">
+            <div className="form-container">
+                <div className={"right-side"}>
+                    <div className={"form-headers"}>
                         <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
-                        <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Register</text>
-                        <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
+                        <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Register</text>
+                        <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
 
-                    <div className={"flex form"}>
-                        {/*<text>{showErrorCode()}</text>*/}
+                    <div className={"form register"}>
+                        <label>{showErrorCode()}</label>
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName, "text","^(?=.*[a-z]).{3,}$")}
-                            {getInput("Last Name", lastName, setLastName, "text","^(?=.*[a-z]).{3,}$")}
+                            {getInput("Name", name, setName, "text")}
+                            {getInput("Last Name", lastName, setLastName, "text")}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",emailErrorCode, "email is taken", setEmailErrorCode)}
+                            {getInput("Email", email, setEmail, "email", emailErrorCode, "email is taken", setEmailErrorCode)}
 
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel","^05\\d{8}$", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername, "username","(?=.*[a-z]).{6,12}$" ,usernameErrorCode, "username is taken", setUsernameErrorCode)}
+                            {getInput("Username", username, setUsername, "username", usernameErrorCode, "username is taken", setUsernameErrorCode)}
 
-                            <div className={"flex input-container"}>
-
+                            <div className={"input-container"}>
                                 <label className={"form-label"}>Job Title:</label>
-                                <div style={{display: "flex", width: "100%"}}>
-
-                                    <select required className={"form-input"} value={jobTitle}
-                                            onChange={(e) => setJobTitle(e.target.value)}>
-                                        <option value="" disabled>Select Job Title</option>
-                                        <option value="Student">Student</option>
-                                        <option value="Lecturer">Lecturer</option>
-                                    </select>
-                                </div>
+                                <select required className={"form-input"} value={jobTitle}
+                                        onChange={(e) => setJobTitle(e.target.value)}>
+                                    <option value="" disabled>Select Job Title</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                </select>
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$")}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$",passwordErrorCode, "the passwords don't match")}
+                            {getInput("Password", password, setPassword, "password")}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", passwordErrorCode, "the passwords don't match")}
                         </div>
+                        <label className={"password-tooltip"}>password should include: A-Z, a-z, 1-9,
+                            "length>8"</label>
                     </div>
                     <div className={"submit-container"}>
-                        <div className={"input-pair"}>
-                            <button onClick={() => register()} id={"submit-button"}
-                                    className={allFieldsFilled() ? "active" : ""}
-                                    disabled={!allFieldsFilled()}>
-                                Register Now
+                        <button onClick={() => register()} id={"submit-button"}
+                                className={allFieldsFilled() ? "active" : ""}
+                                disabled={!allFieldsFilled()}>
+                            Register Now
+                        </button>
+                        <div className={"have-an-account"}>
+                            <label>Already have an account?</label>
+                            <button className={"have-an-account-button"} onClick={() => navigate('/')}> Login Now!
                             </button>
-                            <div className={"have-an-account"}>
-                                <label>Already have an account?</label>
-                                <button className={"have-an-account-button"} onClick={() => navigate(LOGIN_URL)}> Login
-                                    Now!
-                                </button>
-                            </div>
                         </div>
-
                     </div>
                 </div>
-                <div className={"right-side"}>
+                <div className={"left-side"}>
                     <div className={"image-container"}>
                         <img className={"form-image"} style={{width: "500px", height: "500px"}}
                              src={"src/assets/image11.png"}
@@ -258,7 +242,7 @@ function Register() {
 
                 </div>
             </div>
-            {showOtpComponent && <OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
+            {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
         </div>
 
     );
