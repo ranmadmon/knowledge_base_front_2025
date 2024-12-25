@@ -40,7 +40,7 @@ function NotificationPanel() {
                     {coursesList.length === 0 && <Typography> Nothing to show here</Typography>}
                     {coursesList.map((notification) => (
                         <>
-                            <Accordion sx={{minHeight:"300px"}}>
+                            <Accordion >
                                 <AccordionSummary expandIcon={<ArrowDropDown/>}>
                                     <Typography variant="h5">
                                         <Stack >
