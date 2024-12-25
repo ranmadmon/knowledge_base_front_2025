@@ -40,17 +40,23 @@ function NotificationPanel() {
                     {coursesList.length === 0 && <Typography> Nothing to show here</Typography>}
                     {coursesList.map((notification) => (
                         <>
-                            <Accordion>
+                            <Accordion sx={{minHeight:"300px"}}>
                                 <AccordionSummary expandIcon={<ArrowDropDown/>}>
                                     <Typography variant="h5">
-                                        {notification.title}
+                                        <Stack >
+                                            <Typography sx={{fontSize:28}}>
+                                                {notification.title}
+                                            </Typography>
+                                            <Typography sx={{justifyContent:"end"}}>
+                                                {formatDatetime(notification.date)}
+                                            </Typography>
+                                        </Stack>
+
                                     </Typography>
 
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography>
-                                        {formatDatetime(notification.date)}
-                                    </Typography>
+
                                     <Typography>
                                         By: {notification?.fromUser?.fullName}
                                     </Typography>
