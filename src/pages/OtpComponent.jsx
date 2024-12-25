@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "./Form.css"
 
 
-const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
+const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
@@ -106,4 +106,4 @@ const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}})
     );
 };
 
-export default CodeInputComponent;
+export default OtpComponent;

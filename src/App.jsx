@@ -48,7 +48,7 @@ function App() {
                                         <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
                                         <Route path={PROFILE_URL} element={<Profile/>}/>
                                         <Route path={COURSE_URL+":id"} element={<Course/>}/>
-                                        {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
+                                        {/*<Route path={"/codeInputComponent"} element={<OtpComponent/>}/>*/}
 
                                     </>}/>
                         </>

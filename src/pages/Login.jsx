@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
 import Cookies from 'universal-cookie';
-import CodeInputComponent from "./CodeInputComponent.jsx";
+import OtpComponent from "./OtpComponent.jsx";
 import {DASHBOARD_URL, REGISTER_URL} from "../Utils/Constants.jsx";
 
 
@@ -166,7 +166,7 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                    {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
+                    {showOtpComponent&&<OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
 
                 </div>
                 );
