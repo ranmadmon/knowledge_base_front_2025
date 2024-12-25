@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -19,48 +19,50 @@ import {
     PROFILE_URL,
     REGISTER_URL
 } from "./Utils/Constants.jsx";
+import FileUpload from "./pages/FileUpload.jsx";
 
 function App() {
     const cookies = new Cookies(null, {path: '/'});
     const token = cookies.get("token");
 
     return (
-        <Router>
-            <Routes>
-                {token === undefined && (
-                    <>
-                        <Route path={LOGIN_URL} element={<Login/>}/>
-                        <Route path={REGISTER_URL} element={<Register/>}
-                        />
-                    </>
-                )
-                }
-                {token !== undefined && (
-                    <>
-                        <Route
-                            element={
-                                <NavBar/>
-                            }
-                            children={
-                                <>
-                                    <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
-                                    <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
-                                    <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
-                                    <Route path={PROFILE_URL} element={<Profile/>}/>
-                                    <Route path={COURSE_URL+":id"} element={<Course/>}/>
-                                    {/*<Route path={"/codeInputComponent"} element={<CodeInputComponent/>}/>*/}
+            <Router>
+                <Routes>
+                    <Route path={"upload"} element={<FileUpload />}/>
+                    {token === undefined && (
+                        <>
+                            <Route path={LOGIN_URL} element={<Login/>}/>
+                            <Route path={REGISTER_URL} element={<Register/>}
+                            />
+                        </>
+                    )
+                    }
+                    {token !== undefined && (
+                        <>
+                            <Route
+                                element={
+                                    <NavBar/>
+                                }
+                                children={
+                                    <>
+                                        <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
+                                        <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
+                                        <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
+                                        <Route path={PROFILE_URL} element={<Profile/>}/>
+                                        <Route path={COURSE_URL+":id"} element={<Course/>}/>
+                                        {/*<Route path={"/codeInputComponent"} element={<OtpComponent/>}/>*/}
 
-                                </>}/>
-                    </>
-                )
-                }
-                <Route path='/*' element={<ErrorPage/>}/>
+                                    </>}/>
+                        </>
+                    )
+                    }
+                    <Route path='/*' element={<ErrorPage/>}/>
 
 
-            </Routes>
-        </Router>
-    )
-        ;
+                </Routes>
+            </Router>
+
+    );
 }
 
 

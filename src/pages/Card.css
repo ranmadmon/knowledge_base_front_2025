@@ -11,31 +11,35 @@
     font-weight: bold;
 }
 .card-container{
-    width: 95%;
-    height: 60vh;
+    width: calc(100% - 5%);
+    height: 590px;
     gap: 1.5rem;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-content: flex-start;
     flex-wrap: wrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-x: auto;
+    /*overflow-y: hidden;*/
     white-space: nowrap;
-    scroll-behavior: smooth;
+    /*scroll-behavior: smooth;*/
+    scroll-snap-type: x mandatory;
+
 
 }
+
 .card-container::-webkit-scrollbar {
     height: 0.8rem;
+    width: 0.8rem;
 }
 .card-container::-webkit-scrollbar-track {
     /*background: rgba(147, 112, 219, 0.38);*/
     margin: 1.5rem;
 }
 .card-container::-webkit-scrollbar-thumb {
-    background: var(--background-color);
+    background: var(--color-scheme);
     border-radius: 5px;
 }
 .card-container::-webkit-scrollbar-thumb:hover {
@@ -43,6 +47,7 @@
     /*transition: background 0.5s;*/
 }
 .card{
+    margin-block-start: 2em;
     min-width: 300px;
     min-height: 500px;
     max-width: 300px;
@@ -61,8 +66,13 @@
     transition: transform 0.5s ease, box-shadow 0.3s ease;
     cursor: pointer;
     white-space: wrap;
-
-
+    flex-shrink: 0;
+    scroll-snap-align: center;
+}
+.card:scrolled{
+    transform: scale(1.2);
+}
+.card:before{
 }
 .card:hover{
     transform: scale(1.01);
@@ -83,4 +93,16 @@
     gap: 1.5rem;
     width: 90%;
     height: 50%;
+}
+.card-content-header{
+    color: darkgrey;
+    font-size: 1.2rem;
+    font-weight: bold;
+    height:15%;
+}
+.card-content-desc{
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    height: 85%;
 }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
 import Cookies from 'universal-cookie';
-import CodeInputComponent from "./CodeInputComponent.jsx";
+import OtpComponent from "./OtpComponent.jsx";
 import {DASHBOARD_URL, REGISTER_URL} from "../Utils/Constants.jsx";
 
 
@@ -102,10 +102,10 @@ function Login() {
     }
     function getInput(title, value, setValue, type) {
         return (
-            <div className={"input-container"} key={title}>
+            <div className={"flex input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
                 <div style={{ display: "flex", width:"100%" }}>
-                    {type === "password" && <button className={"show-password"} style={{}}
+                    {type === "password" && <button className={"show-password"}
                                                     onClick={(event) => {title==="Password" && handleShowPassword(event)}}
                     ></button>}
                     <input required
@@ -119,6 +119,7 @@ function Login() {
                            size={1}
 
                     />
+
                 </div>
                 {type === "password" && <button className={"forgot-password-button"}>Forgot Password?</button>}
             </div>
@@ -126,36 +127,38 @@ function Login() {
     }
 
                 return (
-                <div className="form-page">
-                    <div className="form-container">
-                        <div className={"right-side"}>
-                            <div className={"form-headers"}>
+                <div className="flex form-page">
+                    <div className="flex form-container">
+                        <div className={"flex left-side"}>
+                            <div className={"flex form-headers"}>
                                 <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
-                                <text style={{fontSize: "2.4rem", fontWeight: "bold"}}>Login</text>
-                                <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
+                                <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Login</text>
+                                <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                             </div>
-                            <div className={"form"} id="login">
+                            <div className={"flex form"} id="login">
                                 {getInput("Username", username, setUsername, "text", 5)}
                                 {getInput("Password", password, setPassword, "password", 8)}
-                                <label> {showErrorCode()}</label>
-
+                                {/*<label> {showErrorCode()}</label>*/}
                             </div>
                             <div className={"submit-container"}>
-                                <button id={"submit-button"} type="submit" onClick={()=>login()}
-                                        className={allFieldsFilled() ? "active" : ""}
-                                        disabled={!allFieldsFilled()}>
-                                    Login
-                                </button>
-                                <div className={"have-an-account"}>
-                                    <label>Dont have an account?</label>
-                                    <button className={"have-an-account-button"} onClick={() => navigate(REGISTER_URL)}> Create
-                                        Now!
+                                <div className={"input-pair"}>
+                                    <button id={"submit-button"} type="submit" onClick={() => login()}
+                                            className={allFieldsFilled() ? "active" : ""}
+                                            disabled={!allFieldsFilled()}>
+                                        Login
                                     </button>
+                                    <div className={"have-an-account"}>
+                                        <label>Dont have an account?</label>
+                                        <button className={"have-an-account-button"}
+                                                onClick={() => navigate(REGISTER_URL)}> Create
+                                            Now!
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>
-                        <div className={"left-side"}>
+                            </div>
+                            <div className={"right-side"}>
                             <div className={"image-container"}>
                                 <img className={"form-image"} style={{width: "500px", height: "500px"}}
                                      src={"src/assets/image10.png"}
@@ -163,7 +166,7 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                    {showOtpComponent&&<CodeInputComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
+                    {showOtpComponent&&<OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
 
                 </div>
                 );

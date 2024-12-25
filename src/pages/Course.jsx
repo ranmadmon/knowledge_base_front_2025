@@ -28,7 +28,6 @@ export default function Course() {
         const token = cookies.get("token");
         if (token) {
             setToken(token);
-            console.log(token)
         }
     }, []);
 
@@ -92,7 +91,7 @@ export default function Course() {
         return (
             <div className={'add-new-form'}
                  style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
-                <h1>Add material</h1>
+                <label className={"add-new-form-header"}>Add material</label>
                 <br/>
                 <input className={"new-form-input"} placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
                     setChoosenTitle(event.target.value)
@@ -107,20 +106,20 @@ export default function Course() {
                     setChoosenType(event.target.value);console.log(choosenType)
                 }}>
                     <option value="" disabled>Choose type</option>
-                    {types.map((type, index) => {
+                    {types.map((type) => {
                         return (
-                            <option key={index} value={type.name}>{type.name}</option>
+                            <option key={type.id} value={type.id}>{type.name}</option>
                         )
                     })}
                 </select>
                 <select className={"new-form-input-select"} value={choosenTag} onChange={(event) => {
-                    setChoosenTag(event.target.value);console.log(event.target.value)
+                    setChoosenTag(event.target.value);
                 }}>
                     <option value={""} disabled>Choose tag</option>
                     {
-                        tags.map((tag, index) => {
+                        tags.map((tag) => {
                             return (
-                                <option key={index} value={tag.name}>{tag.name}</option>
+                                <option key={tag.id} value={tag.id}>{tag.name}</option>
                             )
                         })
                     }
@@ -131,18 +130,14 @@ export default function Course() {
         )
     }
     function addToMaterialHistory(materialId){
-        console.log(materialId)
         axios.get(SERVER_URL+"/add-material-to-history?token="+token+"&materialId="+materialId)
-        axios.get(SERVER_URL+"/get-material-history?token="+token).then(
-            response=>{
-                console.log("kjnkjnkj"+response.data)
-            }
-        )
+
     }
     function materialsComponent(){
         return (
             <div className={"card-container"}>
                 {
+
                     material.map((item, index) => {
                         return (
                             <div onClick={()=>addToMaterialHistory(item.id)} className={"card"} key={index}>
@@ -159,6 +154,7 @@ export default function Course() {
                                         fontWeight: "bold",
                                         height: "85%"
                                     }}>Description: {item.description}</text>
+                                    <text>content: {item.content} </text>
                                     <text>By: {item.userEntity.username}</text>
                                 </div>
                             </div>
@@ -190,21 +186,21 @@ export default function Course() {
             <div className={"upper-container"} style={{flexDirection: "column"}}>
                 <text className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</text>
                 <text className={"course-page-description"}>{courseData.description}</text>
+
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"}>
-                    {newMaterialVisibility && addNewMaterialComponent()}
                     {handleComponentRendering()}
                     <button className={"add-new"}
                             onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
                         <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
-                             viewBox="0 0 160 160" width="35" fill={"white"}>
+                             viewBox="0 0 160 160" width="35" fill={"var(--color-scheme)"}>
                             <rect className="vertical-line" x="70" width="20" height="160"/>
                             <rect className="horizontal-line" y="70" width="160" height="20"/>
                         </svg>
                     </button>
                 </div>
-
+                {newMaterialVisibility && addNewMaterialComponent()}
             </div>
 
         </div>

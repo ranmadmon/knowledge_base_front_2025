@@ -3,8 +3,8 @@
     background: rgba(25, 3, 50, 0);
     color: var(--background-color);
     border: 3px solid rebeccapurple;
-    margin-inline-start: 1.3rem;
-    margin-inline-end: 1.3rem;
+    /*margin-inline-start: 1.3rem;*/
+    /*margin-inline-end: 1.3rem;*/
     transform: translateX(0%);
 
 }
@@ -16,17 +16,19 @@
     justify-content: flex-start;
     text-align: center;
     gap: 1.1rem;
-
-    min-width: 400px;
-    min-height: 600px;
-    max-width: 400px;
-    max-height: 600px;
+    position: absolute;
+    min-width: 350px;
+    min-height: 550px;
+    max-width: 350px;
+    max-height: 550px;
     border-radius: 15px;
     font-size: 25px;
     overflow: hidden;
     place-self: center;
     place-content: center;
-
+    margin-block-start: 1rem;
+    align-self: center;
+    justify-self: center;
 }
 @property --angle{
     syntax: '<angle>';
@@ -39,12 +41,16 @@
     z-index: -1;
     inset: -1em;
     border: solid 1.25em;
-    border-image: conic-gradient(from var(--angle), #891eff, rgb(148, 55, 255), rgb(0, 165, 255), #0bcbff) 1;
+    border-image: conic-gradient(from var(--angle), #891eff, rgb(148, 55, 255), rgb(0, 165, 255), #0bcbff, #891eff) 1;
     filter: blur(.75em);
-    animation: angle 20s infinite;
+    animation: angle 10s infinite;
 }
 @keyframes angle {
     to {--angle: 1turn}
+}
+.add-new-form-header{
+    color: var(--color-scheme);
+    font-size: 2rem;
 }
 .new-form-input{
     width: 85%;
@@ -59,8 +65,8 @@
     min-width: 85%;
     max-width: 85%;
     height: 10%;
-    min-height: 10%;
-    max-height: 30%;
+    min-height: 4em;
+    max-height: 8em;
     border-radius: 5px;
     border: 1px solid #E8EAED;
     font-size: 1.2rem;
@@ -74,23 +80,22 @@
     border: 1px solid #E8EAED;
     cursor: pointer;
     background: url('@mui/icons-material/KeyboardArrowDown') no-repeat right white;
-
 }
 .new-form-button {
     width: 85%;
     height: 7%;
     border-radius: 5px;
-    border: 3px solid rebeccapurple;
+    border: 3px solid var(--color-scheme);
     background-color: transparent;
-    color: black;
+    color: var(--color-scheme);
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
     transition: box-shadow 300ms ease-in, scale 300ms ease;
 }
-.new-course-button:hover{
+.new-form-button:hover{
     box-shadow: 0 0 10px rebeccapurple;
-    scale: 1.02;
+    scale: 1.09;
 }
 .plus .vertical-line, .plus .horizontal-line{
     transition: all 0.3s ease;

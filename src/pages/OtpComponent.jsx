@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "./Form.css"
 
 
-const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
+const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
@@ -73,7 +73,7 @@ const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}})
                 <div className={"otp-input-field"} style={{display: "flex", gap: "1.3rem"}}>
                     {otp.map((data,index) => {
                         return (
-                            <input
+                            <input key={index}
                                 required
                                 className={"otp-input"}
                                 ref={ (input) => (inputRef.current[index] = input)}
@@ -106,4 +106,4 @@ const CodeInputComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}})
     );
 };
 
-export default CodeInputComponent;
+export default OtpComponent;
