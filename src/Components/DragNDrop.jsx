@@ -1,38 +1,52 @@
 import React, {useCallback, useState} from 'react';
 import {
-    Box,
-    Card, Divider,
+    Alert, Box,
+    Button,
+    Card,
+    Divider,
     IconButton,
-    Input,
     List,
     ListItemButton,
+    ListItemText,
     ListSubheader,
-    Stack,
-    TextField,
-    Typography
+    Stack
 } from "@mui/material";
 import {useDropzone} from "react-dropzone";
 import axios from "axios";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {uploadFiles} from "../API/FilesAPI.js";
+import log from "eslint-plugin-react/lib/util/log.js";
+import {FILE_ERROR_CODE, SUCCESS_CODE} from "../Utils/Constants.jsx";
+
 
 function DragNDrop(props) {
+    const SUCCESS ="success"
+    const ERROR ="error"
+
     const [selectedFiles, setSelectedFiles] = useState([])
-    const MAX_FILES = 5;
-    const uploadFiles = () => {
-        const data = new FormData();
-        data.append('file', selectedFiles[0]);
-        axios.post("http://localhost:8080/upload-file1", data, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then(response => {
-                setSelectedFiles([])
-            })
-            .catch(error => {
-                console.error("Error uploading file:", error);
-            });
+    const [errorUploading, setErrorUploading] = useState("")
+    const MAX_FILES = 50;
+
+
+    const handleUploadFiles = async () => {
+        const response = await uploadFiles(selectedFiles)
+        console.log(response.status)
+        if (response.status === SUCCESS_CODE) {
+            setErrorUploading(SUCCESS)
+            setSelectedFiles([])
+        } else if (response.status === FILE_ERROR_CODE) {
+            setErrorUploading(ERROR)
+        }
+    }
+
+    const alertHandler = () => {
+        if (errorUploading === ERROR) {
+            return <Alert severity={ERROR}>Error uploading - File type maybe unsupported</Alert>
+        } else if (errorUploading === SUCCESS) {
+            return <Alert severity={SUCCESS}>File uploaded successfully</Alert>
+        }
+
     }
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -59,17 +73,20 @@ function DragNDrop(props) {
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
     return (
         <Card sx={{
+
             width: "100%",
-            height: "100%",
+            height: "60vh",
             marginTop: 2,
-            minHeight: 400,
-            minWidth: "60%"
+            minHeight: "100%",
+            maxHeight: "100%",
+            maxWidth: "100%",
+            minWidth: "100%",
+
         }}
               elevation={6}>
             <Stack sx={{height: "100%"}} direction="row"
-                   divider={
-                       <Divider orientation="vertical" flexItem sx={{margin: 2}}/>
-                   }>
+                   divider={<Divider orientation="vertical" flexItem sx={{margin: 2}}/>}
+            >
 
                 <Stack {...getRootProps()} sx={{
                     display: "flex",
@@ -82,36 +99,68 @@ function DragNDrop(props) {
                     <FileUploadIcon sx={{
                         width: "30%",
                         height: "30%",
-                    }}/>{isDragActive ? "drop now" : "Click here to Upload files"}</Stack>
-                <List sx={{
-                    width: "40%",
-                    minWidth: "40%",
+                    }}/>{isDragActive ? "drop files now" : "Click here to upload files"}
+                    <Box sx={{mt:5}}>
+                        {alertHandler()}
+                    </Box>
+                        </Stack>
 
-                    height: "100%",
-                }}>
-                    <ListSubheader>
-                        File selected: ({selectedFiles.length}/{MAX_FILES})
-                    </ListSubheader>
+                        <Stack direction={"column"}
+                       sx={{
+                           width: "40%",
+                           minWidth: "40%",
+                           height: "100%",
+                           alignItems: "center",
+                           m: 0,
 
-                    {selectedFiles.map((file) => {
-                        return (
-                            <ListItemButton
-                                key={file.name}>
-                                <IconButton onClick={() => setSelectedFiles(prevState => prevState.filter(item => {
-                                    return item.path !== file.path
-                                }))}>
-                                    <DeleteIcon
-                                        sx={{'&:hover': {color: 'red'}}}
-                                    />
-                                </IconButton>
-                                <Typography> {file.name} - {file.size}kb</Typography>
-                            </ListItemButton>
-                        )
+                       }}
+                       divider={<Divider orientation="horizontal" flexItem sx={{margin: 2}}/>}
+                >
+                    <List sx={{
+                        width: "100%",
+                        minWidth: "100%",
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                        height: "100%",
+                        '&::-webkit-scrollbar': {
+                            width: '0.4em',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'rgba(0,0,0,.1)',
+                        }
+                    }}
+                          subheader={<ListSubheader> File selected:
+                              ({selectedFiles.length}/{MAX_FILES})</ListSubheader>}>
 
-                    })}
-                </List>
+                        {selectedFiles.map((file) => {
+                            return (
+                                <ListItemButton
+                                    key={file.name}>
+                                    <IconButton onClick={() => setSelectedFiles(prevState => prevState.filter(item => {
+                                        return item.path !== file.path
+                                    }))}>
+                                        <DeleteIcon
+                                            sx={{'&:hover': {color: 'red'}}}
+                                        />
+                                    </IconButton>
+                                    <ListItemText> {file.name} - {file.size}kb</ListItemText>
+                                </ListItemButton>
+                            )
+                        })}
 
-
+                    </List>
+                    <Button onClick={() => {
+                        setErrorUploading(false)
+                        handleUploadFiles()
+                    }}
+                            variant={"contained"}
+                            color={"success"}
+                            sx={{width: "70%", m: 2}}
+                            disabled={selectedFiles.length === 0}
+                    >
+                        Upload files
+                    </Button>
+                </Stack>
             </Stack>
 
         </Card>
