@@ -73,7 +73,7 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
                 <div className={"otp-input-field"} style={{display: "flex", gap: "1.3rem"}}>
                     {otp.map((data,index) => {
                         return (
-                            <input
+                            <input key={index}
                                 required
                                 className={"otp-input"}
                                 ref={ (input) => (inputRef.current[index] = input)}
