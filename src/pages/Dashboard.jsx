@@ -3,6 +3,7 @@ import LastActivity from "../Components/Dashboard/LastActivities.jsx";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import NotificationPanel from "../Components/Dashboard/NotificationPanel.jsx";
 import {Box, Stack} from "@mui/material";
+import DragNDrop from "../Components/DragNDrop.jsx";
 
 function Dashboard() {
 

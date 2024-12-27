@@ -1,26 +1,23 @@
 import "./Course.css"
-import {useState, useEffect} from "react";
-import axios from "axios";
-import NavBar from "../Components/Dashboard/NavBar.jsx";
-import {useLocation, useNavigate} from "react-router-dom";
-import {getCourse} from "../API/CoursesAPI.jsx";
-import Cookies from "universal-cookie";
+import React, {useState,useEffect} from "react";
+import Material from "../Components/CoursesPage/Material.jsx";
+import * as MaterialsAPI from "../API/MaterialsAPI.jsx";
+import DragNDrop from "../Components/DragNDrop.jsx";
+import {Box} from "@mui/material";
+import {useLocation} from "react-router-dom";
 
 export default function Course() {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
+    const [material, setMaterial] = useState([]);
+    const [uploadFileActive,setUploadFileActive ]= useState(false)
     const [courseID, setCourseID] = useState(location.pathname.split("/")[2]);
-    const [courseData, setCourseData] = useState({});
-    const [material,setMaterial] = useState([]);
-    const SERVER_URL = "http://localhost:8080/"
-    const [choosenTitle, setChoosenTitle] = useState("");
+    const [chosenTitle, setChosenTitle] = useState("");
     const [choosenDescription, setChoosenDescription] = useState("");
     const [choosenContent, setChoosenContent] = useState("");
     const [types, setTypes] = useState([]);
     const [choosenType, setChoosenType] = useState("");
     const [tags, setTags] = useState([]);
     const [choosenTag, setChoosenTag] = useState("");
-    const [token,setToken] = useState("FE8C078136ECF7132909C98F53B8131B");
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
     const [courseData, setCourseData] = useState({});
     const [materialId,setMaterialId]=useState()
@@ -35,23 +32,27 @@ export default function Course() {
         getMaterials()
     }, [])
 
-    function addNewMaterialComponent(){
+ function addNewMaterialComponent() {
         return (
             <div className={'add-new-form'}
                  style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
                 <label className={"add-new-form-header"}>Add material</label>
                 <br/>
-                <input className={"new-form-input"} placeholder={"title"} type={"text"} value={choosenTitle} onChange={(event) => {
-                    setChoosenTitle(event.target.value)
-                }}/>
-                <input className={"new-form-input"} placeholder={"description"} type={"text"} value={choosenDescription} onChange={(event) => {
-                    setChoosenDescription(event.target.value)
-                }}/>
-                <textarea className={"new-form-input-desc"} placeholder={"content"} type={"text"} value={choosenContent} onChange={(event) => {
-                    setChoosenContent(event.target.value)
-                }}/>
+                <input className={"new-form-input"} placeholder={"title"} type={"text"} value={chosenTitle}
+                       onChange={(event) => {
+                           setChosenTitle(event.target.value)
+                       }}/>
+                <input className={"new-form-input"} placeholder={"description"} type={"text"} value={choosenDescription}
+                       onChange={(event) => {
+                           setChoosenDescription(event.target.value)
+                       }}/>
+                <textarea className={"new-form-input-desc"} placeholder={"content"} type={"text"} value={choosenContent}
+                          onChange={(event) => {
+                              setChoosenContent(event.target.value)
+                          }}/>
                 <select className={"new-form-input-select"} value={choosenType} onChange={(event) => {
-                    setChoosenType(event.target.value);console.log(choosenType)
+                    setChoosenType(event.target.value);
+                    console.log(choosenType)
                 }}>
                     <option value="" disabled>Choose type</option>
                     {types.map((type) => {
@@ -77,58 +78,34 @@ export default function Course() {
             </div>
         )
     }
-    function addToMaterialHistory(materialId){
-        axios.get(SERVER_URL+"/add-material-to-history?token="+token+"&materialId="+materialId)
 
+    async function addMaterial() {
+       const response = await MaterialsAPI.addMaterial(chosenTitle, choosenType, courseID, choosenDescription, choosenTag, choosenContent);
+      await setMaterialId(response);
+        await getMaterials()
+        setUploadFileActive(true)
+        setChosenTitle("")
+        setChoosenDescription("")
+        setChoosenContent("")
+        setNewMaterialVisibility(false)
     }
-    function materialsComponent(){
-        return (
-            <div className={"card-container"}>
-                {
-
-                    material.map((item, index) => {
-                        return (
-                            <div onClick={()=>addToMaterialHistory(item.id)} className={"card"} key={index}>
-                                <div className="card-content-text">
-                                    <text style={{
-                                        color: "black",
-                                        fontSize: "1.2rem",
-                                        fontWeight: "bold",
-                                        height: "15%"
-                                    }}>Title: {item.title}</text>
-                                    <text style={{
-                                        color: "black",
-                                        fontSize: "1.3rem",
-                                        fontWeight: "bold",
-                                        height: "85%"
-                                    }}>Description: {item.description}</text>
-                                    <text>content: {item.content} </text>
-                                    <text>By: {item.userEntity.username}</text>
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-        )
+    async function getTypes() {
+        const response = await MaterialsAPI.getTypes()
+        setTypes(response)
     }
 
-    function nothingToShowComponent() {
-        return (
-            <div className={"nothing-to-show"}>
-                <text>Nothing to show here yet 🤷</text>
-                <br/>
-                <text>Maybe click on the + icon to add a new Material</text>
-            </div>
-        )
+    async function getTags() {
+        const response = await MaterialsAPI.getTags()
+        setTags(response)
     }
-    function handleComponentRendering(){
-        if (material.length === 0 && !newMaterialVisibility){
-            return nothingToShowComponent()
-        } else if (material.length > 0) {
-            return materialsComponent()
-        }
+
+
+    function handleComponentRendering() {
+
+            return <Material />
+
     }
+
     return (
         <div className="material-page">
             <div className={"upper-container"} style={{flexDirection: "column"}}>
@@ -137,6 +114,9 @@ export default function Course() {
 
             </div>
             <div className={"lower-container"}>
+                {uploadFileActive && <Box  maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
+                    <DragNDrop id={materialId}/>
+                </Box>}
                 <div className={"card-container"}>
                     {handleComponentRendering()}
                     <button className={"add-new"}

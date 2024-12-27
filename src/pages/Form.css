@@ -210,7 +210,7 @@
     border: none;
     cursor: pointer;
     text-align: right;
-    color: white;
+    color: var(--color-scheme);
 }
 .have-an-account{
     width: 100%;

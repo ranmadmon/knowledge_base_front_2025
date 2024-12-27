@@ -1,14 +1,14 @@
 import axios from "axios"
-import * as Constants from "../Utils/Constants.jsx";
+import {SERVER_URL} from "../Utils/Constants.jsx";
 
 export async function getCourses() {
-        try {
-            const response = await axios.get(Constants.URL+"/get-all-courses", {})
-            return await response?.data;
+    try {
+        const response = await axios.get(SERVER_URL+"/get-all-courses", {})
+        return await response?.data;
 
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
 
 }
 export async function getCourse(id) {

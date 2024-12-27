@@ -12,11 +12,9 @@ import {
     Stack
 } from "@mui/material";
 import {useDropzone} from "react-dropzone";
-import axios from "axios";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {uploadFiles} from "../API/FilesAPI.js";
-import log from "eslint-plugin-react/lib/util/log.js";
 import {FILE_ERROR_CODE, SUCCESS_CODE} from "../Utils/Constants.jsx";
 
 
@@ -30,8 +28,7 @@ function DragNDrop(props) {
 
 
     const handleUploadFiles = async () => {
-        const response = await uploadFiles(selectedFiles)
-        console.log(response.status)
+        const response = await uploadFiles(selectedFiles,props.id)
         if (response.status === SUCCESS_CODE) {
             setErrorUploading(SUCCESS)
             setSelectedFiles([])
@@ -39,6 +36,8 @@ function DragNDrop(props) {
             setErrorUploading(ERROR)
         }
     }
+
+
 
     const alertHandler = () => {
         if (errorUploading === ERROR) {

@@ -2,9 +2,11 @@ import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
 import axios from "axios";
+import Error from "../Components/General/Error/Error.jsx"
 import Cookies from 'universal-cookie';
 import OtpComponent from "./OtpComponent.jsx";
 import {DASHBOARD_URL, REGISTER_URL} from "../Utils/Constants.jsx";
+import {Alert} from "@mui/material";
 
 
 function Login() {
@@ -17,14 +19,13 @@ function Login() {
     const SERVER_URL = "http://localhost:8080"
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
+    const regex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$]).{8,}")
 
     function showErrorCode(){
-
         let errorMessage = "";
         switch (errorCode){
-
             case -1 : errorMessage = "Please fill in all fields"; break;
-            case  USER_NOT_EXIST :errorMessage = "Username doesn't exist, SIGN-UP 😁";break;
+            case  USER_NOT_EXIST :errorMessage = "User doesn't exist, SIGN-UP 😁";break;
             case ERROR_PASSWORD : errorMessage = "Wrong Password";break;
         }
         return errorMessage;
@@ -94,13 +95,7 @@ function Login() {
             input.setAttribute("type", "password");
         }
     }
-    function pattern(type){
-        switch(type){
-            case "password": return (".{0}|.{8,}");
-            case "text": return (".{0}|.{5,}");
-        }
-    }
-    function getInput(title, value, setValue, type) {
+    function getInput(title, value, setValue, type,pattern) {
         return (
             <div className={"flex input-container"} key={title}>
                 <label className={"form-label"}>{title}:</label>
@@ -113,9 +108,12 @@ function Login() {
                            type={type}
                            name={title}
                            value={value}
-                           onChange={(e) => setValue(e.target.value)}
+                           onChange={(e) => {
+                               setValue(e.target.value)
+                               setErrorCode(-1)
+                           }}
                            placeholder={title}
-                           pattern={pattern(type)}
+                           pattern={pattern}
                            size={1}
 
                     />
@@ -136,15 +134,16 @@ function Login() {
                                 <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                             </div>
                             <div className={"flex form"} id="login">
-                                {getInput("Username", username, setUsername, "text", 5)}
-                                {getInput("Password", password, setPassword, "password", 8)}
-                                {/*<label> {showErrorCode()}</label>*/}
+                                {getInput("Username", username, setUsername, "text","(?=.*[a-z]).{6,12}$")}
+                                {getInput("Password", password, setPassword, "password", regex)}
+                               {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
+                                {errorCode !== -1 &&  <Alert severity={"info"}>{showErrorCode()}</Alert>}
                             </div>
                             <div className={"submit-container"}>
                                 <div className={"input-pair"}>
                                     <button id={"submit-button"} type="submit" onClick={() => login()}
-                                            className={allFieldsFilled() ? "active" : ""}
-                                            disabled={!allFieldsFilled()}>
+                                            className={allFieldsFilled()&&errorCode===-1 ? "active" : ""}
+                                            disabled={!allFieldsFilled()||errorCode!==-1}>
                                         Login
                                     </button>
                                     <div className={"have-an-account"}>

@@ -1,4 +1,4 @@
-export const URL = "http://localhost:8080";
+export const SERVER_URL = "http://localhost:8080";
 export const DASHBOARD_URL = "/" ;
 export const LOGIN_URL = "/" ;
 export const REGISTER_URL = "/register" ;

@@ -5,6 +5,7 @@ import axios from "axios";
 import {teal} from "@mui/material/colors";
 import OtpComponent from "./OtpComponent.jsx";
 import {LOGIN_URL} from "../Utils/Constants.jsx";
+import Error from "../Components/General/Error/Error.jsx";
 
 function Register() {
     const [name, setName] = useState("");
@@ -109,7 +110,7 @@ function Register() {
                            pattern={pattern}
                            onChange={(e) => {
                                setValue(e.target.value);
-                               // setError("");
+                               // setError(null)
                                checkValidity(title,message)}}
                            placeholder={title}
                            size={1}
@@ -208,9 +209,9 @@ function Register() {
                             {getInput("Last Name", lastName, setLastName, "text","^(?=.*[a-z]).{3,}$")}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",emailErrorCode, "email is taken", setEmailErrorCode)}
+                            {getInput("Email", email, setEmail, "email", "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",emailErrorCode, "email is taken", setEmailErrorCode)}
 
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel","^05\\d{8}$", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel","^05\d{8}$", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
                             {getInput("Username", username, setUsername, "username","(?=.*[a-z]).{6,12}$" ,usernameErrorCode, "username is taken", setUsernameErrorCode)}
@@ -230,15 +231,16 @@ function Register() {
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$")}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$",passwordErrorCode, "the passwords don't match")}
+                            {getInput("Password", password, setPassword, "password", regex)}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password","^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@])(?=.{8,})",passwordErrorCode, "the passwords don't match")}
                         </div>
                     </div>
                     <div className={"submit-container"}>
+                        {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
                         <div className={"input-pair"}>
                             <button onClick={() => register()} id={"submit-button"}
-                                    className={allFieldsFilled() ? "active" : ""}
-                                    disabled={!allFieldsFilled()}>
+                                    className={allFieldsFilled()&&errorCode===-1 ? "active" : ""}
+                                    disabled={!allFieldsFilled()||errorCode!==-1}>
                                 Register Now
                             </button>
                             <div className={"have-an-account"}>

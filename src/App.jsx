@@ -19,7 +19,7 @@ import {
     PROFILE_URL,
     REGISTER_URL
 } from "./Utils/Constants.jsx";
-import FileUpload from "./pages/FileUpload.jsx";
+
 
 function App() {
     const cookies = new Cookies(null, {path: '/'});
@@ -28,7 +28,6 @@ function App() {
     return (
             <Router>
                 <Routes>
-                    <Route path={"upload"} element={<FileUpload />}/>
                     {token === undefined && (
                         <>
                             <Route path={LOGIN_URL} element={<Login/>}/>
