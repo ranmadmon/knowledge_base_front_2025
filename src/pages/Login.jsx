@@ -19,7 +19,10 @@ function Login() {
     const SERVER_URL = "http://localhost:8080"
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
-    const regex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$]).{8,}")
+    const regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,12}';
+
+
+
 
     function showErrorCode(){
         let errorMessage = "";
@@ -135,7 +138,7 @@ function Login() {
                             </div>
                             <div className={"flex form"} id="login">
                                 {getInput("Username", username, setUsername, "text","(?=.*[a-z]).{6,12}$")}
-                                {getInput("Password", password, setPassword, "password", regex)}
+                                {getInput("Password", password, setPassword, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,12}")}
                                {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
                                 {errorCode !== -1 &&  <Alert severity={"info"}>{showErrorCode()}</Alert>}
                             </div>
