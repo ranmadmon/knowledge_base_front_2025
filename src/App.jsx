@@ -8,7 +8,7 @@ import UploadMaterials from "./pages/UploadMaterials.jsx";
 import Profile from "./pages/Profile.jsx";
 import NavBar from "./Components/Dashboard/NavBar.jsx";
 import "./App.css"
-import Course from "./pages/Course.jsx";
+import MaterialList from "./pages/MaterialList.jsx";
 import Cookies from "universal-cookie";
 import {
     COURSE_LIST_URL,
@@ -48,7 +48,7 @@ function App() {
                                         <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
                                         <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
                                         <Route path={PROFILE_URL} element={<Profile/>}/>
-                                        <Route path={COURSE_URL+":id"} element={<Course/>}/>
+                                        <Route path={COURSE_URL+":id"} element={<MaterialList/>}/>
                                         {/*<Route path={"/codeInputComponent"} element={<OtpComponent/>}/>*/}
 
                                     </>}/>

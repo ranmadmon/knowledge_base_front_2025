@@ -90,9 +90,9 @@ export default function CoursesList(){
                     <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
                          alt={"course image"}/>
                 </div>
-                {/*<h1>New Course</h1>*/}
+                {/*<h1>New MaterialList</h1>*/}
                 <input className={"new-form-input"} type={"text"} value={courseName}
-                       onChange={(event) => setCourseName(event.target.value)} placeholder={"Course Name"}/>
+                       onChange={(event) => setCourseName(event.target.value)} placeholder={"MaterialList Name"}/>
                 <textarea className={"new-form-input-desc"} type={"text"} value={description}
                           onChange={(event) => setDescription(event.target.value)} placeholder={"Description"}/>
                 <select className={"new-form-input-select"} value={chosenLecturer}

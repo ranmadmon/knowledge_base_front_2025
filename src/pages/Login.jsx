@@ -19,10 +19,6 @@ function Login() {
     const SERVER_URL = "http://localhost:8080"
     const ERROR_PASSWORD = 401;
     const USER_NOT_EXIST = 400;
-    const regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,12}';
-
-
-
 
     function showErrorCode(){
         let errorMessage = "";
@@ -127,6 +123,14 @@ function Login() {
         );
     }
 
+    const handleRegex=(type)=>{
+        let regex = ""
+        switch (type) {
+            case "password": regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,}'; break;
+            case "username":  regex = "(?=.*[a-z]).{6,12}$"; break;
+        }
+        return regex
+    }
                 return (
                 <div className="flex form-page">
                     <div className="flex form-container">
@@ -137,8 +141,8 @@ function Login() {
                                 <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                             </div>
                             <div className={"flex form"} id="login">
-                                {getInput("Username", username, setUsername, "text","(?=.*[a-z]).{6,12}$")}
-                                {getInput("Password", password, setPassword, "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,12}")}
+                                {getInput("Username", username, setUsername, "text", handleRegex("username"))}
+                                {getInput("Password", password, setPassword, "password", handleRegex("password"))}
                                {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
                                 {errorCode !== -1 &&  <Alert severity={"info"}>{showErrorCode()}</Alert>}
                             </div>

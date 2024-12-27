@@ -124,6 +124,18 @@ function Register() {
             </div>
         );
     }
+    const handleRegex=(type)=>{
+        let regex = ""
+        switch (type) {
+            case "firstname": regex = "^(?=.*[a-z]).{3,}$"; break;
+            case "lastname": regex = "^(?=.*[a-z]).{3,}$"; break;
+            case "phone": regex = "^05\d{8}$"; break;
+            case "email": regex = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"; break;
+            case "password": regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,}'; break;
+            case "username":  regex = "(?=.*[a-z]).{6,12}$"; break;
+        }
+        return regex
+    }
     function checkValidity(title,message){
         let form = document.getElementById(title);
         if (!form.checkValidity()){
@@ -205,16 +217,16 @@ function Register() {
                         {/*<text>{showErrorCode()}</text>*/}
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName, "text","^(?=.*[a-z]).{3,}$")}
-                            {getInput("Last Name", lastName, setLastName, "text","^(?=.*[a-z]).{3,}$")}
+                            {getInput("Name", name, setName, "text",handleRegex("firstname"))}
+                            {getInput("Last Name", lastName, setLastName, "text",handleRegex("lastname"))}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",emailErrorCode, "email is taken", setEmailErrorCode)}
+                            {getInput("Email", email, setEmail, "email", handleRegex("email"),emailErrorCode, "email is taken", setEmailErrorCode)}
 
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel","^05\d{8}$", phoneErrorCode, "phone is taken", setPhoneErrorCode)}
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel",handleRegex("phone"), phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername, "username","(?=.*[a-z]).{6,12}$" ,usernameErrorCode, "username is taken", setUsernameErrorCode)}
+                            {getInput("Username", username, setUsername, "username",handleRegex("username"),usernameErrorCode, "username is taken", setUsernameErrorCode)}
 
                             <div className={"flex input-container"}>
 
@@ -231,7 +243,7 @@ function Register() {
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", regex)}
+                            {getInput("Password", password, setPassword, "password", handleRegex("password"))}
                             {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password","^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@])(?=.{8,})",passwordErrorCode, "the passwords don't match")}
                         </div>
                     </div>

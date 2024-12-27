@@ -6,7 +6,7 @@ import DragNDrop from "../Components/DragNDrop.jsx";
 import {Box} from "@mui/material";
 import {useLocation} from "react-router-dom";
 
-export default function Course() {
+export default function MaterialList() {
   const location = useLocation();
     const [material, setMaterial] = useState([]);
     const [uploadFileActive,setUploadFileActive ]= useState(false)
