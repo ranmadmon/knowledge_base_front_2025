@@ -22,70 +22,18 @@ export default function Course() {
     const [choosenTag, setChoosenTag] = useState("");
     const [token,setToken] = useState("FE8C078136ECF7132909C98F53B8131B");
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
+    const [courseData, setCourseData] = useState({});
+    const [materialId,setMaterialId]=useState()
 
-    useEffect(() => {
-        const cookies = new Cookies(null, { path: '/login' });
-        const token = cookies.get("token");
-        if (token) {
-            setToken(token);
-        }
-    }, []);
-
-    function addMaterial(){
-        axios.get(SERVER_URL+"add-material?title="+choosenTitle+"&type="+choosenType+"&token="+token+"&courseId="+courseID+"&description="+choosenDescription+"&tag="+choosenTag+"&content="+choosenContent)
-            .then(
-                response=>{
-                    getMaterials()
-                    setChoosenTitle("")
-                    setChoosenDescription("")
-                    setChoosenContent("")
-                }
-            )
+    async function getMaterials() {
+        const response = await MaterialsAPI.getMaterials(courseID)
+        setMaterial(response)
     }
-
-    function getTypes(){
-        axios.get(SERVER_URL+"get-types")
-            .then(
-                response=>{
-                    if (response.data!==null){
-                        setTypes(response.data)
-                    }
-                })
-    }
-
-    function getTags(){
-        axios.get(SERVER_URL+"get-tags")
-            .then(
-                response=>{
-                    if (response.data!==null){
-                        setTags(response.data)
-                    }
-                }
-            )
-    }
-
-
-    function getMaterials(){
-        axios.get(SERVER_URL+"get-materials-by-course-id?courseId="+courseID)
-            .then(response => {
-                if (response.data) {
-                    setMaterial(response.data);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching materials:", error);
-            });
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setCourseData(await getCourse(courseID));
-        }
-        fetchData()
-        getMaterials()
+ useEffect(() => {
         getTypes()
         getTags()
-    }, []);
+        getMaterials()
+    }, [])
 
     function addNewMaterialComponent(){
         return (

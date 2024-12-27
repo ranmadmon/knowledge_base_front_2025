@@ -26,6 +26,8 @@ function Register() {
     const [phoneErrorCode, setPhoneErrorCode] = useState(null);
     const [emailErrorCode, setEmailErrorCode] = useState(null);
     const [passwordErrorCode, setPasswordErrorCode] = useState(null);
+    const regexString = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,12}";
+    const regex = new RegExp(regexString);
 
     const SERVER_URL = "http://localhost:8080"
     const USERNAME_TAKEN = 1001;

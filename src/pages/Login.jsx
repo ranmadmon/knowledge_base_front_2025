@@ -78,7 +78,7 @@ function Login() {
                 /[A-Z]/.test(password) &&
                 /[a-z]/.test(password) &&
                 /[0-9]/.test(password) &&
-                /[!@#$%^&*_=+-]/.test(password)
+                /[!@$%^&*_=+-]/.test(password)
             )
         );
     };
