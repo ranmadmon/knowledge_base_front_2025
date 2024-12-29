@@ -43,12 +43,12 @@
 }
 .form{
     width: 95%;
-    height: 50%;
+    height: 60%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 #login{
     gap: 1rem;
@@ -72,7 +72,7 @@
 }
 .submit-container{
     width: 95%;
-    height: 20%;
+    height: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,7 +143,6 @@
     outline: 3px solid rgba(188, 188, 188, 0.41);
     --webkit-outline: transparent;
 }
-
 .form-input[required]:not(:placeholder-shown):invalid{
     outline: 3px solid rgb(255, 108, 108);
 }
@@ -154,13 +153,45 @@
     outline: 3px solid rgb(127, 255, 101);
     --webkit-outline: transparent;
 }
-.form-input:not(:focus) + .requirement-message{
-    scale:0;
-}
 
-/*.form-input[required]:not(:placeholder-shown):invalid:focus + requirement-message{*/
-/*        color: red;*/
-/*}*/
+.requirement-message{
+    transition: font-size 0.4s ease;
+    border-radius: 5px;
+    margin-block-start: 2.5rem;
+    position:absolute;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-indent: 0.1rem;
+    font-size: 0;
+    max-width: 21.5%;
+    max-height: 10%;
+    padding: 0.5em;
+}
+.form-input:not(:focus) + .requirement-message{
+    font-size: 0;
+}
+.form-input[required]:not(:placeholder-shown):invalid:focus + .requirement-message{
+    font-size: 1rem;
+    color: white;
+    background-color: rgb(255, 198, 0);
+}
+.form-input[required]:not(:placeholder-shown):invalid  + .requirement-message{
+    font-size: 1rem;
+    color: white;
+    background-color:  rgb(255, 108, 108);
+}
+.form-input[required]:not(:placeholder-shown):invalid:not(:focus)  + .requirement-message{
+    font-size: 1rem;
+    background-color:  rgb(255, 108, 108);
+}
+.form-input[required]:not(:placeholder-shown):valid  + .requirement-message{
+    font-size: 0;
+}
+.form-input[required]:not(:placeholder-shown):focus  + .requirement-message{
+    font-size: 0;
+}
 .input-pair{
     width: 100%;
     display:flex;
@@ -246,9 +277,10 @@
     text-align: center;
     gap: 4rem;
     position: absolute;
-    background-color: rgba(136, 69, 196, 0.67);
+    background-color: rgba(255, 255, 255, 0.57);
     box-shadow: 0 0 10px pink;
     border: 1px solid rgba(255, 192, 203, 0.56);
+    color: var(--color-scheme);
     backdrop-filter: blur(10px);
     border-radius: 1.5rem;
     scale: 1;
@@ -260,7 +292,7 @@
     text-align: center;
     gap: 1rem;
     font-size: 2rem;
-    color: white;
+    color: var(--color-scheme);
     font-weight: bold;
     background: transparent;
     border: none;

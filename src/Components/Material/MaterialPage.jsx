@@ -9,7 +9,7 @@ function MaterialPage() {
     const [courseID, setCourseID] = useState(location.pathname.split("/")[2]);
     const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
     const [material, setMaterial] = useState("");
-    const [showManageFile, setShowManageFile] = useState(false);
+        const [showManageFile, setShowManageFile] = useState(false);
 
     async function handleGetMaterial() {
         const response = await getMaterialById(materialId)
