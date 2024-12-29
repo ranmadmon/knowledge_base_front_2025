@@ -89,11 +89,11 @@ function Register() {
         );
     };
 
-    function getInput(title, value, setValue, type, pattern, error, message, setError) {
+    function getInput(title, value, setValue, type, pattern, requirementMessage,error, message, setError) {
         return (
             <div className={"flex input-container"} key={title}>
-                <label className={"form-label"}>{title}:{errorCodeComponent(error,message)}</label>
-                <div style={{ display: "flex", width:"100%" }}>
+                <label className={"form-label"}>{title}:{errorCodeComponent(error, message)}</label>
+                <div style={{display: "flex", width: "100%"}}>
                     {type === "password" &&
                         <button className={"show-password"}
                                 style={{}}
@@ -108,23 +108,27 @@ function Register() {
                            name={title}
                            value={value}
                            pattern={pattern}
-                           onChange={(e) => {
-                               setValue(e.target.value);
-                               // setError(null)
-                               checkValidity(title,message)}}
+                           onChange={(e) => (
+                               setValue(e.target.value)
+                           )}
+                           onKeyDown={((e) => {
+                               setError(null)
+                               checkValidity(title, message)
+                           })}
                            placeholder={title}
                            size={1}
                            aria-expanded={false}
                         // onInvalid={(e) => {
                         //     e.target.setCustomValidity("shit")
                         // }}
-
                     />
+                    <text className={"requirement-message"}>{requirementMessage}</text>
                 </div>
             </div>
         );
     }
-    const handleRegex=(type)=>{
+
+    const handleRegex = (type) => {
         let regex = ""
         switch (type) {
             case "firstname": regex = "^(?=.*[a-z]).{3,}$"; break;
@@ -132,9 +136,23 @@ function Register() {
             case "phone": regex = "^05\d{8}$"; break;
             case "email": regex = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"; break;
             case "password": regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,}'; break;
-            case "username":  regex = "(?=.*[a-z]).{6,12}$"; break;
+            case "username":  regex = "^[a-z0-9._%+-].{6,12}$"; break;
+            case "confirm-password": regex = password;break;
         }
         return regex
+    }
+    const handleRequirementMessage=(type)=>{
+        let requirementMessage = ""
+        switch (type) {
+            case "firstname": requirementMessage = "Requirement: minimum characters for first name is 3 characters"; break;
+            case "lastname": requirementMessage = "Requirement: minimum characters for last name is 3 characters"; break;
+            case "phone": requirementMessage = "Requirement: Phone number should be of pattern 05XXXXXXXX "; break;
+            case "email": requirementMessage = "Requirement: Email address should be of pattern example@example.com"; break;
+            case "password": requirementMessage = "Requirement: Password should have a minimum of 8 characters, lowercase letters [a-z], uppercase letters [A-Z], numbers [0-9] and motherfucking special characters [!@$%]"+'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%]).{8,}'; break;
+            case "username":  requirementMessage = "Requirement: Username should be at least 6 characters long and have both letters [a-z] and numbers [0-9]"; break;
+            case "confirm-password": requirementMessage = "Requirement: Confirm password should be exactly like the Password you chose";break;
+        }
+        return requirementMessage
     }
     function checkValidity(title,message){
         let form = document.getElementById(title);
@@ -217,16 +235,16 @@ function Register() {
                         {/*<text>{showErrorCode()}</text>*/}
                         {/* Form fields using getInput */}
                         <div className="input-pair">
-                            {getInput("Name", name, setName, "text",handleRegex("firstname"))}
-                            {getInput("Last Name", lastName, setLastName, "text",handleRegex("lastname"))}
+                            {getInput("Name", name, setName, "text",handleRegex("firstname"),handleRequirementMessage("firstname"))}
+                            {getInput("Last Name", lastName, setLastName, "text",handleRegex("lastname"),handleRequirementMessage("lastname"))}
                         </div>
                         <div className={"input-pair"}>
-                            {getInput("Email", email, setEmail, "email", handleRegex("email"),emailErrorCode, "email is taken", setEmailErrorCode)}
+                            {getInput("Email", email, setEmail, "email", handleRegex("email"),handleRequirementMessage("email"),emailErrorCode, "email is taken", setEmailErrorCode)}
 
-                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel",handleRegex("phone"), phoneErrorCode, "phone is taken", setPhoneErrorCode)}
+                            {getInput("Phone", phoneNumber, setPhoneNumber, "tel",handleRegex("phone"),handleRequirementMessage("phone"), phoneErrorCode, "phone is taken", setPhoneErrorCode)}
                         </div>
                         <div className="input-pair">
-                            {getInput("Username", username, setUsername, "username",handleRegex("username"),usernameErrorCode, "username is taken", setUsernameErrorCode)}
+                            {getInput("Username", username, setUsername, "username",handleRegex("username"),handleRequirementMessage("username"),usernameErrorCode, "username is taken", setUsernameErrorCode)}
 
                             <div className={"flex input-container"}>
 
@@ -243,8 +261,8 @@ function Register() {
                             </div>
                         </div>
                         <div className="input-pair">
-                            {getInput("Password", password, setPassword, "password", handleRegex("password"))}
-                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password","^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@])(?=.{8,})",passwordErrorCode, "the passwords don't match")}
+                            {getInput("Password", password, setPassword, "password", handleRegex("password"),handleRequirementMessage("password"))}
+                            {getInput("Confirm Password", passwordConfirm, setPasswordConfirm, "password",handleRegex("confirm-password"),handleRequirementMessage("confirm-password"),passwordErrorCode, "the passwords don't match")}
                         </div>
                     </div>
                     <div className={"submit-container"}>
@@ -271,7 +289,6 @@ function Register() {
                              src={"src/assets/image11.png"}
                              alt={"register-page-image"}/>
                     </div>
-
                 </div>
             </div>
             {showOtpComponent && <OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}

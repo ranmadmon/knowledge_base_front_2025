@@ -2,8 +2,6 @@ import axios from "axios"
 import * as Constants from "../Utils/Constants.jsx";
 import Cookies from "universal-cookie";
 import {SERVER_URL} from "../Utils/Constants.jsx";
-import {createPortal} from "react-dom";
-
 
 const cookies = new Cookies(null, {path: '/'});
 const token = cookies.get("token");
@@ -34,6 +32,7 @@ export async function addMaterial(chosenTitle, chosenType, courseID, chosenDescr
     }
 
     try {
+
         const response = await axios.get(SERVER_URL + "/add-material", {params})
         return await response?.data;
     } catch (error) {
@@ -64,9 +63,19 @@ export async function getMaterials(courseID) {
         courseId: courseID,
     }
     try {
-        console.log("cccc" + courseID)
         const response = await axios.get(SERVER_URL + "/get-materials-by-course-id", {params})
-        console.log(response.data)
+        return await response?.data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+export async function getMaterialById(materialId) {
+    const params = {
+        materialId: materialId,
+    }
+    try {
+        const response = await axios.get(SERVER_URL + "/get-material-by-id", {params})
         return await response?.data;
     } catch (error) {
         console.error('Error:', error);
@@ -86,6 +95,5 @@ export async function addToMaterialHistory(materialId) {
         console.error('Error:', error);
     }
 }
-
 
 

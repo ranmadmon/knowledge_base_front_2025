@@ -14,11 +14,13 @@ import {
     COURSE_LIST_URL,
     COURSE_URL,
     DASHBOARD_URL,
-    LOGIN_URL,
+    LOGIN_URL, MATERIAL_PAGE_URL,
     MATERIALS_URL,
     PROFILE_URL,
     REGISTER_URL
 } from "./Utils/Constants.jsx";
+import MaterialPage from "./Components/Material/MaterialPage.jsx";
+import NewNavBar from "./Components/Dashboard/NewNavBar.jsx";
 
 
 function App() {
@@ -40,18 +42,14 @@ function App() {
                         <>
                             <Route
                                 element={
-                                    <NavBar/>
-                                }
-                                children={
-                                    <>
-                                        <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
-                                        <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
-                                        <Route path={MATERIALS_URL} element={<UploadMaterials/>}/>
-                                        <Route path={PROFILE_URL} element={<Profile/>}/>
-                                        <Route path={COURSE_URL+":id"} element={<MaterialList/>}/>
-                                        {/*<Route path={"/codeInputComponent"} element={<OtpComponent/>}/>*/}
-
-                                    </>}/>
+                                    <NewNavBar/>
+                                }>
+                                <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
+                                <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
+                                <Route path={PROFILE_URL} element={<Profile/>}/>
+                                <Route path={COURSE_URL + ":id"} element={<MaterialList/>}/>
+                                <Route path={COURSE_URL + ":id" + MATERIAL_PAGE_URL + ":id"} element={<MaterialPage/>}/>
+                            </Route>
                         </>
                     )
                     }

@@ -4,7 +4,7 @@ import "./Card.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Pagination} from "@mui/material";
+import {Pagination, Typography} from "@mui/material";
 import {COURSE_URL} from "../Utils/Constants.jsx";
 
 export default function CoursesList(){
@@ -93,7 +93,7 @@ export default function CoursesList(){
                 {/*<h1>New MaterialList</h1>*/}
                 <input className={"new-form-input"} type={"text"} value={courseName}
                        onChange={(event) => setCourseName(event.target.value)} placeholder={"MaterialList Name"}/>
-                <textarea className={"new-form-input-desc"} type={"text"} value={description}
+                <textarea className={"new-form-input-desc"} value={description}
                           onChange={(event) => setDescription(event.target.value)} placeholder={"Description"}/>
                 <select className={"new-form-input-select"} value={chosenLecturer}
                         onChange={(event) => setChosenLecturer(event.target.value)}>
@@ -123,7 +123,9 @@ export default function CoursesList(){
         return(
             courses.map((course, index) => {
                 return (
-                    courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)
+                    <div key={course.id}>
+                        {courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)}
+                    </div>
                 )
             })
         )
@@ -147,7 +149,7 @@ export default function CoursesList(){
     return (
         <div className="courses-page">
             <div className={"upper-container"}>
-                <text className={"course-page-header"} style={{fontSize: "3rem"}}>Courses</text>
+                <Typography className={"course-page-header"} style={{fontSize: "3rem"}}>Courses</Typography>
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"} aria-expanded={newCourseVisibility}>

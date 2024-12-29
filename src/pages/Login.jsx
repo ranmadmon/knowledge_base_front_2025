@@ -144,7 +144,6 @@ function Login() {
                                 {getInput("Username", username, setUsername, "text", handleRegex("username"))}
                                 {getInput("Password", password, setPassword, "password", handleRegex("password"))}
                                {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
-                                {errorCode !== -1 &&  <Alert severity={"info"}>{showErrorCode()}</Alert>}
                             </div>
                             <div className={"submit-container"}>
                                 <div className={"input-pair"}>

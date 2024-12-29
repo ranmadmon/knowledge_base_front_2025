@@ -154,6 +154,13 @@
     outline: 3px solid rgb(127, 255, 101);
     --webkit-outline: transparent;
 }
+.form-input:not(:focus) + .requirement-message{
+    color:red;
+}
+
+/*.form-input[required]:not(:placeholder-shown):invalid:focus + requirement-message{*/
+/*        color: red;*/
+/*}*/
 .input-pair{
     width: 100%;
     display:flex;

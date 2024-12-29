@@ -1,15 +1,14 @@
 import "./Course.css"
-import React, {useState,useEffect} from "react";
-import Material from "../Components/CoursesPage/Material.jsx";
+import React, {useEffect, useState} from "react";
 import * as MaterialsAPI from "../API/MaterialsAPI.jsx";
-import DragNDrop from "../Components/DragNDrop.jsx";
-import {Box} from "@mui/material";
 import {useLocation} from "react-router-dom";
+import * as CoursesAPI from "../API/CoursesAPI.jsx";
+import MaterialCard from "../Components/Material/MaterialCard.jsx";
 
 export default function MaterialList() {
-  const location = useLocation();
+    const location = useLocation();
     const [material, setMaterial] = useState([]);
-    const [uploadFileActive,setUploadFileActive ]= useState(false)
+    const [uploadFileActive, setUploadFileActive] = useState(false)
     const [courseID, setCourseID] = useState(location.pathname.split("/")[2]);
     const [chosenTitle, setChosenTitle] = useState("");
     const [choosenDescription, setChoosenDescription] = useState("");
@@ -20,19 +19,21 @@ export default function MaterialList() {
     const [choosenTag, setChoosenTag] = useState("");
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
     const [courseData, setCourseData] = useState({});
-    const [materialId,setMaterialId]=useState()
+    const [materialId, setMaterialId] = useState()
 
     async function getMaterials() {
         const response = await MaterialsAPI.getMaterials(courseID)
         setMaterial(response)
     }
- useEffect(() => {
+
+    useEffect(() => {
+        getCourse(courseID)
         getTypes()
         getTags()
         getMaterials()
     }, [])
 
- function addNewMaterialComponent() {
+    function addNewMaterialComponent() {
         return (
             <div className={'add-new-form'}
                  style={newMaterialVisibility ? {transform: "scale(1.01)"} : {transform: "scale(0)"}}>
@@ -80,14 +81,18 @@ export default function MaterialList() {
     }
 
     async function addMaterial() {
-       const response = await MaterialsAPI.addMaterial(chosenTitle, choosenType, courseID, choosenDescription, choosenTag, choosenContent);
-      await setMaterialId(response);
-        await getMaterials()
+        const response = await MaterialsAPI.addMaterial(chosenTitle, choosenType, courseID, choosenDescription, choosenTag, choosenContent);
+        await setMaterialId(response);
+        getMaterials()
         setUploadFileActive(true)
         setChosenTitle("")
         setChoosenDescription("")
         setChoosenContent("")
         setNewMaterialVisibility(false)
+    }
+    async function getCourse() {
+        const response = await CoursesAPI.getCourse(courseID)
+        setCourseData(response)
     }
     async function getTypes() {
         const response = await MaterialsAPI.getTypes()
@@ -100,25 +105,21 @@ export default function MaterialList() {
     }
 
 
-    function handleComponentRendering() {
 
-            return <Material />
-
-    }
 
     return (
         <div className="material-page">
             <div className={"upper-container"} style={{flexDirection: "column"}}>
-                <text className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</text>
-                <text className={"course-page-description"}>{courseData.description}</text>
+                <h3 className={"course-page-header"}>{courseData.name} • {courseData?.lecturerEntity?.name}</h3>
+                <h3 className={"course-page-description"}>{courseData.description}</h3>
 
             </div>
             <div className={"lower-container"}>
-                {uploadFileActive && <Box  maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                    <DragNDrop id={materialId}/>
-                </Box>}
+                {/*{uploadFileActive && <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>*/}
+                {/*    <DragNDrop id={materialId}/>*/}
+                {/*</Box>}*/}
                 <div className={"card-container"}>
-                    {handleComponentRendering()}
+                    <MaterialCard material={material}/>
                     <button className={"add-new"}
                             onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
                         <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"

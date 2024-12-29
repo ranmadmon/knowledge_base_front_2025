@@ -14,7 +14,7 @@ ListCard.propTypes = {
 
 };
 
-function ListCard(props) {
+function ListCard( props) {
     const [list, setList] = useState(props.list === undefined ? [] : props.list);
     const [perPage, setPerPage] = useState(props.perPage || 3);
     const [currentPg, setCurrentPg] = useState(props.currentPage || 1);

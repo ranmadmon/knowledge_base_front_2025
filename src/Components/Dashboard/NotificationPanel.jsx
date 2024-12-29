@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
 import {getNotifications} from "../../API/NotificationsAPI.jsx";
-import {Accordion, AccordionDetails, AccordionSummary, Skeleton, Stack, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Skeleton, Stack, Typography} from "@mui/material";
 import {ArrowDropDown} from "@mui/icons-material";
 import formatDatetime from "../../Utils/formatDatetime.js";
 
@@ -39,32 +39,32 @@ function NotificationPanel() {
                 <>
                     {coursesList.length === 0 && <Typography> Nothing to show here</Typography>}
                     {coursesList.map((notification) => (
-                        <>
-                            <Accordion >
-                                <AccordionSummary expandIcon={<ArrowDropDown/>}>
-                                    <Typography variant="h5">
-                                        <Stack >
-                                            <Typography sx={{fontSize:28}}>
-                                                {notification.title}
-                                            </Typography>
-                                            <Typography sx={{justifyContent:"end"}}>
-                                                {formatDatetime(notification.date)}
-                                            </Typography>
-                                        </Stack>
 
-                                    </Typography>
+                        <Accordion key={notification.id} >
+                            <AccordionSummary expandIcon={<ArrowDropDown/>}>
+                                <Typography variant="h5" sx={{width:"100%"}}>
+                                    <Stack sx={{display: "flex",flexDirection:"row",width:"100%", justifyContent:"space-between", alignItems:"center"}}>
+                                        <Typography sx={{fontSize:28}}>
+                                            {notification.title}
+                                        </Typography>
+                                        <Typography sx={{justifyContent:"end"}}>
+                                            {formatDatetime(notification.date)}
+                                        </Typography>
+                                    </Stack>
 
-                                </AccordionSummary>
-                                <AccordionDetails>
+                                </Typography>
 
-                                    <Typography>
-                                        By: {notification?.fromUser?.fullName}
-                                    </Typography>
-                                    {notification.content}
-                                </AccordionDetails>
-                            </Accordion>
+                            </AccordionSummary>
+                            <AccordionDetails>
 
-                        </>
+                                <Typography>
+                                    By: {notification?.fromUser?.fullName}
+                                </Typography>
+                                {notification.content}
+                            </AccordionDetails>
+                        </Accordion>
+
+
                     ))}
                 </>
         )

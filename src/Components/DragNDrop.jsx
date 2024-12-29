@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
     Alert, Box,
     Button,
@@ -14,30 +14,54 @@ import {
 import {useDropzone} from "react-dropzone";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {uploadFiles} from "../API/FilesAPI.js";
+import {deleteMaterialFiles, getMaterialFiles, uploadFiles} from "../API/FilesAPI.js";
 import {FILE_ERROR_CODE, SUCCESS_CODE} from "../Utils/Constants.jsx";
+import CloudQueueIcon from '@mui/icons-material/CloudQueue';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
 
 
-function DragNDrop(props) {
-    const SUCCESS ="success"
-    const ERROR ="error"
 
+function DragNDrop() {
+    const SUCCESS = "success"
+    const ERROR = "error"
+    const MAX_FILES = 5;
     const [selectedFiles, setSelectedFiles] = useState([])
+    const [cloudFiles, setCloudFiles] = useState([]);
+    const [deleteFromCloud, setDeleteFromCloud] = useState([]);
     const [errorUploading, setErrorUploading] = useState("")
-    const MAX_FILES = 50;
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
 
+    async function handleGetMaterialFiles() {
+        const response = await getMaterialFiles(materialId)
+        setCloudFiles(response)
 
-    const handleUploadFiles = async () => {
-        const response = await uploadFiles(selectedFiles,props.id)
-        if (response.status === SUCCESS_CODE) {
-            setErrorUploading(SUCCESS)
-            setSelectedFiles([])
-        } else if (response.status === FILE_ERROR_CODE) {
-            setErrorUploading(ERROR)
-        }
     }
 
 
+    const handleUploadFiles = async () => {
+        if (selectedFiles.length > 0) {
+            const response = await uploadFiles(selectedFiles, materialId)
+            if (response.status === SUCCESS_CODE) {
+                setErrorUploading(SUCCESS)
+                setSelectedFiles([])
+                handleGetMaterialFiles()
+            } else if (response.status === FILE_ERROR_CODE) {
+                setErrorUploading(ERROR)
+            }
+        }
+
+    }
+    const handleDeleteFiles = async () => {
+        const response = await deleteMaterialFiles(materialId, deleteFromCloud)
+        setErrorUploading(SUCCESS)
+        setDeleteFromCloud([])
+        handleGetMaterialFiles()
+    }
+
+    useEffect(() => {
+        handleGetMaterialFiles()
+    }, []);
 
     const alertHandler = () => {
         if (errorUploading === ERROR) {
@@ -49,30 +73,31 @@ function DragNDrop(props) {
     }
 
     const onDrop = useCallback((acceptedFiles) => {
-                setSelectedFiles(prevState => {
-                    const newFiles = [];
+            setSelectedFiles(prevState => {
+                const newFiles = [];
+                const files = [...cloudFiles, ...prevState];
+                acceptedFiles.forEach(acceptedFile => {
+                    const alreadyExists = prevState.some(existingFile => {
+                        return existingFile.path === acceptedFile.path;
+                    });
 
-                    acceptedFiles.forEach(acceptedFile => {
-                        const alreadyExists = prevState.some(existingFile => {
-                            return existingFile.path === acceptedFile.path;
-                        });
-
-                        if (!alreadyExists) {
+                    if (!alreadyExists) {
+                        if (newFiles.length + files.length < MAX_FILES) {
                             newFiles.push(acceptedFile);
                         }
-                    });
-                    const combinedFiles = [...prevState, ...newFiles];
-                    return combinedFiles.slice(0, MAX_FILES);
-                })
-            }
-            ,
-            []
-        )
-    ;
+
+                    }
+                });
+                const combinedFiles = [...prevState, ...newFiles];
+                return combinedFiles
+            })
+        }, [selectedFiles, cloudFiles]
+    );
+
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
     return (
-        <Card sx={{
 
+        <Card sx={{
             width: "100%",
             height: "60vh",
             marginTop: 2,
@@ -87,6 +112,7 @@ function DragNDrop(props) {
                    divider={<Divider orientation="vertical" flexItem sx={{margin: 2}}/>}
             >
 
+
                 <Stack {...getRootProps()} sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -99,12 +125,12 @@ function DragNDrop(props) {
                         width: "30%",
                         height: "30%",
                     }}/>{isDragActive ? "drop files now" : "Click here to upload files"}
-                    <Box sx={{mt:5}}>
+                    <Box sx={{mt: 5}}>
                         {alertHandler()}
                     </Box>
-                        </Stack>
+                </Stack>
 
-                        <Stack direction={"column"}
+                <Stack direction={"column"}
                        sx={{
                            width: "40%",
                            minWidth: "40%",
@@ -129,15 +155,41 @@ function DragNDrop(props) {
                         }
                     }}
                           subheader={<ListSubheader> File selected:
-                              ({selectedFiles.length}/{MAX_FILES})</ListSubheader>}>
+                              ({cloudFiles.length + selectedFiles.length}/{MAX_FILES})</ListSubheader>}>
 
+                        {cloudFiles.length > 0 && cloudFiles.map((file, index) => {
+                            return (
+                                <ListItemButton
+                                    key={file}>
+                                    <IconButton
+                                        children={hoveredIndex === index ?
+                                            <CloudOffIcon sx={{'&:hover': {color: 'red'}}}/> : <CloudQueueIcon/>}
+                                        key={index}
+                                        onMouseEnter={() => setHoveredIndex(index)}
+                                        onMouseLeave={() => setHoveredIndex(null)}
+                                        onClick={() => {
+                                            setDeleteFromCloud(prevState => prevState.concat(file))
+                                            setCloudFiles(prevState => prevState.filter(item => item !==file))
+                                        }}
+                                    />
+
+
+
+                                    <ListItemText> {file}</ListItemText>
+                                </ListItemButton>
+                            )
+                        })}
                         {selectedFiles.map((file) => {
                             return (
                                 <ListItemButton
                                     key={file.name}>
-                                    <IconButton onClick={() => setSelectedFiles(prevState => prevState.filter(item => {
-                                        return item.path !== file.path
-                                    }))}>
+                                    <IconButton onClick={() => {
+                                        setSelectedFiles(prevState => prevState.filter(item => {
+                                            return item.path !== file.path
+                                        }))
+                                    }
+
+                                    }>
                                         <DeleteIcon
                                             sx={{'&:hover': {color: 'red'}}}
                                         />
@@ -150,12 +202,13 @@ function DragNDrop(props) {
                     </List>
                     <Button onClick={() => {
                         setErrorUploading(false)
+                        handleDeleteFiles()
                         handleUploadFiles()
                     }}
                             variant={"contained"}
                             color={"success"}
                             sx={{width: "70%", m: 2}}
-                            disabled={selectedFiles.length === 0}
+                            disabled={selectedFiles.length === 0 && deleteFromCloud.length === 0}
                     >
                         Upload files
                     </Button>

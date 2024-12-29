@@ -1,11 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./Form.css"
+import {LOGIN_URL} from "../Utils/Constants.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (inputRef.current [0]){
@@ -65,11 +68,11 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
     }
     return (
         <div className={"code-container"} style={{textAlign: "center", marginTop: "20px"}}>
-            <div className={"form-headers"}>
+            <div className={"form-headers"} style={{display: "flex", justifyContent: "space-between"}}>
                 <text style={{fontSize: "2.3rem", fontWeight: "bold"}}>Security Check</text>
                 <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Welcome {username}, {<br/>}Your code was sent to you via SMS</text>
             </div>
-            <div className={"input-container"} style={{gap: "1.5rem"}}>
+            <div className={"input-container"} style={{gap: "1.5rem",display: "contents"}}>
                 <div className={"otp-input-field"} style={{display: "flex", gap: "1.3rem"}}>
                     {otp.map((data,index) => {
                         return (
@@ -96,7 +99,10 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
                     id={"submit-button"}
                     onClick={() => {
                         onOtpSubmit(otpToSubmit);
-                    }}
+                            navigate(LOGIN_URL);
+                        window.location.reload()
+                        }
+                    }
                 >
                     Submit
                 </button>
