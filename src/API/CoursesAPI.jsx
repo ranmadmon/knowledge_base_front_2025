@@ -14,7 +14,7 @@ export async function getCourse(id) {
     const params = {id: id}
 
     try {
-        const response = await axios.get("http://localhost:8080//get-course", {params})
+        const response = await axios.get(SERVER_URL+"/get-course", {params})
         return await response?.data;
 
     } catch (error) {
