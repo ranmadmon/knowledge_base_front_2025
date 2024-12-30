@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Stack} from "@mui/material";
 import {Outlet, useNavigate} from "react-router-dom";
 import ClickOutside from "../../pages/ClickOutside.jsx";
-import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
+import {CHAT_URL, COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
 import Cookies from "universal-cookie";
 
 
@@ -66,6 +66,17 @@ function NewNavBar() {
                                         setHomeClicked(false);
                                     }
                                     }>Courses
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                  //TODO RAM
+                                    className={"navbar-button"}
+                                    onClick={() => {
+                                        navigate(CHAT_URL)
+
+                                    }
+                                    }>Chat
                                 </button>
                             </li>
                         </div>

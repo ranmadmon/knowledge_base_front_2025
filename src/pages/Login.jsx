@@ -40,7 +40,7 @@ function Login() {
                 }else{
                     console.log(response.data);
                     setShowOtpComponent(true);
-                    // navigate("/codeInputComponent", { state: { userName: username, password: password ,type:"login"} });
+                    
                 }
             })
     }
@@ -57,6 +57,8 @@ function Login() {
                         console.log(response.data.token);
 
                         cookies.set('token', response.data.token, { path: '/' });
+                        const newCookies = new Cookies();
+                        newCookies.set('id', response.data.id);
                         const token = cookies.get("token");
 
                         console.log("token: "+token);

@@ -21,6 +21,8 @@ import {
 } from "./Utils/Constants.jsx";
 import MaterialPage from "./Components/Material/MaterialPage.jsx";
 import NewNavBar from "./Components/Dashboard/NewNavBar.jsx";
+import ChatPage from "./Components/ChatPage.jsx";
+
 
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
                                 element={
                                     <NewNavBar/>
                                 }>
+                                <Route path={CHAT_URL} element={<ChatPage/>}/>
                                 <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
                                 <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
                                 <Route path={PROFILE_URL} element={<Profile/>}/>
