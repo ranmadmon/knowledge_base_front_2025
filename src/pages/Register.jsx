@@ -2,13 +2,12 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import './Form.css';
 import axios from "axios";
-import {teal} from "@mui/material/colors";
 import OtpComponent from "./OtpComponent.jsx";
 import {LOGIN_URL} from "../Utils/Constants.jsx";
 import Error from "../Components/General/Error/Error.jsx";
 
 function Register() {
-    const [name, setName] = useState("");
+    const [name, setName] = useState(" ");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -179,17 +178,6 @@ function Register() {
                 break;
         }
         return requirementMessage
-    }
-
-    function checkValidity(title, message) {
-        let form = document.getElementById(title);
-        if (!form.checkValidity()) {
-            form.setCustomValidity(message)
-            console.log(form.checkValidity());
-        } else {
-            form.setCustomValidity()
-            console.log(form.reportValidity());
-        }
     }
 
     function handleShowPassword(event) {

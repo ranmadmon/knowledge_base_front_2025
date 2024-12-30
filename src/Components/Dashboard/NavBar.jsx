@@ -24,23 +24,23 @@ function NavBar() {
 
     return (
         <>
-        <ClickOutside >
-            <nav className="navbar">
-                <div className="navbar-logo-container">
-                    <img className={"navbar-logo"} src={"src/assets/navbar/book-logo.PNG"} alt={"logo"}/>
-                </div>
-                <button className={"hamburger-button"}
-                        onClick={() => {
-                            handleDataVisible()
-                        }}>
-                    {/*{dataVisible ? <CloseIcon fontSize={"large"}/>  : <MenuRoundedIcon fontSize={"large"}/>}*/}
-                    <svg data-visible={dataVisible} stroke="var(--color-scheme)" fill="none" className="hamburger" viewBox="-10 15 120 120"
-                         width="80">
-                        <path data-visible={dataVisible} className="line" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round"
-                              d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">
-                        </path>
-                    </svg>
-                </button>
+            <ClickOutside >
+                <nav className="navbar">
+                    <div className="navbar-logo-container">
+                        <img className={"navbar-logo"} src={"src/assets/navbar/book-logo.PNG"} alt={"logo"}/>
+                    </div>
+                    <button className={"hamburger-button"}
+                            onClick={() => {
+                                handleDataVisible()
+                            }}>
+                        {/*{dataVisible ? <CloseIcon fontSize={"large"}/>  : <MenuRoundedIcon fontSize={"large"}/>}*/}
+                        <svg data-visible={dataVisible} stroke="var(--color-scheme)" fill="none" className="hamburger" viewBox="-10 15 120 120"
+                             width="80">
+                            <path data-visible={dataVisible} className="line" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round"
+                                  d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">
+                            </path>
+                        </svg>
+                    </button>
                     <ul id={"navbar-ul"} data-visible={dataVisible} tabIndex={1}>
                         <div className="right-buttons">
                             <li>
@@ -79,7 +79,6 @@ function NavBar() {
                                         handleDataVisible()
                                     }
                                 }>Logout
-                                    {/*<LogoutRoundedIcon className={"logout"} fontSize={ document.querySelector(".navbar ul").getAttribute("data-visible")==="false"?"medium":"large"}/>*/}
                                 </button>
 
                             </li>
@@ -87,9 +86,9 @@ function NavBar() {
 
                     </ul>
 
-            </nav>
-            <Outlet/>
-        </ClickOutside>
+                </nav>
+                <Outlet/>
+            </ClickOutside>
 
         </>
     );
