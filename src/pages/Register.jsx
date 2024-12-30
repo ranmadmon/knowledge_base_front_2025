@@ -68,24 +68,29 @@ function Register() {
             })
     }
     const allFieldsFilled = () => {
-        const checkFirstName = document.getElementById("first-name")
-        const checkLastName = document.getElementById("last-name")
-        const checkEmail = document.getElementById("email")
-        const checkPhone = document.getElementById("phone")
-        const checkUsername = document.getElementById("username")
-        const checkJobTitle = document.getElementById("job-title")
-        const checkPassword = document.getElementById("password")
-        const checkConfirmPassword = document.getElementById("confirm-password")
-        return (
-                checkFirstName.checkValidity() &&
-                checkLastName.checkValidity() &&
-                checkEmail.checkValidity() &&
-                checkPhone.checkValidity() &&
-                checkUsername.checkValidity() &&
-                checkJobTitle.checkValidity() &&
-                checkPassword.checkValidity()&&
-                checkConfirmPassword.checkValidity()
-            );
+          try{
+              const checkFirstName = document.getElementById("first-name")
+              const checkLastName = document.getElementById("last-name")
+              const checkEmail = document.getElementById("email")
+              const checkPhone = document.getElementById("phone")
+              const checkUsername = document.getElementById("username")
+              const checkJobTitle = document.getElementById("job-title")
+              const checkPassword = document.getElementById("password")
+              const checkConfirmPassword = document.getElementById("confirm-password")
+              return (
+                  checkFirstName.checkValidity() &&
+                  checkLastName.checkValidity() &&
+                  checkEmail.checkValidity() &&
+                  checkPhone.checkValidity() &&
+                  checkUsername.checkValidity() &&
+                  checkJobTitle.checkValidity() &&
+                  checkPassword.checkValidity()&&
+                  checkConfirmPassword.checkValidity()
+              );
+          } catch (e){
+              console.log(e)
+          }
+
 
     }
 
@@ -110,8 +115,10 @@ function Register() {
                            pattern={pattern}
                            onChange={(event) => {
                                setValue(event.target.value)
-                               setError(null)
-                             }}
+                               if(error!==null){
+                                   setError(null)
+                               }
+                               }}
                            placeholder={title}
                            size={1}
                            aria-expanded={false}
@@ -284,7 +291,7 @@ function Register() {
                         {errorCode !== -1 && <Error errorMessage={showErrorCode()}/>}
                         <div className={"input-pair"}>
                             <button onClick={() => register()} id={"submit-button"}
-                                    className={allFieldsFilled() ? "active" : ""}
+                                    className={() => allFieldsFilled() ? "active" : ""}
                                     disabled={!allFieldsFilled()}>
                                 Register Now
                             </button>
