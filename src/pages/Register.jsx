@@ -63,6 +63,7 @@ function Register() {
                         setShowOtpComponent(false);
                         console.log(response.data)
                         navigate(LOGIN_URL);
+                        window.location.reload()
                     }
                 }
             })

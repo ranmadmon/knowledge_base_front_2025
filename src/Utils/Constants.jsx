@@ -7,6 +7,7 @@ export const PROFILE_URL = "/Profile" ;
 export const MATERIALS_URL = "/Materials" ;
 export const MATERIAL_PAGE_URL = "/Material/" ;
 // export const PROFILE_URL = "/Profile" ;
+export const CHAT_URL = "/Chat" ;
 export const COURSE_LIST_URL = "/MaterialList-List" ;
 export const FILE_ERROR_CODE = 9999 ;
 export const SUCCESS_CODE = 200;

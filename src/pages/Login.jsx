@@ -66,6 +66,7 @@ function Login() {
                         if (token) {
                             console.log(token);
                             navigate(DASHBOARD_URL);
+                            window.location.reload()
                         } else {
                             console.log("Token not found");
                         }

@@ -9,7 +9,6 @@ export async function getCourses() {
     } catch (error) {
         console.error('Error:', error);
     }
-
 }
 export async function getCourse(id) {
     const params = {id: id}

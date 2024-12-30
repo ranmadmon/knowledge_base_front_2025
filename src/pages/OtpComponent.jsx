@@ -99,8 +99,6 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
                     id={"submit-button"}
                     onClick={() => {
                         onOtpSubmit(otpToSubmit);
-                            navigate(LOGIN_URL);
-                        window.location.reload()
                         }
                     }
                 >

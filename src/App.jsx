@@ -4,13 +4,13 @@ import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import CoursesList from "./pages/CoursesList.jsx";
-import UploadMaterials from "./pages/UploadMaterials.jsx";
 import Profile from "./pages/Profile.jsx";
-import NavBar from "./Components/Dashboard/NavBar.jsx";
 import "./App.css"
 import MaterialList from "./pages/MaterialList.jsx";
+
 import Cookies from "universal-cookie";
 import {
+    CHAT_URL,
     COURSE_LIST_URL,
     COURSE_URL,
     DASHBOARD_URL,
