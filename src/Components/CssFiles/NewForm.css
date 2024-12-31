@@ -79,7 +79,7 @@
     appearance: none;
     border: 1px solid #E8EAED;
     cursor: pointer;
-    background: url('@mui/icons-material/KeyboardArrowDown') no-repeat right white;
+    background: url('KeyboardArrowDown.d.ts') no-repeat right white;
 }
 .new-form-button {
     width: 85%;

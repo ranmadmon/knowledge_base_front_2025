@@ -1,20 +1,21 @@
-import "./NavBar.css"
-import {useEffect, useState} from 'react';
-import {Box, Button, IconButton, Stack} from "@mui/material";
+import "../CssFiles/NavBar.css"
+import {useEffect, useRef, useState} from 'react';
+import {Box, IconButton, Stack} from "@mui/material";
 import {Outlet, useNavigate} from "react-router-dom";
-import ClickOutside from "../../pages/ClickOutside.jsx";
-import {CHAT_URL, COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
+import ClickOutside from "./ClickOutside.jsx";
+import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
 import Cookies from "universal-cookie";
-import ChatPage from "../ChatPage.jsx";
+import ChatPage from "../Chat/ChatPage.jsx";
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatOffIcon from '@mui/icons-material/SpeakerNotesOff';
 
-function NewNavBar() {
+function NavBar() {
     const navigate = useNavigate();
     const [homeClicked, setHomeClicked] = useState(false);
     const [courseClicked, setCourseClicked] = useState(false);
     const [dataVisible, setDataVisible] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const chatPageRef = useRef(null);
 
     function handleDataVisible() {
         setDataVisible(!dataVisible);
@@ -24,6 +25,19 @@ function NewNavBar() {
         document.querySelector(".navbar ul").setAttribute("data-visible", dataVisible.toString());
     }, [dataVisible]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (chatPageRef.current && !chatPageRef.current.contains(event.target)) {
+                setIsChatOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <Box>
@@ -108,7 +122,7 @@ function NewNavBar() {
                     color: "var(--color-scheme)",
                     border: "none",
                     boxShadow: "0 0 3px 2px var(--color-scheme)",
-                    width:"100px", height:"100px",
+                    width:"80px", height:"80px",
                     '&:hover': {
                         backgroundColor:"white",
                         transform: "scale(1.1)",
@@ -133,7 +147,9 @@ function NewNavBar() {
                          width={"30%"}
                          minWidth={"400px"}
                          minHeight={"300px"}
-                         height={"75%"}>
+                         height={"75%"}
+                         ref={chatPageRef}
+                    >
                         <ChatPage/>
                     </Box>
 
@@ -141,4 +157,4 @@ function NewNavBar() {
     );
 }
 
-export default NewNavBar;
+export default NavBar;

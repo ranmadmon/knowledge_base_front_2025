@@ -14,8 +14,8 @@ import {
 import {useDropzone} from "react-dropzone";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {deleteMaterialFiles, getMaterialFiles, uploadFiles} from "../API/FilesAPI.js";
-import {FILE_ERROR_CODE, SUCCESS_CODE} from "../Utils/Constants.jsx";
+import {deleteMaterialFiles, getMaterialFiles, uploadFiles} from "../../API/FilesAPI.jsx";
+import {FILE_ERROR_CODE, SUCCESS_CODE} from "../../Utils/Constants.jsx";
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 

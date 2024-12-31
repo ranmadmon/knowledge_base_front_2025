@@ -106,7 +106,7 @@
 }
 .form-input[type="email"]:not(:placeholder-shown):valid,
 .form-input[type="tel"]:not(:placeholder-shown):valid{
-    background-image: url("src/assets/form/check.png");
+    background-image: url("../../assets/form/check.png");
     background-position: 95% center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
@@ -136,7 +136,7 @@
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: 25px 25px;
-    background-image: url("src/assets/form/show_password.png");
+    background-image: url("../../assets/form/show_password.png");
     background-position: 0.2rem 0.35rem;
 }
 .form-input[required]:not(:focus){

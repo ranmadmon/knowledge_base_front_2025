@@ -1,9 +1,8 @@
-import "./Dashboard.css";
-import LastActivity from "../Components/Dashboard/LastActivities.jsx";
-import NotificationPanel from "../Components/Dashboard/NotificationPanel.jsx";
+import "../CssFiles/Dashboard.css";
+import LastActivity from "./LastActivities.jsx";
 import {Box, Stack} from "@mui/material";
-import Search from "../Components/Dashboard/Search.jsx";
-import {COURSE_URL} from "../Utils/Constants.jsx";
+import Search from "../Navbar/Search.jsx";
+import {COURSE_URL} from "../../Utils/Constants.jsx";
 import {useNavigate} from "react-router-dom";
 
 function Dashboard() {
@@ -15,7 +14,7 @@ function Dashboard() {
             <Search onSelect={handleCourseSelect} />
             <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{ m:4 }}>
                 <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                    <NotificationPanel/>
+                    <NotificationCard/>
                 </Box>
                 <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
                     <LastActivity/>

@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
-import {sendChat} from "../API/ChatApi.jsx";
+import {sendChat} from "../../API/ChatApi.jsx";
 import Cookies from "universal-cookie";
 import {Card, IconButton, Stack, TextField} from "@mui/material";
-import ChatBubble from "./Chat/ChatBubble.jsx";
-import {SERVER_URL} from "../Utils/Constants.jsx";
+import ChatBubble from "./ChatBubble.jsx";
+import {SERVER_URL} from "../../Utils/Constants.jsx";
 import Send from '@mui/icons-material/Send';
 
 function ChatPage() {

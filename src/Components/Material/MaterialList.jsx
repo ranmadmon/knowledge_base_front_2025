@@ -1,9 +1,9 @@
-import "./Course.css"
+import "../CssFiles/Course.css"
 import React, {useEffect, useState} from "react";
-import * as MaterialsAPI from "../API/MaterialsAPI.jsx";
+import * as MaterialsAPI from "../../API/MaterialsAPI.jsx";
 import {useLocation} from "react-router-dom";
-import * as CoursesAPI from "../API/CoursesAPI.jsx";
-import MaterialCard from "../Components/Material/MaterialCard.jsx";
+import * as CoursesAPI from "../../API/CoursesAPI.jsx";
+import MaterialCard from "./MaterialCard.jsx";
 
 export default function MaterialList() {
     const location = useLocation();

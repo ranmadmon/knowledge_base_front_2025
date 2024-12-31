@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Divider, Stack, Typography} from "@mui/material";
-import {getMaterialFiles} from "../API/FilesAPI.js";
+import {getMaterialFiles} from "../../API/FilesAPI.jsx";
 import DownloadIcon from '@mui/icons-material/Download';
 
 function DownloadFiles() {

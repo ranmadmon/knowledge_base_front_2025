@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import "./Form.css"
-import {LOGIN_URL} from "../Utils/Constants.jsx";
+import "../CssFiles/Form.css"
+import {LOGIN_URL} from "../../Utils/Constants.jsx";
 import {useNavigate} from "react-router-dom";
 
 

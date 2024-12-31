@@ -1,11 +1,11 @@
-import "./Course.css"
-import "./NewForm.css"
-import "./Card.css"
+import "../CssFiles/Course.css"
+import "../CssFiles/NewForm.css"
+import "../CssFiles/Card.css"
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Pagination, Typography} from "@mui/material";
-import {COURSE_URL} from "../Utils/Constants.jsx";
+import {COURSE_URL} from "../../Utils/Constants.jsx";
 
 export default function CoursesList(){
     const navigate = useNavigate();

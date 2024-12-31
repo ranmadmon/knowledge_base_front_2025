@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import './Form.css';
+import '../CssFiles/Form.css';
 import axios from "axios";
-import Error from "../Components/General/Error/Error.jsx"
+import Error from "../General/Error/Error.jsx"
 import Cookies from 'universal-cookie';
 import OtpComponent from "./OtpComponent.jsx";
-import {DASHBOARD_URL, REGISTER_URL} from "../Utils/Constants.jsx";
+import {DASHBOARD_URL, REGISTER_URL} from "../../Utils/Constants.jsx";
 import {Alert} from "@mui/material";
 
 

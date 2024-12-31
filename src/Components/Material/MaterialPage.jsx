@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, ButtonGroup, Stack, Typography} from "@mui/material";
-import DragNDrop from "../DragNDrop.jsx";
+import DragNDrop from "./DragNDrop.jsx";
 import {addToMaterialHistory, getMaterialById} from "../../API/MaterialsAPI.jsx";
-import DownloadFiles from "../DownloadFiles.jsx";
+import DownloadFiles from "./DownloadFiles.jsx";
 
 
 function MaterialPage() {

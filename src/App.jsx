@@ -1,28 +1,23 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import CoursesList from "./pages/CoursesList.jsx";
-import Profile from "./pages/Profile.jsx";
-import "./App.css"
-import MaterialList from "./pages/MaterialList.jsx";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Login from "./Components/Login&Registration/Login.jsx";
+import Register from "./Components/Login&Registration/Register.jsx";
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
+import ErrorPage from "./Components/ErrorPages/ErrorPage.jsx";
+import CoursesList from "./Components/CoursesPage/CoursesList.jsx";
+import "./Components/CssFiles/App.css"
+import MaterialList from "./Components/Material/MaterialList.jsx";
 
 import Cookies from "universal-cookie";
 import {
-    CHAT_URL,
     COURSE_LIST_URL,
     COURSE_URL,
     DASHBOARD_URL,
-    LOGIN_URL, MATERIAL_PAGE_URL,
-    MATERIALS_URL,
-    PROFILE_URL,
+    LOGIN_URL,
+    MATERIAL_PAGE_URL,
     REGISTER_URL
 } from "./Utils/Constants.jsx";
 import MaterialPage from "./Components/Material/MaterialPage.jsx";
-import NewNavBar from "./Components/Dashboard/NewNavBar.jsx";
-import ChatPage from "./Components/ChatPage.jsx";
-
+import NavBar from "./Components/Navbar/NavBar.jsx";
 
 
 function App() {
@@ -44,12 +39,10 @@ function App() {
                         <>
                             <Route
                                 element={
-                                    <NewNavBar/>
+                                    <NavBar/>
                                 }>
-                                <Route path={CHAT_URL} element={<ChatPage/>}/>
                                 <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
                                 <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
-                                <Route path={PROFILE_URL} element={<Profile/>}/>
                                 <Route path={COURSE_URL + ":id"} element={<MaterialList/>}/>
                                 <Route path={COURSE_URL + ":id" + MATERIAL_PAGE_URL + ":id"} element={<MaterialPage/>}/>
                             </Route>

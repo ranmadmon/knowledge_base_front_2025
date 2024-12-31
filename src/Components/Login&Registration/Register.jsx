@@ -1,10 +1,10 @@
 import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import './Form.css';
+import '../CssFiles/Form.css';
 import axios from "axios";
 import OtpComponent from "./OtpComponent.jsx";
-import {LOGIN_URL} from "../Utils/Constants.jsx";
-import Error from "../Components/General/Error/Error.jsx";
+import {LOGIN_URL} from "../../Utils/Constants.jsx";
+import Error from "../General/Error/Error.jsx";
 
 function Register() {
     const [name, setName] = useState(" ");
