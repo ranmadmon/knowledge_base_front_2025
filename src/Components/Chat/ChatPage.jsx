@@ -41,19 +41,21 @@ function ChatPage() {
     return (
         <Stack spacing={2}
                sx={{
-                   padding: '2%',
+                   padding: 1,
                    width: "100%",
                    height: "100%",
                    display: "flex",
                    flexDirection: "column",
                    alignSelf: "center",
-                   backdropFilter: 'blur(5px)',
+                   backdropFilter: 'blur(10px)',
+                   borderRadius: 2,
                    border: '3px solid rgba(0,0,0,.1)',
                }}>
             <Stack
                 spacing={2}
                 maxWidth={"100%"}
                 sx={{
+                    padding:1,
                     overflowY: "auto",
                     display: 'flex',
                     flexDirection: 'column',

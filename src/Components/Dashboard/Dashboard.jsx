@@ -4,6 +4,7 @@ import {Box, Stack} from "@mui/material";
 import Search from "../Navbar/Search.jsx";
 import {COURSE_URL} from "../../Utils/Constants.jsx";
 import {useNavigate} from "react-router-dom";
+import NotificationCard from "./NotifictionCard/NotificationCard.jsx";
 
 function Dashboard() {
     const navigate = useNavigate();
