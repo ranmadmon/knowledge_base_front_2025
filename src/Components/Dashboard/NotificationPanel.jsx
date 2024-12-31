@@ -1,14 +1,34 @@
 import React, {useEffect, useState} from "react";
 import ListCard from "./ListCard.jsx";
-import {getNotifications} from "../../API/NotificationsAPI.jsx";
-import {Accordion, AccordionDetails, AccordionSummary, Box, Skeleton, Stack, Typography} from "@mui/material";
+import {addNotification, getNotifications} from "../../API/NotificationsAPI.jsx";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box, Button, MenuItem, Select,
+    Skeleton,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import {ArrowDropDown} from "@mui/icons-material";
 import formatDatetime from "../../Utils/formatDatetime.js";
+import {getUserPermission} from "../../API/UserPermission.jsx";
+import Cookies from "universal-cookie";
+import {getCourseByLecturer} from "../../API/CoursesAPI.jsx";
 
 
 function NotificationPanel() {
     const [notificationList, setNotificationList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [permission, setPermission] = useState(1);
+    const [selectedCourseId, setSelectedCourseId] = useState("");
+    const [courses, setCourses] = useState([]);
+    const cookies = new Cookies(null, {path: '/'});
+    const token = cookies.get("token");
+    const id = cookies.get("id");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {

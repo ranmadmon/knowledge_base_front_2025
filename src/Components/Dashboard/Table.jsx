@@ -27,37 +27,16 @@ function Table(props) {
         };
     }, []);
 
-    const onRowClicked = (params) => {
-        console.log(params);
-        const  id = params?.data?.id
-        navigate(COURSE_URL+id,{replace:true});
+    const onRowClicked = (event) => {
+        navigate(COURSE_URL + event.data.material.courseEntity.id + MATERIAL_PAGE_URL + event.data.material.id)
     }
-
-
-    // const dataTypeDefinitions = useMemo(() => {
-    //     return {
-    //         dateString: {
-    //             baseDataType: "dateString",
-    //             extendsDataType: "dateString",
-    //             dateParser: (value) => {
-    //                 value.replace("T", " ")
-    //             }
-    //
-    //         },
-    //     };
-    // }, []);
-
     return (
         <Box className="ag-theme-alpine"  sx={{ height: '500px', width: '100%' }}   >
             <AgGridReact
-
                 onRowClicked={onRowClicked}
                 rowData={props.row}
                 columnDefs={props.column}
                 defaultColDef={defaultColDef}
-/*
-                dataTypeDefinitions={dataTypeDefinitions}
-*/
                 pagination={true}
                 paginationPageSize={10}
                 paginationPageSizeSelector={[10, 25, 50]}

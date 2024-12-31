@@ -54,8 +54,6 @@ function Login() {
                         alert("הקוד לא תקין נסה שוב")
                     }else{
                         const cookies = new Cookies();
-                        console.log(response.data.token);
-
                         cookies.set('token', response.data.token, { path: '/' });
                         const newCookies = new Cookies();
                         newCookies.set('id', response.data.id);
