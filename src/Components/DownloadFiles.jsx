@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Divider, Stack} from "@mui/material";
+import {Card, Divider, Stack, Typography} from "@mui/material";
 import {getMaterialFiles} from "../API/FilesAPI.js";
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -34,6 +34,7 @@ function DownloadFiles() {
             <Stack sx={{height: "100%"}} direction="row"
                    divider={<Divider orientation="vertical" flexItem sx={{margin: 2}}/>}
             >
+                <Typography>באמצע שיהיה רשום נוטינג יט</Typography>
             </Stack>
         </Card>
     );

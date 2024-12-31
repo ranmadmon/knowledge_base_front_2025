@@ -23,13 +23,13 @@ function MaterialPage() {
 
     return (
         <Box width="100%">
-            <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{m: 4}}>
+            <Stack minWidth={"100%"}  margin={2} spacing={4} sx={{m: 4, display:"flex" ,justifyContent:"center", alignItems:"center"}}>
                 <Box display="flex" justifyContent="center" alignItems="center">
                     <Typography variant="h3">{material.title}</Typography>
                 </Box>
                 <ButtonGroup variant="outlined">
-                    <Button onClick={()=> setShowManageFile(true)}>Mange Files</Button>
-                    <Button onClick={()=> setShowManageFile(false)}>Download Files</Button>
+                    <Button variant={!showManageFile?'outlined' : "contained"} onClick={()=> setShowManageFile(true)}>manage files</Button>
+                    <Button  variant={showManageFile?'outlined' : "contained"} onClick={()=> setShowManageFile(false)}>Download Files</Button>
                 </ButtonGroup>
                 {showManageFile ?
                     <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>

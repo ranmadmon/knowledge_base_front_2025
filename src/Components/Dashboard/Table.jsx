@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
-import {COURSE_URL} from "../../Utils/Constants.jsx";
+import {COURSE_URL, MATERIAL_PAGE_URL, MATERIALS_URL} from "../../Utils/Constants.jsx";
 import {Box} from "@mui/material";
 
 

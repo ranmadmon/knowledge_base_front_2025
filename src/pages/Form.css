@@ -139,7 +139,7 @@
     background-image: url("src/assets/form/show_password.png");
     background-position: 0.2rem 0.35rem;
 }
-.form-input:not(:focus){
+.form-input[required]:not(:focus){
     outline: 3px solid rgba(188, 188, 188, 0.41);
     --webkit-outline: transparent;
 }
