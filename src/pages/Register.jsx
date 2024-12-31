@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import './Form.css';
 import axios from "axios";
@@ -32,7 +32,6 @@ function Register() {
     const PHONE_TAKEN = 1002;
     const EMAIL_TAKEN = 1003;
     const INVALID_REPEAT_PASSWORD = 1004;
-
 
     function register() {
         axios.get("http://localhost:8080/register?userName=" + username + "&password=" + password + "&name=" + name + "&lastName=" + lastName + "&email=" + email + "&role=" + jobTitle + "&phoneNumber=" + phoneNumber)
@@ -90,8 +89,6 @@ function Register() {
           } catch (e){
               console.log(e)
           }
-
-
     }
 
     function getInput(id, title, value, setValue, type, pattern, requirementMessage, error, message, setError) {
@@ -145,7 +142,7 @@ function Register() {
                 regex = "05\\d{8}";
                 break;
             case "email":
-                regex = "[a-z0-9]+@[a-z0-9]+\\.[a-z0-9]+.{2,}$";
+                regex = "[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+.{2,}$";
                 break;
             case "username":
                 regex = "[a-zA-Z0-9]{6,}";
@@ -175,7 +172,7 @@ function Register() {
                 requirementMessage = "Example: example@example.com";
                 break;
             case "password":
-                requirementMessage = "8 Characters, lower and uppercase letters, numbers and special characters [!@$%]";
+                requirementMessage = "At least 8 Characters, lower and uppercase letters, numbers and special characters [!@$%]";
                 break;
             case "username":
                 requirementMessage = "At least 6 characters, letters and numbers";
@@ -189,9 +186,7 @@ function Register() {
 
     function handleShowPassword(event) {
         setShowPassword(!showPassword);
-        // let input = event.target.closest("div").lastChild
         let passwordToShow = document.getElementById("password")
-        console.log(passwordToShow)
         if (showPassword) {
             event.currentTarget.style.backgroundImage = 'url("src/assets/form/hide_password.png")';
             passwordToShow.setAttribute("type", "text");
@@ -200,7 +195,6 @@ function Register() {
             passwordToShow.setAttribute("type", "password");
         }
     }
-
     function handleShowConfirmPassword(event) {
         setShowConfirmPassword(!showConfirmPassword);
         let confirmPasswordToShow = document.getElementById("confirm-password")
@@ -212,7 +206,6 @@ function Register() {
             confirmPasswordToShow.setAttribute("type", "password");
         }
     }
-
     function showErrorCode() {
         let errorMessage = "";
         switch (errorCode) {
@@ -234,7 +227,6 @@ function Register() {
         }
         return errorMessage;
     }
-
     function errorCodeComponent(error, message) {
         return (
             <div>
@@ -255,7 +247,6 @@ function Register() {
                         <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Register</text>
                         <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
-
                     <div className={"flex form"}>
                         <div className="input-pair">
                             {getInput("first-name","Name", name, setName, "text", handleRegex("firstname"), handleRequirementMessage("firstname"))}
@@ -291,7 +282,7 @@ function Register() {
                         {errorCode !== -1 && <Error errorMessage={showErrorCode()}/>}
                         <div className={"input-pair"}>
                             <button onClick={() => register()} id={"submit-button"}
-                                    className={() => allFieldsFilled() ? "active" : ""}
+                                    className={allFieldsFilled() ? "active" : ""}
                                     disabled={!allFieldsFilled()}>
                                 Register Now
                             </button>

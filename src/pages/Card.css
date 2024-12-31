@@ -5,13 +5,12 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    text-wrap: wrap;
     text-align: center;
     font-size: 2.5rem;
     font-weight: bold;
 }
 .card-container{
-    width: calc(100% - 5%);
+    width: 90%;
     height: 590px;
     gap: 1.5rem;
     margin-top: 2rem;
@@ -26,8 +25,6 @@
     white-space: nowrap;
     /*scroll-behavior: smooth;*/
     scroll-snap-type: x mandatory;
-
-
 }
 
 .card-container::-webkit-scrollbar {

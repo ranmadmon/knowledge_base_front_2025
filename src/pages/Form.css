@@ -169,7 +169,7 @@
     max-height: 10%;
     padding: 0.5em;
 }
-.form-input:not(:focus) + .requirement-message{
+.form-input[required]:not(:focus) + .requirement-message{
     font-size: 0;
 }
 .form-input[required]:not(:placeholder-shown):invalid:focus + .requirement-message{
