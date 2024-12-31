@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./Material.css";
+import "../CssFiles/Material.css";
 import {addToMaterialHistory} from "../../API/MaterialsAPI.jsx";
 import * as MaterialsAPI from "../../API/MaterialsAPI.jsx";
 

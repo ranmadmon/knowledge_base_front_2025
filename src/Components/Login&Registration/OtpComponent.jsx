@@ -1,14 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import "../CssFiles/Form.css"
-import {LOGIN_URL} from "../../Utils/Constants.jsx";
-import {useNavigate} from "react-router-dom";
-
 
 const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (inputRef.current [0]){

@@ -3,7 +3,7 @@ import Login from "./Components/Login&Registration/Login.jsx";
 import Register from "./Components/Login&Registration/Register.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import ErrorPage from "./Components/ErrorPages/ErrorPage.jsx";
-import CoursesList from "./Components/CoursesPage/CoursesList.jsx";
+import CoursesList from "./Components/Courses/CoursesList.jsx";
 import "./Components/CssFiles/App.css"
 import MaterialList from "./Components/Material/MaterialList.jsx";
 

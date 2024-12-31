@@ -1,4 +1,4 @@
-import "./Error.css"
+import "../CssFiles/Error.css"
 
 export default function Error({errorMessage}){
     return(
