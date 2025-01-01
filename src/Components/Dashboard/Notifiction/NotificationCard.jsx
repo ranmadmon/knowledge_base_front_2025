@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, ButtonGroup, Card, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {Box, Card, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import {getUserPermission} from "../../../API/UserPermission.jsx";
 import NotificationList from "./NotificationList.jsx";
 import AddNewNotification from "./AddNewNotification.jsx";
@@ -7,6 +7,10 @@ import AddNewNotification from "./AddNewNotification.jsx";
 function NotificationCard() {
     const [permission, setPermission] = useState(1);
     const [isAddNotifications, setIsAddNotifications] = useState(false);
+    const [alignment, setAlignment] = React.useState('');
+    const handleChange = (event, newAlignment) => {
+        setAlignment(newAlignment);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,19 +26,14 @@ function NotificationCard() {
                     <>
                         <ToggleButtonGroup
                             color="primary"
-                            value="save"
+                            value={alignment}
                             exclusive
+                            onChange={handleChange}
                             aria-label="Platform"
                         >
-                            <ToggleButton value="send notification">send notification</ToggleButton>
-                            <ToggleButton value="notifications">notifications</ToggleButton>
+                            <ToggleButton value="send notification"  onClick={() => setIsAddNotifications(true)}>send notification</ToggleButton>
+                            <ToggleButton value="notifications"  onClick={() => setIsAddNotifications(false)}>notifications</ToggleButton>
                         </ToggleButtonGroup>
-                        <ButtonGroup variant="outlined">
-                            <Button variant={!isAddNotifications ? 'outlined' : "contained"}
-                                    onClick={() => setIsAddNotifications(true)}>send notification</Button>
-                            <Button variant={isAddNotifications ? 'outlined' : "contained"}
-                                    onClick={() => setIsAddNotifications(false)}>notifications</Button>
-                        </ButtonGroup>
                     </>
                 }
                 {isAddNotifications ?

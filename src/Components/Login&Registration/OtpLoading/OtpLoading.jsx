@@ -119,10 +119,10 @@ export default function OtpLoading({isVerified, verifiedMessage, unverifiedMessa
                     </g>
                 </svg>
                 <text style={{color: red}}>{unverifiedMessage}</text>
+
             </div>
         )
     }
-
     return (
         <div>
             {(canContinue)?(isVerified ? verified() : unverified()) : checkValidity()}

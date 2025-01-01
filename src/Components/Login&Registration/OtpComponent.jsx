@@ -54,9 +54,9 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
             e.preventDefault()
             inputRef.current[index-1].focus();
         }
-       if ((key === "arrowright") && otp[index] && (index < length-1 ) && inputRef.current[index+1]){
-           inputRef.current[index+1].focus();
-       }
+        if ((key === "arrowright") && otp[index] && (index < length-1 ) && inputRef.current[index+1]){
+            inputRef.current[index+1].focus();
+        }
 
     }
     const handleClick = (index) => {
@@ -75,18 +75,18 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
                     {otp.map((data,index) => {
                         return (
                             <input key={index}
-                                required
-                                className={"otp-input"}
-                                ref={ (input) => (inputRef.current[index] = input)}
-                                id={"box"}
-                                type="text"
-                                value={data}
-                                maxLength={1}
-                                onChange={(e) => {handleChange(e, index)}}
-                                onKeyDown={(e) => {handleKeyDown(e, index)}}
-                                onClick={() => handleClick(index)}
-                                onPaste={(e) => onPaste(e)}
-                                style={{width: "1.8rem",textAlign:"center",padding:0,margin:0}}/>)
+                                   required
+                                   className={"otp-input"}
+                                   ref={ (input) => (inputRef.current[index] = input)}
+                                   id={"box"}
+                                   type="text"
+                                   value={data}
+                                   maxLength={1}
+                                   onChange={(e) => {handleChange(e, index)}}
+                                   onKeyDown={(e) => {handleKeyDown(e, index)}}
+                                   onClick={() => handleClick(index)}
+                                   onPaste={(e) => onPaste(e)}
+                                   style={{width: "1.8rem",textAlign:"center",padding:0,margin:0}}/>)
                     })}
                 </div>
 
@@ -95,9 +95,15 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
                     disabled={otpToSubmit.length < 6}
                     style={{width: "13rem"}}
                     id={"submit-button"}
-                    onClick={() => {
+                    onClick={() =>
+                    {
                         onOtpSubmit(otpToSubmit);
-                        }
+                        setShowLoading(true)
+                        setTimeout(()=>{
+                            setShowLoading(false)
+                        },3500)
+
+                    }
                     }
                 >
                     Submit
@@ -106,8 +112,7 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
             {
                 showLoading &&
                 <div className={"loading"} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <OtpLoading isVerified={false} verifiedMessage={verifiedMessage}
-                             unverifiedMessage={unverifiedMessage}/>
+                    <OtpLoading isVerified={false} verifiedMessage={verifiedMessage} unverifiedMessage={unverifiedMessage}/>
                 </div>
             }
         </div>

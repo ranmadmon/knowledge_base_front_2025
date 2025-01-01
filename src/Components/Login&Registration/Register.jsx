@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import '../CssFiles/Form.css';
 import axios from "axios";
 import OtpComponent from "./OtpComponent.jsx";
-import {LOGIN_URL, SERVER_URL} from "../../Utils/Constants.jsx";
+import {LOGIN_URL} from "../../Utils/Constants.jsx";
 import Error from "./Error.jsx";
 
 function Register() {
@@ -19,7 +19,6 @@ function Register() {
     const [email, setEmail] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("")
-
     const navigate = useNavigate();
 
     const [errorCode, setErrorCode] = useState(-1);
@@ -34,8 +33,12 @@ function Register() {
     const EMAIL_TAKEN = 1003;
     const INVALID_REPEAT_PASSWORD = 1004;
 
+    useEffect(() => {
+        document.getElementById("first-name").focus();
+    },[])
+
     function register() {
-        axios.get(SERVER_URL+"/register?userName=" + username + "&password=" + password + "&name=" + name + "&lastName=" + lastName + "&email=" + email + "&role=" + jobTitle + "&phoneNumber=" + phoneNumber)
+        axios.get("http://localhost:8080/register?userName=" + username + "&password=" + password + "&name=" + name + "&lastName=" + lastName + "&email=" + email + "&role=" + jobTitle + "&phoneNumber=" + phoneNumber)
             .then(response => {
                 console.log(response.data)
                 if (response.data != null) {
@@ -51,19 +54,22 @@ function Register() {
                 }
             })
     }
-    useEffect(() => {
-        document.getElementById("first-name").focus();
-    },[])
+
+
     const onOtpSubmit = (otp) => {
-        axios.get(SERVER_URL+"/check-otp-to-register?username=" + username + "&otp=" + otp)
+        axios.get("http://localhost:8080/check-otp-to-register?username=" + username + "&otp=" + otp)
             .then(response => {
                 if (response.data.success) {
                     if (!response.data.registeredSuccessfully) {
                         setOtpVerified(false);
+                        // setInterval(()=>{
+                        // }, 1500)
                     } else {
-                        setShowOtpComponent(false);
                         setOtpVerified(true);
-                        console.log(response.data)
+                        setShowOtpComponent(false);
+                        // setInterval(()=>{
+                        //
+                        // }, 1500)
                         navigate(LOGIN_URL);
                         window.location.reload()
                     }
@@ -71,30 +77,29 @@ function Register() {
             })
     }
     const allFieldsFilled = () => {
-          try{
-              const checkFirstName = document.getElementById("first-name")
-              const checkLastName = document.getElementById("last-name")
-              const checkEmail = document.getElementById("email")
-              const checkPhone = document.getElementById("phone")
-              const checkUsername = document.getElementById("username")
-              const checkJobTitle = document.getElementById("job-title")
-              const checkPassword = document.getElementById("password")
-              const checkConfirmPassword = document.getElementById("confirm-password")
-              return (
-                  checkFirstName.checkValidity() &&
-                  checkLastName.checkValidity() &&
-                  checkEmail.checkValidity() &&
-                  checkPhone.checkValidity() &&
-                  checkUsername.checkValidity() &&
-                  checkJobTitle.checkValidity() &&
-                  checkPassword.checkValidity()&&
-                  checkConfirmPassword.checkValidity()
-              );
-          } catch (e){
-              console.log(e)
-          }
+        try{
+            const checkFirstName = document.getElementById("first-name")
+            const checkLastName = document.getElementById("last-name")
+            const checkEmail = document.getElementById("email")
+            const checkPhone = document.getElementById("phone")
+            const checkUsername = document.getElementById("username")
+            const checkJobTitle = document.getElementById("job-title")
+            const checkPassword = document.getElementById("password")
+            const checkConfirmPassword = document.getElementById("confirm-password")
+            return (
+                checkFirstName.checkValidity() &&
+                checkLastName.checkValidity() &&
+                checkEmail.checkValidity() &&
+                checkPhone.checkValidity() &&
+                checkUsername.checkValidity() &&
+                checkJobTitle.checkValidity() &&
+                checkPassword.checkValidity()&&
+                checkConfirmPassword.checkValidity()
+            );
+        } catch (e){
+            console.log(e)
+        }
     }
-
     function getInput(id, title, value, setValue, type, pattern, requirementMessage, error, message, setError) {
         return (
             <div className={"flex input-container"}>
@@ -116,28 +121,25 @@ function Register() {
                            pattern={pattern}
                            onChange={(event) => {
                                setValue(event.target.value)
-                               if(error!==null){
+                               if(error!==null && setError){
                                    setError(null)
                                }
-                               }}
+                           }}
                            placeholder={title}
                            size={1}
                            aria-expanded={false}
-                        // onInvalid={(e) => {
-                        //     e.target.setCustomValidity("shit")
-                        // }}
+
                     />
                     <text className={"requirement-message"}>{requirementMessage}</text>
                 </div>
             </div>
         );
     }
-
     const handleRegex = (type) => {
         let regex = ""
         switch (type) {
             case "firstname":
-                regex = "^(?=.*[a-z]).{3,}$";
+                regex = "^(?=.*[a-z]).{4,}$";
                 break;
             case "lastname":
                 regex = "^(?=.*[a-z]).{3,}$";
@@ -187,7 +189,6 @@ function Register() {
         }
         return requirementMessage
     }
-
     function handleShowPassword(event) {
         setShowPassword(!showPassword);
         let passwordToShow = document.getElementById("password")
@@ -235,9 +236,9 @@ function Register() {
         return (
             <div>
                 {error&&(<label style={{color: "red", marginTop: "5px"}}>
-                            {message}
-                        </label>
-                    )}
+                        {message}
+                    </label>
+                )}
             </div>
         )
     }
@@ -308,10 +309,11 @@ function Register() {
                     </div>
                 </div>
             </div>
-            {showOtpComponent && <OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration unsuccessful, try entering the code again"}/>}
+            {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration unsuccessful, try entering the code again"}/>}
         </div>
 
     );
+
 }
 
 export default Register;
