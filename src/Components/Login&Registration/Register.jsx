@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import '../CssFiles/Form.css';
 import axios from "axios";
@@ -50,7 +50,9 @@ function Register() {
                 }
             })
     }
-
+    useEffect(() => {
+        document.getElementById("first-name").focus();
+    },[])
     const onOtpSubmit = (otp) => {
         axios.get(SERVER_URL+"/check-otp-to-register?username=" + username + "&otp=" + otp)
             .then(response => {
