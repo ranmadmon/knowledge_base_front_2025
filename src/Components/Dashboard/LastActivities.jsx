@@ -30,9 +30,12 @@ function LastActivities() {
             field: "time",
             headerName: "Last Interaction",
             filter: 'agDateColumnFilter',
-            filterParams: {
-                comparator: compareDates
+            sort:'desc',
+
+            comparator: (cellA, cellB) => {
+                return compareDates(cellA, cellB)
             }
+
         }
     ]);
 
@@ -56,7 +59,6 @@ function LastActivities() {
     }
 
     useEffect(() => {
-
         const fetchData = async () => {
             await getMaterialsHistory()
                 .then(response => response.map((item) => ({
@@ -67,12 +69,10 @@ function LastActivities() {
                         uploadDate: formatDatetime(item.material.uploadDate),
                     },
                 })))
-                .then(list => list.reverse())
                 .then(list => setLastActivitiesList(list));
         }
         fetchData()
     }, []);
-
 
     return (
         <>
@@ -84,7 +84,7 @@ function LastActivities() {
                 minWidth: "60%"
             }} elevation={6}>
                 <Typography margin={2} variant={"h4"}>Last Activities</Typography>
-                <Table column={columnDefs} row={lastActivitiesList}/>
+                <Table column={columnDefs} row={lastActivitiesList} />
             </Card>
         </>
     )

@@ -23,13 +23,14 @@ function Table(props) {
             filterParams:{
                 debounceTime: 0,
                 buttons:[/*'apply',*/'clear' ]
-            }
+            },
         };
     }, []);
 
     const onRowClicked = (event) => {
         navigate(COURSE_URL + event.data.material.courseEntity.id + MATERIAL_PAGE_URL + event.data.material.id)
     }
+
     return (
         <Box className="ag-theme-alpine"  sx={{ height: '500px', width: '100%' }}   >
             <AgGridReact

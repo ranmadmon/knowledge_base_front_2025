@@ -5,7 +5,7 @@ import axios from "axios";
 import Error from "./Error.jsx"
 import Cookies from 'universal-cookie';
 import OtpComponent from "./OtpComponent.jsx";
-import {DASHBOARD_URL, REGISTER_URL} from "../../Utils/Constants.jsx";
+import {DASHBOARD_URL, ERROR_PASSWORD, REGISTER_URL, SERVER_URL, USER_NOT_EXIST} from "../../Utils/Constants.jsx";
 
 
 
@@ -16,9 +16,6 @@ function Login() {
     const [showOtpComponent,setShowOtpComponent] = useState(false);
     const [errorCode, setErrorCode]= useState(-1);
     const navigate = useNavigate();
-    const SERVER_URL = "http://localhost:8080"
-    const ERROR_PASSWORD = 401;
-    const USER_NOT_EXIST = 400;
 
     function showErrorCode(){
         let errorMessage = "";
@@ -46,7 +43,7 @@ function Login() {
     }
     const onOtpSubmit = (otp) => {
         console.log(otp);
-        axios.get("http://localhost:8080/check-otp?username="+username+"&password="+password+"&otp="+otp)
+        axios.get(SERVER_URL+"/check-otp?username="+username+"&password="+password+"&otp="+otp)
             .then(response => {
                 if (response.data != null){
                     if (!response.data.success){
@@ -137,7 +134,7 @@ function Login() {
                     <div className="flex form-container">
                         <div className={"flex left-side"}>
                             <div className={"flex form-headers"}>
-                                <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
+                                <img style={{width: "50px", height: "50px"}} src={"src/assets/icons/book-logo.PNG"} alt={"logo"}/>
                                 <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Login</text>
                                 <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
                             </div>
@@ -167,7 +164,7 @@ function Login() {
                             <div className={"right-side"}>
                             <div className={"image-container"}>
                                 <img className={"form-image"} style={{width: "500px", height: "500px"}}
-                                     src={"src/assets/image10.png"}
+                                     src={"src/assets/icons/image10.png"}
                                      alt={"login-page-image"}/>
                             </div>
                         </div>

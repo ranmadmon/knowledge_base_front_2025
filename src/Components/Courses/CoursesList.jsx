@@ -4,8 +4,8 @@ import "../CssFiles/Card.css"
 import {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Pagination, Typography} from "@mui/material";
-import {COURSE_URL} from "../../Utils/Constants.jsx";
+import {Typography} from "@mui/material";
+import {COURSE_URL, SERVER_URL} from "../../Utils/Constants.jsx";
 
 export default function CoursesList(){
     const ref = useRef(null);
@@ -14,7 +14,6 @@ export default function CoursesList(){
     const [courses, setCourses] = useState([])
     const [chosenLecturer, setChosenLecturer] = useState("")
     const [courseName,setCourseName] = useState("")
-    // const [currentCourse, setCurrentCourse] = useState({name:"",id:""})
     const [description, setDescription] = useState("")
     const [newCourseVisibility, setNewCourseVisibility] = useState(false)
 
@@ -64,7 +63,7 @@ export default function CoursesList(){
                 <div className={"card"}
                      onClick={() => navigate(COURSE_URL + courseId)}>
                     <div className="card-content-image">
-                        <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
+                        <img style={{width: "100%", height: "100%"}} src={"src/assets/icons/course-image-placeholder.png"}
                              alt={"course image"}/>
                     </div>
                     <div className="card-content-text">
@@ -86,19 +85,16 @@ export default function CoursesList(){
         return (
             <div className={`add-new-form`}>
                 <div className="new-form-image">
-                    <img style={{width: "100%", height: "100%"}} src={"src/assets/course-image-placeholder.png"}
+                    <img style={{width: "100%", height: "100%"}} src={"src/assets/icons/course-image-placeholder.png"}
                          alt={"course image"}/>
                 </div>
-                {/*<h1>New MaterialList</h1>*/}
                 <input className={"new-form-input"} type={"text"} value={courseName}
                        onChange={(event) => setCourseName(event.target.value)} placeholder={"MaterialList Name"}/>
                 <textarea className={"new-form-input-desc"} value={description}
                           onChange={(event) => setDescription(event.target.value)} placeholder={"Description"}/>
                 <select className={"new-form-input-select"} value={chosenLecturer}
                         onChange={(event) => setChosenLecturer(event.target.value)}>
-
                     <option value="" disabled>Select lecturer</option>
-
                     {
                         lecturers.map((lecturer, index) => {
                             return (
@@ -117,7 +113,6 @@ export default function CoursesList(){
                 }}>Add Course
                 </button>
             </div>
-            // </div>
         )
     }
     function coursesListComponent(){
@@ -166,8 +161,6 @@ export default function CoursesList(){
                     {newCourseVisibility && addNewCourseComponent()}
                 </div>
             </div>
-
-
         </div>
     )
 }

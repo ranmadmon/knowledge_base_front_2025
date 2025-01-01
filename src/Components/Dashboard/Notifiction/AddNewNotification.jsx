@@ -37,7 +37,6 @@ function AddNewNotification() {
     }
 
     return (
-
         <Box sx={{margin: "10px"}}>
             <Stack direction="column" spacing={2}
                    sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>

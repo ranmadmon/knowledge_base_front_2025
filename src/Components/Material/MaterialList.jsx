@@ -104,9 +104,6 @@ export default function MaterialList() {
         setTags(response)
     }
 
-
-
-
     return (
         <div className="material-page">
             <div className={"upper-container"} style={{flexDirection: "column"}}>
@@ -115,9 +112,6 @@ export default function MaterialList() {
 
             </div>
             <div className={"lower-container"}>
-                {/*{uploadFileActive && <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>*/}
-                {/*    <DragNDrop id={materialId}/>*/}
-                {/*</Box>}*/}
                 <div className={"card-container"}>
                     <MaterialCard material={material}/>
                     <button className={"add-new"}

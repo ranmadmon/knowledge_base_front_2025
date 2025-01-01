@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import '../CssFiles/Form.css';
 import axios from "axios";
 import OtpComponent from "./OtpComponent.jsx";
-import {LOGIN_URL} from "../../Utils/Constants.jsx";
+import {LOGIN_URL, SERVER_URL} from "../../Utils/Constants.jsx";
 import Error from "./Error.jsx";
 
 function Register() {
@@ -34,7 +34,7 @@ function Register() {
     const INVALID_REPEAT_PASSWORD = 1004;
 
     function register() {
-        axios.get("http://localhost:8080/register?userName=" + username + "&password=" + password + "&name=" + name + "&lastName=" + lastName + "&email=" + email + "&role=" + jobTitle + "&phoneNumber=" + phoneNumber)
+        axios.get(SERVER_URL+"/register?userName=" + username + "&password=" + password + "&name=" + name + "&lastName=" + lastName + "&email=" + email + "&role=" + jobTitle + "&phoneNumber=" + phoneNumber)
             .then(response => {
                 console.log(response.data)
                 if (response.data != null) {
@@ -52,7 +52,7 @@ function Register() {
     }
 
     const onOtpSubmit = (otp) => {
-        axios.get("http://localhost:8080/check-otp-to-register?username=" + username + "&otp=" + otp)
+        axios.get(SERVER_URL+"/check-otp-to-register?username=" + username + "&otp=" + otp)
             .then(response => {
                 if (response.data.success) {
                     if (!response.data.registeredSuccessfully) {
@@ -243,7 +243,7 @@ function Register() {
             <div className="flex form-container">
                 <div className={"flex left-side"}>
                     <div className={"flex form-headers"}>
-                        <img style={{width: "50px", height: "50px"}} src={"src/assets/book-logo.PNG"} alt={"logo"}/>
+                        <img style={{width: "50px", height: "50px"}} src={"src/assets/icons/book-logo.PNG"} alt={"logo"}/>
                         <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Register</text>
                         <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
@@ -299,7 +299,7 @@ function Register() {
                 <div className={"right-side"}>
                     <div className={"image-container"}>
                         <img className={"form-image"} style={{width: "500px", height: "500px"}}
-                             src={"src/assets/image11.png"}
+                             src={"src/assets/icons/image11.png"}
                              alt={"register-page-image"}/>
                     </div>
                 </div>
