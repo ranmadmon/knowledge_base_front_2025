@@ -66,12 +66,12 @@ function Register() {
                         // }, 1500)
                     } else {
                         setOtpVerified(true);
-                        setShowOtpComponent(false);
-                        // setInterval(()=>{
-                        //
-                        // }, 1500)
-                        navigate(LOGIN_URL);
-                        window.location.reload()
+                        setTimeout(()=>{
+                            setShowOtpComponent(false);
+                            navigate(LOGIN_URL);
+                            window.location.reload()
+                        }, 5000)
+
                     }
                 }
             })
