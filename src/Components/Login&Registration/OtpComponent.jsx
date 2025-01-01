@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import "../CssFiles/Form.css"
-import OtpLoading from "src/Components/Login&Registration/OtpLoading/OtpLoading.jsx";
+import OtpLoading from "./OtpLoading/OtpLoading.jsx";
 
 const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVerified, verifiedMessage, unverifiedMessage) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
