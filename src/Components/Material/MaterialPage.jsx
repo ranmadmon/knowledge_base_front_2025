@@ -37,7 +37,7 @@ function MaterialPage() {
                     </Box>
                     :
                     <Box maxWidth={"60%"} minWidth={"60%"} alignSelf={"center"}>
-                       <DownloadFiles/>
+                       <DownloadFiles material={material}/>
                     </Box>
                 }
 

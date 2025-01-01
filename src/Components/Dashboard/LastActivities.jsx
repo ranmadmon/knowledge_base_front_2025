@@ -43,7 +43,6 @@ function LastActivities() {
         if (!cellA) {
             return 0;
         }
-        console.log( parseDateTime(cellA)- parseDateTime(cellB));
         return  parseDateTime(cellA)- parseDateTime(cellB)
     }
 

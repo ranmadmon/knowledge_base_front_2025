@@ -1,19 +1,28 @@
 import React, {useEffect, useRef} from 'react';
 import {sendChat} from "../../API/ChatApi.jsx";
 import Cookies from "universal-cookie";
-import {Card, IconButton, Stack, TextField} from "@mui/material";
+import {IconButton, Stack, TextField} from "@mui/material";
 import ChatBubble from "./ChatBubble.jsx";
 import {SERVER_URL} from "../../Utils/Constants.jsx";
 import Send from '@mui/icons-material/Send';
+import PropTypes from "prop-types";
 
-function ChatPage() {
+ChatPage.propTypes = {
+    isChatOpen: PropTypes.bool.isRequired,
+    setChatNotification: PropTypes.func.isRequired,
+    chatNotification: PropTypes.number.isRequired
+}
+
+function ChatPage(props) {
     const cookies = new Cookies(null, {path: '/'});
     const token = cookies.get("token");
     const id = cookies.get("id");
     const [messages, setMessages] = React.useState([]);
-    const [message, setMessage] = React.useState('');
-    const lastMessage = useRef(null);
+    // const [message, setMessage] = React.useState('');
 
+    const lastMessage = useRef(null);
+    const messageInputRef = useRef(null);
+    const ref = useRef(null);
 
 
     useEffect(() => {
@@ -21,7 +30,7 @@ function ChatPage() {
         sse.addEventListener("message", (event) => {
             const messages = JSON.parse(event.data);
             setMessages(prevMessages => [...prevMessages, ...messages]);
-            console.log("Received message", messages);
+            setNoti(messages.length)
         });
         return () => {
             sse.close();
@@ -31,27 +40,50 @@ function ChatPage() {
 
     function handleKeyDown(event) {
         if (event.key === 'Enter') {
+            event.preventDefault();
             sendMessage()
         }
     }
 
     async function sendMessage() {
-        if (message.length > 0) {
+        if (messageInputRef.current.value.trim().length > 0) {
+          const message= messageInputRef.current.value;
+            messageInputRef.current.value = "";
             const response = await sendChat(message)
-            console.log(response)
-            setMessage("")
         }
     }
 
-    useEffect(() => {
-        if (lastMessage.current) {
-            lastMessage.current.scrollIntoView({behavior: 'smooth'});
+    function setNoti(count) {
+        if (props.isChatOpen) {
+            props.setChatNotification(0);
         }
-    }, [messages]);
+        if (!props.isChatOpen) {
+            props.setChatNotification(prev => prev + count);
+        }
+    }
+
+
+    useEffect(() => {
+        if (lastMessage.current && props.isChatOpen) {
+            lastMessage.current.scrollIntoView({behavior: 'smooth'});
+            setNoti(0)
+        }
+
+
+    }, [messages, props.isChatOpen]);
+
+
+    useEffect(() => {
+        if (messageInputRef.current && props.isChatOpen) {
+            messageInputRef.current.focus();
+        }
+
+    }, [props.isChatOpen]);
 
 
     return (
         <Stack spacing={2}
+               ref={ref}
                sx={{
                    padding: 1,
                    width: "100%",
@@ -63,6 +95,7 @@ function ChatPage() {
                    borderRadius: 2,
                    border: '3px solid rgba(0,0,0,.1)',
                }}>
+
             <Stack
                 spacing={2}
                 maxWidth={"100%"}
@@ -97,21 +130,17 @@ function ChatPage() {
                 <TextField
                     InputProps={{
                         endAdornment: (
-                            <IconButton
-                                aria-label="send"
-                                onClick={sendMessage}
-                            >
+                            <IconButton onClick={sendMessage}>
                                 <Send/>
                             </IconButton>
                         ),
                     }}
+                    inputRef={messageInputRef}
                     onKeyDown={handleKeyDown}
                     type="text"
                     style={{width: "100%"}}
-                    value={message}
                     label="Send Message"
                     placeholder="Write your message here"
-                    onChange={(event) => setMessage(event.target.value)}
                     multiline
                 />
 

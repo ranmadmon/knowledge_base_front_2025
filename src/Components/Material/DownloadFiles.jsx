@@ -1,42 +1,147 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Divider, Stack, Typography} from "@mui/material";
-import {getMaterialFiles} from "../../API/FilesAPI.jsx";
+import {
+    Box,
+    Card,
+    Collapse,
+    Divider,
+    IconButton,
+    List,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    ListSubheader,
+    Stack,
+    Typography
+} from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
 import axios from "axios";
 import {SERVER_URL} from "../../Utils/Constants.jsx";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import PropTypes from "prop-types";
+import formatDatetime from "../../Utils/formatDatetime.jsx";
 
-function DownloadFiles() {
-    const SUCCESS = "success"
-    const ERROR = "error"
-    const [cloudFiles, setCloudFiles] = useState([]);
+DownloadFiles.propTypes = {
+    material: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        uploadDate: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+
+        content: PropTypes.string.isRequired,
+        typeEntity: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+        }).isRequired,
+
+        tagEntity: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+        }).isRequired,
+    })
+}
+
+
+function DownloadFiles(props) {
     const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
-    const [filesName,setFilesName] =useState([])
-    async function handleGetMaterialFiles() {
-        const response = await getMaterialFiles(materialId)
-        setCloudFiles(response)
-    }
+    const [filesName, setFilesName] = useState([])
+    const [groupedFiles, setGroupedFiles] = useState([])
+    const [open, setOpen] = React.useState({});
+    console.log(props.material)
+    const handleClick = (uploader) => {
+        setOpen({
+            ...open,
+            [uploader]: !open[uploader],
+        });
+    };
 
     useEffect(() => {
-        handleGetMaterialFiles()
         getMaterialFilesName()
     }, []);
 
     function getMaterialFilesName() {
-axios.get(SERVER_URL+"/get-material-file-by-id?id="+materialId).then(
-    response=>{
-        if (response!=null){
-            setFilesName(response.data)
+        axios.get(SERVER_URL + "/get-material-file-by-id?id=" + materialId).then(
+            response => {
+                if (response != null) {
+                    console.log(response.data)
+                    setFilesName(response.data)
+                    setGroupedFiles(groupFilesByUploader([
+                        {
+                            "fileName": "EvolutionX (1).txt",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (1).txt",
+                            "fileSize": 32,
+                            "uploadedBy": "John Doe"
+                        },
+                        {
+                            "fileName": "EvolutionX (2).txt",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (2).txt",
+                            "fileSize": 32,
+                            "uploadedBy": "Jane Smith"
+                        },
+                        {
+                            "fileName": "EvolutionX (20).txt",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (2).txt",
+                            "fileSize": 32,
+                            "uploadedBy": "Jane Smith"
+                        },
+                        {
+                            "fileName": "1.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\1.bat",
+                            "fileSize": 585,
+                            "uploadedBy": "Alice Johnson"
+                        },
+                        {
+                            "fileName": "2.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\2.bat",
+                            "fileSize": 449,
+                            "uploadedBy": "Bob Brown"
+                        },
+                        {
+                            "fileName": "6.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\6.bat",
+                            "fileSize": 433,
+                            "uploadedBy": "Charlie Davis"
+                        },
+                        {
+                            "fileName": "asdasd1.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\1.bat",
+                            "fileSize": 585,
+                            "uploadedBy": "Alice Johnson"
+                        },
+                        {
+                            "fileName": "asdsad2.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\2.bat",
+                            "fileSize": 449,
+                            "uploadedBy": "Bob Brown"
+                        },
+                        {
+                            "fileName": "6fghjghf.bat",
+                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\6.bat",
+                            "fileSize": 433,
+                            "uploadedBy": "Charlie Davis"
+                        }
+                    ]))
 
-        }
+                }
+            }
+        )
     }
-)
-    }
+
+
+    const groupFilesByUploader = (files) => {
+        return files.reduce((files, file) => {
+            files[file.uploadedBy] = files[file.uploadedBy] || [];
+            files[file.uploadedBy].push(file);
+            return files;
+        }, {});
+    };
 
     return (
         <Card sx={{
             width: "100%",
             height: "60vh",
             marginTop: 2,
+            padding: 2,
             minHeight: "100%",
             maxHeight: "100%",
             maxWidth: "100%",
@@ -46,18 +151,69 @@ axios.get(SERVER_URL+"/get-material-file-by-id?id="+materialId).then(
             <Stack sx={{height: "100%"}} direction="row"
                    divider={<Divider orientation="vertical" flexItem sx={{margin: 2}}/>}
             >
-                <Typography>
-                    <h1>Files: </h1>
-                    {
-                     filesName.map((file,index)=>{
-                         return(
-                             <div key={index}>
-                                 {index+1}) Filename: {file.fileName} ,File path: {file.filePath},fileSize: {file.fileSize},uploadedBy:{file.uploadedBy}
-                             </div>
-                         )
-                     })
+                <Box sx={{width: "50%"}}>
+                    <Typography variant='h4' sx={{textAlign: "center"}}>
+                        {props.material.title}
+                    </Typography>
+                    <Typography variant='h6' sx={{textAlign: "center"}}>
+                        {formatDatetime(props.material.uploadDate)}
+                    </Typography>
+                    <Typography>
+                        {props.material.content}
+                    </Typography>
+                    <Typography>
+                        {props.material.description}
+                    </Typography>
+                </Box>
+                <List sx={{
+                    height: "100%",
+                    width: "50%",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    '&::-webkit-scrollbar': {
+                        width: '0.4em',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'rgba(0,0,0,.1)',
                     }
-                </Typography>
+                }}
+                      subheader={<Typography>Download Files:</Typography>}
+                      dense={false}
+                >
+
+                    {Object.keys(groupedFiles).map((uploader) => (
+                        <Box key={uploader}>
+
+                            <ListSubheader sx={{display: 'flex', alignItems: 'center'}}
+                                           onClick={() => handleClick(uploader)}
+                            >
+                                <Typography marginRight={2} variant="subtitle1">{uploader}</Typography>
+                                <Typography variant="subtitle4"> {groupedFiles[uploader].length} file</Typography>
+                                {open[uploader] ? <ExpandLess/> : <ExpandMore/>}
+                            </ListSubheader>
+                            <Collapse in={open[uploader]} timeout="auto" unmountOnExit>
+                                {groupedFiles[uploader].map((file, index) => (
+                                    <ListItemButton dense={true} key={index}>
+
+                                        <ListItemIcon>
+                                            <IconButton>
+                                                <DownloadIcon sx={{'&:hover': {color: 'green'}}}/>
+                                            </IconButton>
+                                        </ListItemIcon>
+
+                                        <ListItemText
+                                            primary={file.fileName}
+                                            secondary={file.fileSize + " bytes"}
+                                        />
+                                    </ListItemButton>
+
+                                ))}
+                            </Collapse>
+                            <Divider/>
+                        </Box>
+                    ))}
+                </List>
+
             </Stack>
         </Card>
     );

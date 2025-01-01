@@ -20,7 +20,6 @@ import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 
 
-
 function DragNDrop() {
     const SUCCESS = "success"
     const ERROR = "error"
@@ -53,11 +52,11 @@ function DragNDrop() {
 
     }
     const handleDeleteFiles = async () => {
-        if (deleteFromCloud.length >0 ){
-                    const response = await deleteMaterialFiles(materialId, deleteFromCloud)
-                    setErrorUploading(SUCCESS)
-                    setDeleteFromCloud([])
-                    handleGetMaterialFiles()
+        if (deleteFromCloud.length > 0) {
+            const response = await deleteMaterialFiles(materialId, deleteFromCloud)
+            setErrorUploading(SUCCESS)
+            setDeleteFromCloud([])
+            handleGetMaterialFiles()
         }
 
     }
@@ -165,17 +164,18 @@ function DragNDrop() {
                                 <ListItemButton
                                     key={file}>
                                     <IconButton
-                                        children={hoveredIndex === index ?
-                                            <CloudOffIcon sx={{'&:hover': {color: 'red'}}}/> : <CloudQueueIcon/>}
+
                                         key={index}
                                         onMouseEnter={() => setHoveredIndex(index)}
                                         onMouseLeave={() => setHoveredIndex(null)}
                                         onClick={() => {
                                             setDeleteFromCloud(prevState => prevState.concat(file))
-                                            setCloudFiles(prevState => prevState.filter(item => item !==file))
+                                            setCloudFiles(prevState => prevState.filter(item => item !== file))
                                         }}
-                                    />
-
+                                    >
+                                        {hoveredIndex === index ?
+                                            <CloudOffIcon sx={{'&:hover': {color: 'red'}}}/> : <CloudQueueIcon/>}
+                                    </IconButton>
 
 
                                     <ListItemText> {file}</ListItemText>
@@ -197,7 +197,7 @@ function DragNDrop() {
                                             sx={{'&:hover': {color: 'red'}}}
                                         />
                                     </IconButton>
-                                    <ListItemText> {file.name} - {file.size}kb</ListItemText>
+                                    <ListItemText primary={file.name} secondary={file.size +" bytes"}/>
                                 </ListItemButton>
                             )
                         })}

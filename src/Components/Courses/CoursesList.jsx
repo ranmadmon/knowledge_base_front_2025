@@ -38,7 +38,7 @@ export default function CoursesList(){
     }
     function addCourse(){
         axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId()).then(
-            response => {
+            () => {
                 getAllCourses();
                 setCourseName("");
                 setDescription("");

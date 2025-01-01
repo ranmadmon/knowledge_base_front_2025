@@ -1,6 +1,6 @@
 import "../CssFiles/NavBar.css"
 import {useEffect, useRef, useState} from 'react';
-import {Box, IconButton, Stack} from "@mui/material";
+import {Badge, Box, IconButton, Stack} from "@mui/material";
 import {Outlet, useNavigate} from "react-router-dom";
 import ClickOutside from "./ClickOutside.jsx";
 import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
@@ -9,12 +9,15 @@ import ChatPage from "../Chat/ChatPage.jsx";
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatOffIcon from '@mui/icons-material/SpeakerNotesOff';
 
+
 function NavBar() {
     const navigate = useNavigate();
     const [homeClicked, setHomeClicked] = useState(false);
     const [courseClicked, setCourseClicked] = useState(false);
     const [dataVisible, setDataVisible] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatNotification, setChatNotification] = useState(0);
+
     const chatPageRef = useRef(null);
 
     function handleDataVisible() {
@@ -127,13 +130,26 @@ function NavBar() {
                         backgroundColor:"white",
                         transform: "scale(1.1)",
                         boxShadow:" 0 0 10px 2px var(--color-scheme)"
+                    },
+                }}
+
+                size="large"
+                onClick={() => setIsChatOpen(prevState => !prevState)}
+            >
+                <Badge sx={{
+                    '& .MuiBadge-badge': {
+                        fontSize: '1.0rem',
+                        padding: '0.75rem',
                     }
                 }}
-                size="large"
-                onClick={() => setIsChatOpen(prevState => !prevState)}>
+
+                       color={"secondary"}
+                       badgeContent={chatNotification}
+                >
                 {isChatOpen ? <ChatOffIcon sx={{fontSize: '3rem', color: 'var(--color-1)'}}/>
                     :
-                    <ChatIcon sx={{fontSize: '3rem', color: 'var(--color-scheme)'}}/>}
+                    <ChatIcon sx={{fontSize: '3rem', color: 'var(--color-1)'}}/>}
+                </Badge >
             </IconButton>
 
                     <Box sx={{
@@ -150,7 +166,7 @@ function NavBar() {
                          height={"75%"}
                          ref={chatPageRef}
                     >
-                        <ChatPage/>
+                        <ChatPage isChatOpen={isChatOpen} setChatNotification={setChatNotification} chatNotification={chatNotification}/>
                     </Box>
 
         </Box>

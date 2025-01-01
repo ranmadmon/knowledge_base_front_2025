@@ -2,11 +2,12 @@ import axios from "axios";
 import {FILE_ERROR_CODE, SERVER_URL} from "../Utils/Constants.jsx";
 import Cookies from "universal-cookie";
 
-const cookies = new Cookies(null, {path: '/'});
-const token = cookies.get("token");
-const userId = cookies.get("id");
+
 
 export async function uploadFiles(files ,materialId) {
+    const cookies = new Cookies(null, {path: '/'});
+    const token = cookies.get("token");
+    const userId = cookies.get("id");
 
     const data = new FormData();
     data.append('materialId', materialId);
@@ -31,6 +32,9 @@ export async function uploadFiles(files ,materialId) {
 }
 
 export async function getMaterialFiles(materialId) {
+    const cookies = new Cookies(null, {path: '/'});
+    const userId = cookies.get("id");
+
     const params = {
         materialId: materialId,
         userId: userId,
@@ -45,6 +49,9 @@ export async function getMaterialFiles(materialId) {
 
 
 export async function deleteMaterialFiles(materialId, fileName) {
+    const cookies = new Cookies(null, {path: '/'});
+    const userId = cookies.get("id");
+
     const data = new FormData();
     data.append('materialId', materialId);
     data.append('userId', userId);
