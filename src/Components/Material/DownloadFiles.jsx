@@ -52,7 +52,7 @@ axios.get(SERVER_URL+"/get-material-file-by-id?id="+materialId).then(
                      filesName.map((file,index)=>{
                          return(
                              <div key={index}>
-                                 {index+1}) {file}
+                                 {index+1}) Filename: {file.fileName} ,File path: {file.filePath},fileSize: {file.fileSize},uploadedBy:{file.uploadedBy}
                              </div>
                          )
                      })
