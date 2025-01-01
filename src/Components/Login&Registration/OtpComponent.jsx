@@ -112,7 +112,7 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
             {
                 showLoading &&
                 <div className={"loading"} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <OtpLoading isVerified={false} verifiedMessage={verifiedMessage} unverifiedMessage={unverifiedMessage}/>
+                    <OtpLoading isVerified={isVerified} verifiedMessage={verifiedMessage} unverifiedMessage={unverifiedMessage}/>
                 </div>
             }
         </div>

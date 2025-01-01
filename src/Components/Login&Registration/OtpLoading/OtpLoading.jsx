@@ -7,7 +7,7 @@ export default function OtpLoading({isVerified, verifiedMessage, unverifiedMessa
     const red = "#ff3242"
 
     useEffect(()=>{
-        setInterval(()=>{
+        setTimeout(()=>{
             setCanContinue(true)
         }, 1500)
     }, [])
@@ -119,7 +119,6 @@ export default function OtpLoading({isVerified, verifiedMessage, unverifiedMessa
                     </g>
                 </svg>
                 <text style={{color: red}}>{unverifiedMessage}</text>
-
             </div>
         )
     }

@@ -70,7 +70,7 @@ function Register() {
                             setShowOtpComponent(false);
                             navigate(LOGIN_URL);
                             window.location.reload()
-                        }, 5000)
+                        }, 3500)
 
                     }
                 }
