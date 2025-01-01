@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, ButtonGroup, Card, Stack, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
+import {Box, Button, ButtonGroup, Card, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import {getUserPermission} from "../../../API/UserPermission.jsx";
 import NotificationList from "./NotificationList.jsx";
 import AddNewNotification from "./AddNewNotification.jsx";
@@ -22,14 +22,12 @@ function NotificationCard() {
                     <>
                         <ToggleButtonGroup
                             color="primary"
-                            value={alignment}
+                            value="save"
                             exclusive
-                            onChange={handleChange}
                             aria-label="Platform"
                         >
-                            <ToggleButton value="web">Web</ToggleButton>
-                            <ToggleButton value="android">Android</ToggleButton>
-                            <ToggleButton value="ios">iOS</ToggleButton>
+                            <ToggleButton value="send notification">send notification</ToggleButton>
+                            <ToggleButton value="notifications">notifications</ToggleButton>
                         </ToggleButtonGroup>
                         <ButtonGroup variant="outlined">
                             <Button variant={!isAddNotifications ? 'outlined' : "contained"}
