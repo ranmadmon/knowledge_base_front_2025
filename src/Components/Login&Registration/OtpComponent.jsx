@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import "../CssFiles/Form.css"
+import OtpLoading from "src/Components/Login&Registration/OtpLoading/OtpLoading.jsx";
 
-const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
+const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVerified, verifiedMessage, unverifiedMessage) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
+    const [showLoading, setShowLoading] = useState(false);
 
     useEffect(() => {
         if (inputRef.current [0]){
@@ -101,7 +103,13 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}) => {
                     Submit
                 </button>
             </div>
-
+            {
+                showLoading &&
+                <div className={"loading"} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <OtpLoading isVerified={false} verifiedMessage={verifiedMessage}
+                             unverifiedMessage={unverifiedMessage}/>
+                </div>
+            }
         </div>
     );
 };

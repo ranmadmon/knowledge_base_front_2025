@@ -15,6 +15,7 @@ function Register() {
     const [showPassword,setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [showOtpComponent, setShowOtpComponent] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(false);
     const [email, setEmail] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("")
@@ -58,9 +59,10 @@ function Register() {
             .then(response => {
                 if (response.data.success) {
                     if (!response.data.registeredSuccessfully) {
-                        alert("הקוד לא תקין נסה שוב")
+                        setOtpVerified(false);
                     } else {
                         setShowOtpComponent(false);
+                        setOtpVerified(true);
                         console.log(response.data)
                         navigate(LOGIN_URL);
                         window.location.reload()
@@ -306,7 +308,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-            {showOtpComponent && <OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
+            {showOtpComponent && <OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration unsuccessful, try entering the code again"}/>}
         </div>
 
     );
