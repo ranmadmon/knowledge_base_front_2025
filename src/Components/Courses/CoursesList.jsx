@@ -1,13 +1,14 @@
 import "../CssFiles/Course.css"
 import "../CssFiles/NewForm.css"
 import "../CssFiles/Card.css"
-import {useState,useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Pagination, Typography} from "@mui/material";
 import {COURSE_URL} from "../../Utils/Constants.jsx";
 
 export default function CoursesList(){
+    const ref = useRef(null);
     const navigate = useNavigate();
     const [lecturers, setLecturers] = useState([])
     const [courses, setCourses] = useState([])
@@ -111,6 +112,8 @@ export default function CoursesList(){
                 <button className={"new-form-button"} onClick={() => {
                     addCourse()
                     setNewCourseVisibility(false)
+                    ref.current.scrollIntoView({behavior: 'smooth'})
+
                 }}>Add Course
                 </button>
             </div>
@@ -121,7 +124,7 @@ export default function CoursesList(){
         return(
             courses.map((course, index) => {
                 return (
-                    <div key={course.id}>
+                    <div key={course.id} ref={index === courses.length - 1 ? ref : null}>
                         {courseComponent(index, course.lecturerEntity.name, course.name, course.description, course.id)}
                     </div>
                 )

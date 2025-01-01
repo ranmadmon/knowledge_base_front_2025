@@ -6,7 +6,7 @@ const cookies = new Cookies(null, {path: '/'});
 const token = cookies.get("token");
 const userId = cookies.get("id");
 
-export async function uploadFiles(files ,id) {
+export async function uploadFiles(files ,materialId) {
 
     const data = new FormData();
     data.append('materialId', materialId);
@@ -33,6 +33,7 @@ export async function uploadFiles(files ,id) {
 export async function getMaterialFiles(materialId) {
     const params = {
         materialId: materialId,
+        userId: userId,
     }
     try {
         const response = await axios.get(SERVER_URL + "/get-material-files-by-id", {params})
@@ -46,6 +47,7 @@ export async function getMaterialFiles(materialId) {
 export async function deleteMaterialFiles(materialId, fileName) {
     const data = new FormData();
     data.append('materialId', materialId);
+    data.append('userId', userId);
     for (const file of fileName) {
         data.append('fileNames', file);
 

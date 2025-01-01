@@ -22,8 +22,8 @@ function LastActivities() {
             field: "material.uploadDate",
             headerName: "Uploaded",
             filter: 'agDateColumnFilter',
-            filterParams: {
-                comparator: compareDates
+            comparator: (cellA, cellB) => {
+                return compareDates(cellA, cellB)
             }
         },
         {
@@ -36,22 +36,23 @@ function LastActivities() {
         }
     ]);
 
-    function compareDates(dateFromFilter, cellValue) {
-        if (cellValue == null) {
+    function compareDates(cellA, cellB) {
+        if (!cellA) {
             return 0;
         }
+        console.log( parseDateTime(cellA)- parseDateTime(cellB));
+        return  parseDateTime(cellA)- parseDateTime(cellB)
+    }
 
-        const dateParts = cellValue.split('/');
+
+    function parseDateTime(dateTimeString) {
+        const datePart = dateTimeString.split(" ")
+        const dateParts = datePart[0].split('/');
         const day = Number(dateParts[0]);
-        const month = Number(dateParts[1]) - 1
-        const year = Number(20 + dateParts[2].split(' ')[0]);
-        const cellDate = new Date(year, month, day);
-        if (cellDate < dateFromFilter) {
-            return -1;
-        } else if (cellDate > dateFromFilter) {
-            return 1;
-        }
-        return 0;
+        const month = Number(dateParts[1]) - 1;
+        const year = Number(`20${dateParts[2]}`);
+        const [hours, minutes] = datePart[2].split(':');
+        return new Date(year, month, day, hours,minutes);
     }
 
     useEffect(() => {

@@ -53,10 +53,13 @@ function DragNDrop() {
 
     }
     const handleDeleteFiles = async () => {
-        const response = await deleteMaterialFiles(materialId, deleteFromCloud)
-        setErrorUploading(SUCCESS)
-        setDeleteFromCloud([])
-        handleGetMaterialFiles()
+        if (deleteFromCloud.length >0 ){
+                    const response = await deleteMaterialFiles(materialId, deleteFromCloud)
+                    setErrorUploading(SUCCESS)
+                    setDeleteFromCloud([])
+                    handleGetMaterialFiles()
+        }
+
     }
 
     useEffect(() => {
