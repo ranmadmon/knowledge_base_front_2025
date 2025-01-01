@@ -1,10 +1,17 @@
 import axios from "axios";
 import {FILE_ERROR_CODE, SERVER_URL} from "../Utils/Constants.jsx";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies(null, {path: '/'});
+const token = cookies.get("token");
+const userId = cookies.get("id");
 
 export async function uploadFiles(files ,id) {
 
     const data = new FormData();
-    data.append('id', id);
+    data.append('materialId', materialId);
+    data.append("userId",userId)
+    data.append("token",token)
     for (const file of files) {
         data.append('file', file);
 

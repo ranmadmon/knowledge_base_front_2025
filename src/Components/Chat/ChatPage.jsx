@@ -12,7 +12,8 @@ function ChatPage() {
     const id = cookies.get("id");
     const [messages, setMessages] = React.useState([]);
     const [message, setMessage] = React.useState('');
-    const  lastMessage = useRef(null);
+    const lastMessage = useRef(null);
+
 
 
     useEffect(() => {
@@ -22,21 +23,32 @@ function ChatPage() {
             setMessages(prevMessages => [...prevMessages, ...messages]);
             console.log("Received message", messages);
         });
-        return () => sse.close();
+        return () => {
+            sse.close();
+        }
     }, [token]);
+
+
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendMessage()
+        }
+    }
+
+    async function sendMessage() {
+        if (message.length > 0) {
+            const response = await sendChat(message)
+            console.log(response)
+            setMessage("")
+        }
+    }
 
     useEffect(() => {
         if (lastMessage.current) {
-            lastMessage.current.scrollIntoView({ behavior: 'smooth' });
+            lastMessage.current.scrollIntoView({behavior: 'smooth'});
         }
     }, [messages]);
 
-
-    async function sendMessage() {
-        const response = await sendChat(message)
-        console.log(response)
-        setMessage("")
-    }
 
     return (
         <Stack spacing={2}
@@ -55,7 +67,7 @@ function ChatPage() {
                 spacing={2}
                 maxWidth={"100%"}
                 sx={{
-                    padding:1,
+                    padding: 1,
                     overflowY: "auto",
                     display: 'flex',
                     flexDirection: 'column',
@@ -67,10 +79,11 @@ function ChatPage() {
                     }
                 }}>
                 {
-                    messages.map((message ,index) => {
+                    messages.map((message, index) => {
                         const isSender = message.sender.id === id;
                         return (
-                            <div ref={index===messages.length ? null : lastMessage} key={message.id} style={{alignSelf: !isSender && "flex-end"}}>
+                            <div ref={index === messages.length ? null : lastMessage} key={message.id}
+                                 style={{alignSelf: !isSender && "flex-end"}}>
                                 <ChatBubble id={id} isSender={isSender} message={message}/>
                             </div>
                         )
@@ -86,12 +99,13 @@ function ChatPage() {
                         endAdornment: (
                             <IconButton
                                 aria-label="send"
-                                onClick={message.length>0?sendMessage:null}
+                                onClick={sendMessage}
                             >
                                 <Send/>
                             </IconButton>
                         ),
                     }}
+                    onKeyDown={handleKeyDown}
                     type="text"
                     style={{width: "100%"}}
                     value={message}

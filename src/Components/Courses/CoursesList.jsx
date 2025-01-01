@@ -15,8 +15,6 @@ export default function CoursesList(){
     const [courseName,setCourseName] = useState("")
     // const [currentCourse, setCurrentCourse] = useState({name:"",id:""})
     const [description, setDescription] = useState("")
-    // const [goToCourse, setGoToCourse] = useState(false)
-    const SERVER_URL = "http://localhost:8080"
     const [newCourseVisibility, setNewCourseVisibility] = useState(false)
 
     function getLecturers(){

@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Button, Skeleton, Stack, Typography} from "@mui/material";
 import {getNotifications} from "../../../API/NotificationsAPI.jsx";
 import {ArrowDropDown} from "@mui/icons-material";
-import formatDatetime from "../../../Utils/formatDatetime.js";
+import formatDatetime from "../../../Utils/formatDatetime.jsx";
+import {SERVER_URL} from "../../../Utils/Constants.jsx";
+import Cookies from "universal-cookie";
 
 function NotificationList() {
     const [isLoading, setIsLoading] = useState(3);
@@ -10,6 +12,7 @@ function NotificationList() {
     const [perPage, setPerPage] = useState(4);
     const [currentPg, setCurrentPg] = useState(1);
     const [notificationList, setNotificationList] = useState([]);
+
 
     function renderList() {
         const startIndex = (currentPg - 1) * perPage;
@@ -31,8 +34,8 @@ function NotificationList() {
         }
     }
 
-    useEffect( () => {
-         handleGetNotifications()
+    useEffect(() => {
+        handleGetNotifications()
     }, []);
 
     async function handleGetNotifications() {
@@ -107,7 +110,7 @@ function NotificationList() {
         <Box>
 
             <Typography margin={2} variant={"h4"}> Notification </Typography>
-                {renderList()}
+            {renderList()}
             <Stack sx={{flex: 1, m: 2}} justifyContent="center" alignItems="center" direction="row" spacing={2}>
                 <Button
                     onClick={previousPage}

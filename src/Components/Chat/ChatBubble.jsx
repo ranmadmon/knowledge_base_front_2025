@@ -1,6 +1,6 @@
 import {Avatar, Box, Stack, Typography} from "@mui/material";
 import PropTypes from "prop-types";
-import formatDatetime from "../../Utils/formatDatetime.js";
+import formatDatetime from "../../Utils/formatDatetime.jsx";
 
 ChatBubble.propTypes = {
     message: PropTypes.shape({

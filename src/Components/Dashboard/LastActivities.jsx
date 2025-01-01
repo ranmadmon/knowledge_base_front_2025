@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {getMaterialsHistory} from "../../API/MaterialsAPI.jsx";
 import Table from "./Table.jsx";
-import formatDatetime from "../../Utils/formatDatetime.js";
+import formatDatetime from "../../Utils/formatDatetime.jsx";
 import {Card, Typography} from "@mui/material";
+
 
 
 function LastActivities() {

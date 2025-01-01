@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Card, Divider, Stack, Typography} from "@mui/material";
 import {getMaterialFiles} from "../../API/FilesAPI.jsx";
 import DownloadIcon from '@mui/icons-material/Download';
+import axios from "axios";
+import {SERVER_URL} from "../../Utils/Constants.jsx";
 
 function DownloadFiles() {
     const SUCCESS = "success"
     const ERROR = "error"
     const [cloudFiles, setCloudFiles] = useState([]);
     const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
-
+    const [filesName,setFilesName] =useState([])
     async function handleGetMaterialFiles() {
         const response = await getMaterialFiles(materialId)
         setCloudFiles(response)
@@ -16,9 +18,19 @@ function DownloadFiles() {
 
     useEffect(() => {
         handleGetMaterialFiles()
+        getMaterialFilesName()
     }, []);
 
+    function getMaterialFilesName() {
+axios.get(SERVER_URL+"/get-material-file-by-id?id="+materialId).then(
+    response=>{
+        if (response!=null){
+            setFilesName(response.data)
 
+        }
+    }
+)
+    }
 
     return (
         <Card sx={{
@@ -34,7 +46,18 @@ function DownloadFiles() {
             <Stack sx={{height: "100%"}} direction="row"
                    divider={<Divider orientation="vertical" flexItem sx={{margin: 2}}/>}
             >
-                <Typography>באמצע שיהיה רשום נוטינג יט</Typography>
+                <Typography>
+                    <h1>Files: </h1>
+                    {
+                     filesName.map((file,index)=>{
+                         return(
+                             <div key={index}>
+                                 {index+1}) {file}
+                             </div>
+                         )
+                     })
+                    }
+                </Typography>
             </Stack>
         </Card>
     );
