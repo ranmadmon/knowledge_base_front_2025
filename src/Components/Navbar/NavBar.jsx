@@ -8,6 +8,7 @@ import Cookies from "universal-cookie";
 import ChatPage from "../Chat/ChatPage.jsx";
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatOffIcon from '@mui/icons-material/SpeakerNotesOff';
+import {getUserName} from "../../API/ProfileAPI.jsx";
 
 
 function NavBar() {
@@ -19,7 +20,7 @@ function NavBar() {
     const [chatNotification, setChatNotification] = useState(0);
 
     const chatPageRef = useRef(null);
-
+    const [userName, setUserName] = useState("");
     function handleDataVisible() {
         setDataVisible(!dataVisible);
     }
@@ -54,6 +55,9 @@ function NavBar() {
                     <nav className="navbar">
                         <div className="navbar-logo-container">
                             <img className={"navbar-logo"} src={"src/assets/navbar/book-logo.PNG"} alt={"logo"}/>
+                        </div>
+                        <div className="navbar-welcome">
+                            welcome {userName}
                         </div>
                         <button className={"hamburger-button"}
                                 onClick={() => {

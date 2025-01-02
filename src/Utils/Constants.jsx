@@ -4,6 +4,7 @@ export const LOGIN_URL = "/" ;
 export const REGISTER_URL = "/register" ;
 export const PERMISSION_URL = "/get-permission";
 export const NOTIFICATION_URL = "/add-notification";
+export const USER_NAME_URL = "/get-username-by-token" ;
 export const COURSE_URL = "/MaterialList/" ;
 export const PROFILE_URL = "/Profile" ;
 export const MATERIALS_URL = "/Materials" ;

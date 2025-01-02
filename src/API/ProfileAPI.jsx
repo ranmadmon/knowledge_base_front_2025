@@ -1,17 +1,19 @@
-import axios from "axios";
-import * as Constants from "../Utils/Constants.jsx";
+import axios from "axios"
+import Cookies from "universal-cookie";
+import {SERVER_URL, USER_NAME_URL} from "../Utils/Constants.jsx";
 
-// export async function getProfileInf(userId) {
-//     const params = {
-//         activityId: userId
-//     }
-//     const url = `${Constants.URL}getProfileInf`;
-//     const response = (await axios.get(url, {params}));
-//     if (response.data.success) {
-//         return response.data?.profile?.map((profile) => profile);
-//     } else {
-//         console.error(response.data);
-//         return [""]
-//     }
-//
-// }
+const cookies = new Cookies(null, {path: '/'});
+const token = cookies.get("token");
+
+export async function getUserName() {
+    const params = {
+        token: token
+    }
+    try {
+        const response = await axios.get(SERVER_URL + USER_NAME_URL, {params})
+        return await response.data
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
