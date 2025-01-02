@@ -44,7 +44,6 @@ DownloadFiles.propTypes = {
 
 function DownloadFiles(props) {
     const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
-    const [filesName, setFilesName] = useState([])
     const [groupedFiles, setGroupedFiles] = useState([])
     const [open, setOpen] = React.useState({});
     console.log(props.material)
@@ -100,10 +99,10 @@ function DownloadFiles(props) {
                     <Typography variant='h6' sx={{textAlign: "center"}}>
                         {formatDatetime(props.material.uploadDate)}
                     </Typography>
-                    <Typography>
+                    <Typography sx={{ mt: 2 ,textAlign: "center"}}>
                         {props.material.content}
                     </Typography>
-                    <Typography>
+                    <Typography sx={{ mt: 2 ,textAlign: "center"}}>
                         {props.material.description}
                     </Typography>
                 </Box>

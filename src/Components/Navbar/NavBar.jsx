@@ -97,6 +97,7 @@ function NavBar() {
                                         async () => {
                                             const cookies = new Cookies(null, {path: '/'});
                                             await cookies.remove("token")
+                                            await cookies.remove("id")
                                             navigate(LOGIN_URL)
                                             window.location.reload()
                                             handleDataVisible()

@@ -1,29 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Button, Skeleton, Stack, Typography} from "@mui/material";
-import {getNotifications} from "../../../API/NotificationsAPI.jsx";
 import {ArrowDropDown} from "@mui/icons-material";
 import formatDatetime from "../../../Utils/formatDatetime.jsx";
-import {SERVER_URL} from "../../../Utils/Constants.jsx";
-import Cookies from "universal-cookie";
+import PropTypes from "prop-types";
 
-function NotificationList() {
-    const [isLoading, setIsLoading] = useState(3);
+NotificationList.propTypes = {
+    notificationList: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+}
 
-    const [perPage, setPerPage] = useState(4);
+function NotificationList(props) {
+    const [perPage] = useState(4);
     const [currentPg, setCurrentPg] = useState(1);
-    const [notificationList, setNotificationList] = useState([]);
 
 
     function renderList() {
         const startIndex = (currentPg - 1) * perPage;
         const endIndex = startIndex + perPage
-        const relevantPageList = notificationList.slice(startIndex, endIndex)
-        return aa(relevantPageList);
+        const reversedList = props.notificationList.toReversed()
+        const relevantPageList = reversedList.slice(startIndex, endIndex)
+        return render(relevantPageList);
     }
 
 
     function nextPage() {
-        if (currentPg * perPage < notificationList.length) {
+        if (currentPg * perPage < props.notificationList.length) {
             setCurrentPg((prevPage) => prevPage + 1);
         }
     }
@@ -35,40 +36,15 @@ function NotificationList() {
     }
 
 
-    useEffect(() => {
-       //handleGetNotifications()
-        const sse = new EventSource(SERVER_URL + "/sseNotification/stream?token=" + token);
 
-        sse.addEventListener("message", (event) => {
-            try {
-                const notifications = event.data ? JSON.parse(event.data) : [];
-                setNotificationList(prevNotifications => [...prevNotifications, ...notifications]);
-                setIsLoading(false)
-
-            } catch (e) {
-                console.error("Error parsing SSE message:", e);
-            }
-        });
-
-        return () => {
-            //sse.close();
-        };
-    }, [token]);
-
-    async function handleGetNotifications() {
-        const response = await getNotifications()
-        setNotificationList(response.reverse());
-        setIsLoading(false)
-    }
-
-    function aa(relevantPageList) {
+    function render(relevantPageList) {
         const width = "100%"
         const height = "45px"
 
         return (
             <>
                 {
-                    isLoading ?
+                    props.isLoading ?
                         <>
                             <Stack spacing={2}>
                                 <Skeleton variant="rectangular" height={height} width={width}/>
@@ -139,7 +115,7 @@ function NotificationList() {
                 <Button
                     variant="contained"
                     onClick={nextPage}
-                    disabled={currentPg * perPage >= notificationList.length}
+                    disabled={currentPg * perPage >= props.notificationList.length}
                 >
                     Next Page
                 </Button>

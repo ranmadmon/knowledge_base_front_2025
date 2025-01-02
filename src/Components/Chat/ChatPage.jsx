@@ -30,7 +30,7 @@ function ChatPage(props) {
         sse.addEventListener("message", (event) => {
             const messages = JSON.parse(event.data);
             setMessages(prevMessages => [...prevMessages, ...messages]);
-            setNoti(messages.length)
+            setNotification(messages.length)
         });
         return () => {
             sse.close();
@@ -53,7 +53,7 @@ function ChatPage(props) {
         }
     }
 
-    function setNoti(count) {
+    function setNotification(count) {
         if (props.isChatOpen) {
             props.setChatNotification(0);
         }
@@ -66,7 +66,7 @@ function ChatPage(props) {
     useEffect(() => {
         if (lastMessage.current && props.isChatOpen) {
             lastMessage.current.scrollIntoView({behavior: 'smooth'});
-            setNoti(0)
+            setNotification(0)
         }
 
 

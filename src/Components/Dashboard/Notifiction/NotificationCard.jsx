@@ -8,6 +8,12 @@ function NotificationCard() {
     const [permission, setPermission] = useState(1);
     const [isAddNotifications, setIsAddNotifications] = useState(false);
     const [alignment, setAlignment] = React.useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [notificationList, setNotificationList] = useState([]);
+
+    const cookies = new Cookies(null, {path: '/'});
+    const token = cookies.get("token");
+
     const handleChange = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
@@ -18,6 +24,27 @@ function NotificationCard() {
         }
         fetchData()
     }, []);
+
+
+    useEffect(() => {
+        //handleGetNotifications()
+        const sse = new EventSource(SERVER_URL + "/sseNotification/stream?token=" + token);
+
+        sse.addEventListener("message", (event) => {
+            try {
+                const notifications = event.data ? JSON.parse(event.data) : [];
+                setNotificationList(prevNotifications => [...prevNotifications, ...notifications]);
+                setIsLoading(false)
+
+            } catch (e) {
+                console.error("Error parsing SSE message:", e);
+            }
+        });
+
+        return () => {
+            sse.close();
+        };
+    }, [token]);
 
     return (
         <Card elevation={8} sx={{paddingTop:4 , paddingBottom:4}}>
@@ -42,7 +69,7 @@ function NotificationCard() {
                     </Box>
                     :
                     <Box width={"100%"} alignSelf={"center"}>
-                        <NotificationList/>
+                        <NotificationList notificationList={notificationList} isLoading={isLoading}/>
 
                     </Box>
                 }
