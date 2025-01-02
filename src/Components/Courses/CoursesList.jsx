@@ -26,6 +26,14 @@ export default function CoursesList(){
             })
     }
 
+    useEffect(() => {
+        if (ref.current && newCourseVisibility) {
+            setNewCourseVisibility(false)
+            ref.current.scrollIntoView({behavior: "smooth"});
+
+        }
+    }, [courses]);
+
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
@@ -107,9 +115,6 @@ export default function CoursesList(){
                 </select>
                 <button className={"new-form-button"} onClick={() => {
                     addCourse()
-                    setNewCourseVisibility(false)
-                    ref.current.scrollIntoView({behavior: 'smooth'})
-
                 }}>Add Course
                 </button>
             </div>

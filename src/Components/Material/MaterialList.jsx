@@ -31,6 +31,14 @@ export default function MaterialList() {
     }
 
     useEffect(() => {
+        if (ref.current && newMaterialVisibility) {
+            setNewMaterialVisibility(false)
+            ref.current.scrollIntoView({behavior: "smooth"});
+
+        }
+    }, [material]);
+
+    useEffect(() => {
         getCourse(courseID)
         getTypes()
         getTags()
@@ -95,7 +103,6 @@ export default function MaterialList() {
         setChosenTitle("")
         setChoosenDescription("")
         setChoosenContent("")
-        setNewMaterialVisibility(false)
     }
     async function getCourse() {
         const response = await CoursesAPI.getCourse(courseID)
