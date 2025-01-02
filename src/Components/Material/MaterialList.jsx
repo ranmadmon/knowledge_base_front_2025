@@ -1,9 +1,11 @@
 import "../CssFiles/Course.css"
 import React, {useEffect, useState} from "react";
 import * as MaterialsAPI from "../../API/MaterialsAPI.jsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import * as CoursesAPI from "../../API/CoursesAPI.jsx";
-import MaterialCard from "./MaterialCard.jsx";
+import {COURSE_URL, MATERIAL_PAGE_URL} from "../../Utils/Constants.jsx";
+import {Alert, Box} from "@mui/material";
+
 
 export default function MaterialList() {
     const location = useLocation();

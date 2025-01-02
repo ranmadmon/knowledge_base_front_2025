@@ -63,65 +63,7 @@ function DownloadFiles(props) {
         axios.get(SERVER_URL + "/get-material-file-by-id?id=" + materialId).then(
             response => {
                 if (response != null) {
-                    console.log(response.data)
-                    setFilesName(response.data)
-                    setGroupedFiles(groupFilesByUploader([
-                        {
-                            "fileName": "EvolutionX (1).txt",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (1).txt",
-                            "fileSize": 32,
-                            "uploadedBy": "John Doe"
-                        },
-                        {
-                            "fileName": "EvolutionX (2).txt",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (2).txt",
-                            "fileSize": 32,
-                            "uploadedBy": "Jane Smith"
-                        },
-                        {
-                            "fileName": "EvolutionX (20).txt",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\11\\EvolutionX (2).txt",
-                            "fileSize": 32,
-                            "uploadedBy": "Jane Smith"
-                        },
-                        {
-                            "fileName": "1.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\1.bat",
-                            "fileSize": 585,
-                            "uploadedBy": "Alice Johnson"
-                        },
-                        {
-                            "fileName": "2.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\2.bat",
-                            "fileSize": 449,
-                            "uploadedBy": "Bob Brown"
-                        },
-                        {
-                            "fileName": "6.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\6.bat",
-                            "fileSize": 433,
-                            "uploadedBy": "Charlie Davis"
-                        },
-                        {
-                            "fileName": "asdasd1.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\1.bat",
-                            "fileSize": 585,
-                            "uploadedBy": "Alice Johnson"
-                        },
-                        {
-                            "fileName": "asdsad2.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\2.bat",
-                            "fileSize": 449,
-                            "uploadedBy": "Bob Brown"
-                        },
-                        {
-                            "fileName": "6fghjghf.bat",
-                            "filePath": "C:\\Users\\Dvir\\materiels\\14\\8\\6.bat",
-                            "fileSize": 433,
-                            "uploadedBy": "Charlie Davis"
-                        }
-                    ]))
-
+                    setGroupedFiles(groupFilesByUploader(response.data))
                 }
             }
         )

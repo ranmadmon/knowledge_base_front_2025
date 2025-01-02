@@ -56,6 +56,7 @@ function Register() {
     }
 
 
+
     const onOtpSubmit = (otp) => {
         axios.get("http://localhost:8080/check-otp-to-register?username=" + username + "&otp=" + otp)
             .then(response => {

@@ -37,7 +37,7 @@ export default function CoursesList(){
             })
     }
     function addCourse(){
-        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + getLecturerId()).then(
+        axios.get(SERVER_URL+"/add-course?name="+ courseName + "&description=" + description + "&lecturer=" + chosenLecturer).then(
             () => {
                 getAllCourses();
                 setCourseName("");
@@ -98,7 +98,7 @@ export default function CoursesList(){
                     {
                         lecturers.map((lecturer, index) => {
                             return (
-                                <option key={index} value={lecturer.name}>
+                                <option key={index} value={lecturer.id}>
                                     {lecturer.name}
                                 </option>
                             );

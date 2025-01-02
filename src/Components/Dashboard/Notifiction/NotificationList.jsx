@@ -34,9 +34,26 @@ function NotificationList() {
         }
     }
 
+
     useEffect(() => {
-        handleGetNotifications()
-    }, []);
+       //handleGetNotifications()
+        const sse = new EventSource(SERVER_URL + "/sseNotification/stream?token=" + token);
+
+        sse.addEventListener("message", (event) => {
+            try {
+                const notifications = event.data ? JSON.parse(event.data) : [];
+                setNotificationList(prevNotifications => [...prevNotifications, ...notifications]);
+                setIsLoading(false)
+
+            } catch (e) {
+                console.error("Error parsing SSE message:", e);
+            }
+        });
+
+        return () => {
+            //sse.close();
+        };
+    }, [token]);
 
     async function handleGetNotifications() {
         const response = await getNotifications()
