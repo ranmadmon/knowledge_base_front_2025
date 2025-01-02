@@ -1,5 +1,5 @@
 import "../CssFiles/Course.css"
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import * as MaterialsAPI from "../../API/MaterialsAPI.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import * as CoursesAPI from "../../API/CoursesAPI.jsx";
@@ -9,6 +9,7 @@ import {Alert, Box} from "@mui/material";
 
 export default function MaterialList() {
     const location = useLocation();
+    const navigate = useNavigate();
     const [material, setMaterial] = useState([]);
     const [uploadFileActive, setUploadFileActive] = useState(false)
     const [courseID, setCourseID] = useState(location.pathname.split("/")[2]);
@@ -22,6 +23,7 @@ export default function MaterialList() {
     const [newMaterialVisibility, setNewMaterialVisibility] = useState(false)
     const [courseData, setCourseData] = useState({});
     const [materialId, setMaterialId] = useState()
+    const ref = useRef(null);
 
     async function getMaterials() {
         const response = await MaterialsAPI.getMaterials(courseID)
@@ -76,7 +78,10 @@ export default function MaterialList() {
                         })
                     }
                 </select>
-                <button className={"new-form-button"} onClick={() => addMaterial()}>Add Material</button>
+                <button className={"new-form-button"} onClick={() =>{
+                    addMaterial()
+                    ref.current.scrollIntoView({behavior: 'smooth'})
+                }}>Add Material</button>
 
             </div>
         )
@@ -105,6 +110,36 @@ export default function MaterialList() {
         const response = await MaterialsAPI.getTags()
         setTags(response)
     }
+    function MaterialCard() {
+        return (
+            <div  data-material-id={material.id} className={"card-container"}>
+                {material.length > 0 &&
+                    material.map((item, index) => {
+                        return (
+                            <div ref={index === material.length - 1 ? ref : null} onClick={() => navigate(COURSE_URL + item.courseEntity.id + MATERIAL_PAGE_URL + +item.id)}
+                                 className={"card"} key={index}>
+                                <div className="card-content-text">
+                                    <text className="text1">Title: {item.title}</text>
+                                    <text className="text2">Description: {item.description}</text>
+                                    <text>content: {item.content} </text>
+                                    <text>By: {item.userEntity.username}</text>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+
+                {material.length === 0 &&
+                    <Box width={"100%"} display="flex" flexDirection="row" alignItems={"center"} justifyContent={"center"}>
+                        <Alert severity={"info"}>
+                            No material found, be the first to upload!
+                        </Alert>
+                    </Box>}
+
+
+            </div>
+        );
+    }
 
     return (
         <div className="material-page">
@@ -115,9 +150,9 @@ export default function MaterialList() {
             </div>
             <div className={"lower-container"}>
                 <div className={"card-container"}>
-                    <MaterialCard material={material}/>
+                    {MaterialCard()}
                     <button className={"add-new"}
-                            onClick={() => setNewMaterialVisibility(!newMaterialVisibility)}>
+                            onClick={() => {setNewMaterialVisibility(!newMaterialVisibility)}}>
                         <svg aria-expanded={newMaterialVisibility} xmlns="http://www.w3.org/2000/svg" className="plus"
                              viewBox="0 0 160 160" width="35" fill={"var(--color-scheme)"}>
                             <rect className="vertical-line" x="70" width="20" height="160"/>

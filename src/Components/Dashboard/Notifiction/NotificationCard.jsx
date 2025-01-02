@@ -3,6 +3,8 @@ import {Box, Card, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import {getUserPermission} from "../../../API/UserPermission.jsx";
 import NotificationList from "./NotificationList.jsx";
 import AddNewNotification from "./AddNewNotification.jsx";
+import {SERVER_URL} from "../../../Utils/Constants.jsx";
+import Cookies from "universal-cookie";
 
 function NotificationCard() {
     const [permission, setPermission] = useState(1);

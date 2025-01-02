@@ -8,10 +8,10 @@ MaterialCard.propTypes = {
     material: PropTypes.array
 };
 
-function MaterialCard({material}) {
+function MaterialCard({material},{index},{courses}) {
     const navigate = useNavigate();
     return (
-        <div className={"card-container"}>
+        <div ref={index === courses.length - 1 ? ref : null} data-material-id={material.id} className={"card-container"}>
             {material.length > 0 &&
                 material.map((item, index) => {
                     return (
