@@ -15,6 +15,8 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [showOtpComponent,setShowOtpComponent] = useState(false);
     const [errorCode, setErrorCode]= useState(-1);
+    const [otpVerified, setOtpVerified] = useState(false);
+
     const navigate = useNavigate();
 
     function showErrorCode(){
@@ -47,24 +49,29 @@ function Login() {
             .then(response => {
                 if (response.data != null){
                     if (!response.data.success){
-                        console.log("no" + username)
-                        alert("הקוד לא תקין נסה שוב")
+                        setShowOtpComponent(true);
+                        setOtpVerified(false);
                     }else{
-                        const cookies = new Cookies();
-                        cookies.set('token', response.data.token, { path: '/' });
-                        const newCookies = new Cookies();
-                        newCookies.set('id', response.data.id);
-                        const token = cookies.get("token");
+                        setOtpVerified(true);
+                        setTimeout(()=>{
+                            const cookies = new Cookies();
+                            cookies.set('token', response.data.token, { path: '/' });
+                            const newCookies = new Cookies();
+                            newCookies.set('id', response.data.id);
+                            const token = cookies.get("token");
 
-                        console.log("token: "+token);
-                        console.log("otp: "+otp)
-                        if (token) {
-                            console.log(token);
-                            navigate(DASHBOARD_URL);
-                            window.location.reload()
-                        } else {
-                            console.log("Token not found");
-                        }
+                            console.log("token: "+token);
+                            console.log("otp: "+otp)
+                            if (token) {
+                                console.log(token);
+                                navigate(DASHBOARD_URL);
+                                window.location.reload()
+                            } else {
+                                console.log("Token not found");
+                            }
+                            setShowOtpComponent(false);
+                        },5000)
+
                     }
                 }
             })
@@ -169,8 +176,7 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                    {showOtpComponent&&<OtpComponent length={6} username={username} onOtpSubmit={onOtpSubmit}/>}
-
+                    {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Login successfully, you're transferred to your dashboard"} unverifiedMessage={"Login was unsuccessful, try entering the code again"}/>}
                 </div>
                 );
                 }

@@ -24,7 +24,7 @@
     /*overflow-y: hidden;*/
     white-space: nowrap;
     /*scroll-behavior: smooth;*/
-    scroll-snap-type: x mandatory;
+    /*scroll-snap-type: x mandatory;*/
 }
 
 .card-container::-webkit-scrollbar {
@@ -64,11 +64,11 @@
     cursor: pointer;
     white-space: wrap;
     flex-shrink: 0;
-    scroll-snap-align: center;
+    /*scroll-snap-align: center;*/
 }
-.card:scrolled{
-    transform: scale(1.2);
-}
+/*.card:scrolled{*/
+/*    transform: scale(1.2);*/
+/*}*/
 .card:before{
 }
 .card:hover{

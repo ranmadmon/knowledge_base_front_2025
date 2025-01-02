@@ -9,7 +9,7 @@ export default function OtpLoading({isVerified, verifiedMessage, unverifiedMessa
     useEffect(()=>{
         setTimeout(()=>{
             setCanContinue(true)
-        }, 1500)
+        }, 2000)
     }, [])
     function checkValidity(){
         return(

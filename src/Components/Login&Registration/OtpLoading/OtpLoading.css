@@ -18,13 +18,11 @@
     animation: 0.5s ease-in-out 2s;
     transform-origin: center;
 }
-
 #before-check-group #outline {
     animation: 2s ease-in-out before-outline;
     transform: rotate(0deg);
     transform-origin: center;
 }
-
 @keyframes before-outline {
     from {
         stroke-dasharray: 0, 345.576px;
@@ -34,29 +32,25 @@
     }
 }
 
-
 /*verified V mark*/
-#check-group {
-    animation: 0.32s ease-in-out 1.5s check-group;
-    transform-origin: center;
-}
-
-#check-group #check {
-    animation: 0.34s cubic-bezier(0.65, 0, 1, 1) 1.4s forwards check;
-    stroke-dasharray: 0, 75px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
 #check-group #outline {
     animation: 1s ease-in outline;
     transform: rotate(0deg);
     transform-origin: center;
 }
-
 #check-group #white-circle {
     animation: 0.35s ease-in 1s forwards circle;
     transform: none;
+    transform-origin: center;
+}
+#check-group #check {
+    animation: 0.50s cubic-bezier(0.65, 0, 1, 1) 1.4s forwards check;
+    stroke-dasharray: 0, 75px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+#check-group {
+    animation: 0.32s ease-in-out 1.8s check-group;
     transform-origin: center;
 }
 
@@ -124,15 +118,12 @@
 #path2 {
     stroke-dasharray: 430;
     stroke-dashoffset: 800;
-
     animation: x 0.6s linear 1s;
     animation-fill-mode:forwards;
 }
-
 #path3 {
     stroke-dasharray: 430;
     stroke-dashoffset: 800;
-
     animation: x 0.6s linear ;
     animation-fill-mode:forwards;
     animation-delay:1.3s;
@@ -146,7 +137,6 @@
         stroke-dasharray: 400;
     }
 }
-
 @keyframes outline {
     from {
         stroke-dasharray: 0, 345.576px;

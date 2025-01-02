@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "../CssFiles/Form.css"
 import OtpLoading from "./OtpLoading/OtpLoading.jsx";
 
-const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVerified, verifiedMessage, unverifiedMessage) => {
+const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}, isVerified, verifiedMessage, unverifiedMessage}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""));
     const [otpToSubmit, setOtpToSubmit] = useState("");
     const inputRef = useRef([]);
@@ -101,8 +101,7 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}}, isVer
                         setShowLoading(true)
                         setTimeout(()=>{
                             setShowLoading(false)
-                        },3500)
-
+                        },5000)
                     }
                     }
                 >

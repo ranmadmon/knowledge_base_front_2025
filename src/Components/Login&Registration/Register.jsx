@@ -63,15 +63,13 @@ function Register() {
                 if (response.data.success) {
                     if (!response.data.registeredSuccessfully) {
                         setOtpVerified(false);
-                        // setInterval(()=>{
-                        // }, 1500)
                     } else {
                         setOtpVerified(true);
                         setTimeout(()=>{
                             setShowOtpComponent(false);
                             navigate(LOGIN_URL);
                             window.location.reload()
-                        }, 3500)
+                        }, 5000)
 
                     }
                 }
@@ -310,7 +308,8 @@ function Register() {
                     </div>
                 </div>
             </div>
-            {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration unsuccessful, try entering the code again"}/>}
+            {console.log("this is from register: "+otpVerified)}
+            {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration was unsuccessful, try entering the code again"}/>}
         </div>
 
     );
