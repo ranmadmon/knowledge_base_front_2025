@@ -18,7 +18,6 @@ function AddNewNotification() {
     useEffect(() => {
         const fetchCourses = async () => {
             const course = await getCourseByLecturer(id);
-            console.log(course)
             setCourses(course);
         };
         fetchCourses()

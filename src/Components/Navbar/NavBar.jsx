@@ -29,6 +29,11 @@ function NavBar() {
     }, [dataVisible]);
 
     useEffect(() => {
+        const fetchData = async () => {
+            setUserName(await getUserName())
+        }
+        fetchData()
+
         const handleClickOutside = (event) => {
             if (chatPageRef.current && !chatPageRef.current.contains(event.target)) {
                 setIsChatOpen(false);

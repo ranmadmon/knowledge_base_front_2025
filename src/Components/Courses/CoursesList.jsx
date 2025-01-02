@@ -37,10 +37,8 @@ export default function CoursesList(){
     function getAllCourses(){
         axios.get(SERVER_URL+"/get-all-courses")
             .then(response=>{
-                console.log(response.data)
                 if(response.data!=null){
                     setCourses(response.data);
-                    console.log(courses);
                 }
             })
     }

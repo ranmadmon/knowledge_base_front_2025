@@ -20,33 +20,31 @@ import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import formatDatetime from "../../Utils/formatDatetime.jsx";
 
-DownloadFiles.propTypes = {
-    material: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        uploadDate: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-
-        content: PropTypes.string.isRequired,
-        typeEntity: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-        }).isRequired,
-
-        tagEntity: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-        }).isRequired,
-    })
-}
+// DownloadFiles.propTypes = {
+//     material: PropTypes.shape({
+//         id: PropTypes.number.isRequired,
+//         title: PropTypes.string.isRequired,
+//         uploadDate: PropTypes.string.isRequired,
+//         description: PropTypes.string.isRequired,
+//
+//         content: PropTypes.string.isRequired,
+//         typeEntity: PropTypes.shape({
+//             id: PropTypes.number.isRequired,
+//             name: PropTypes.string.isRequired,
+//         }).isRequired,
+//
+//         tagEntity: PropTypes.shape({
+//             id: PropTypes.number.isRequired,
+//             name: PropTypes.string.isRequired,
+//         }).isRequired,
+//     })
+// }
 
 
 function DownloadFiles(props) {
     const [materialId, setMaterialId] = useState(location.pathname.split("/")[4]);
     const [groupedFiles, setGroupedFiles] = useState([])
     const [open, setOpen] = React.useState({});
-    console.log(props.material)
     const handleClick = (uploader) => {
         setOpen({
             ...open,
