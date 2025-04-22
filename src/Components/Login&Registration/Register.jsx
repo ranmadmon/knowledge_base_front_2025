@@ -101,39 +101,42 @@ function Register() {
     }
     function getInput(id, title, value, setValue, type, pattern, requirementMessage, error, message, setError) {
         return (
-            <div className={"flex input-container"}>
-                <text className={"form-label"}>{title}: {errorCodeComponent(error, message)}</text>
-                <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
-                    {type === "password" &&
-                        <button className={"show-password"}
-                                style={{}}
+            <div className="flex input-container">
+                <label className="form-label">{title}: {errorCodeComponent(error, message)}</label>
+                <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+                    {type === "password" && (
+                        <button className="show-password"
                                 onClick={(event) => {
-                                    title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event)
-                                }}></button>
-                    }
-                    <input required
-                           className={"form-input"}
-                           id={id}
-                           type={type}
-                           name={title}
-                           value={value}
-                           pattern={pattern}
-                           onChange={(event) => {
-                               setValue(event.target.value)
-                               if(error!==null && setError){
-                                   setError(null)
-                               }
-                           }}
-                           placeholder={title}
-                           size={1}
-                           aria-expanded={false}
-
+                                    title === "Password" ? handleShowPassword(event) : handleShowConfirmPassword(event);
+                                }}>
+                        </button>
+                    )}
+                    <input
+                        required
+                        className="form-input"
+                        id={id}
+                        type={type}
+                        name={title}
+                        value={value}
+                        pattern={pattern}
+                        onChange={(event) => {
+                            setValue(event.target.value);
+                            if (error !== null && setError) {
+                                setError(null);
+                            }
+                        }}
+                        placeholder={title}
+                        size={1}
+                        aria-expanded={false}
                     />
-                    <text className={"requirement-message"}>{requirementMessage}</text>
+                    {/* הצגת הודעות שגיאה מתחת ל-Input */}
+                    {error && <div className="requirement-message error-message">{message}</div>}
+                    <div className="requirement-message">{requirementMessage}</div>
                 </div>
             </div>
         );
     }
+
     const handleRegex = (type) => {
         let regex = ""
         switch (type) {
@@ -177,7 +180,7 @@ function Register() {
                 requirementMessage = "Example: example@example.com";
                 break;
             case "password":
-                requirementMessage = "At least 8 Characters, lower and uppercase letters, numbers and special characters [!@$%]";
+                requirementMessage = "At least 8 Characters, lower and uppercase letters,+ numbers and special characters [!@$%]";
                 break;
             case "username":
                 requirementMessage = "At least 6 characters, letters and numbers";
@@ -247,7 +250,6 @@ function Register() {
             <div className="flex form-container">
                 <div className={"flex left-side"}>
                     <div className={"flex form-headers"}>
-                        <img style={{width: "50px", height: "50px"}} src={"src/assets/icons/book-logo.PNG"} alt={"logo"}/>
                         <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Register</text>
                         <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Thank you for joining us 🫡</text>
                     </div>
@@ -272,7 +274,7 @@ function Register() {
                                             onChange={(e) => setJobTitle(e.target.value)}>
                                         <option value="" disabled>Select Job Title</option>
                                         <option value="Student">Student</option>
-                                        <option value="Lecturer">Lecturer</option>
+                                        <option value="Admin">Admin</option>
                                     </select>
                                 </div>
                             </div>
@@ -302,13 +304,12 @@ function Register() {
                 </div>
                 <div className={"right-side"}>
                     <div className={"image-container"}>
-                        <img className={"form-image"} style={{width: "500px", height: "500px"}}
-                             src={"src/assets/icons/image11.png"}
+                        <img className={"form-image"} style={{width: "520px", height: "420Px"}}
+                             src={"src/assets/icons/math-logo.png"}
                              alt={"register-page-image"}/>
                     </div>
                 </div>
             </div>
-            {console.log("this is from register: "+otpVerified)}
             {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Registration successful, you're transferred to log in"} unverifiedMessage={"Registration was unsuccessful, try entering the code again"}/>}
         </div>
 

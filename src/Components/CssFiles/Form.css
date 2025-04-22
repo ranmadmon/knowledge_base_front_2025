@@ -1,3 +1,13 @@
+:root {
+    --background-color: #3a3f47; /* Blue-gray */
+    --gradient-color: linear-gradient(135deg, #b0c4de, #f5f5f5); /* Light steel blue to white gradient */ /* Metallic blue-gray with darker shades */
+    --color-scheme: #1e90ff; /* Dodger blue */
+    --color-1-bright: #87cefa; /* Light sky blue */
+    --color-2-bright: #4682b4; /* Steel blue */
+    --color-1-brighter: #add8e6; /* Light blue */
+    --color-2-brighter: #5f9ea0; /* Cadet blue */
+    --gradient-angle: 135deg; /* Default gradient angle */
+}
 .form-page{
     width: 100vw;
     height: 100vh;
@@ -6,18 +16,17 @@
     color: var(--color-scheme);
     background: var(--gradient-color);
 }
+
 .form-container {
     width: 80%;
     height: 90%;
-    background: var(--background-color);
     border-radius: 16px;
-    box-shadow: 0 0 20px pink;
+    box-shadow: 0 0 20px white;
     text-align: center;
-    border: 1px solid rgba(255, 192, 203, 0.56);
     transition: width 0.5s;
 }
 .right-side{
-    width: 40%;
+    width: 45%;
     height: 100%;
     background: var(--gradient-color);
     border-radius: 16px;
@@ -30,7 +39,7 @@
 .left-side{
     flex-direction: column;
     justify-content: center;
-    width: 60%;
+    width: 55%;
     height: 100%;
     border-radius: 16px;
     transition: width 0.4s ease;
@@ -63,12 +72,14 @@
     justify-content: center;
     transition: width 0.4s ease,height 0.4s ease;
 }
-.input-container{
+.input-container {
+    position: relative;
     width: 100%;
     height: auto;
+    display: flex;
     flex-direction: column;
-    text-align: center;
     gap: 0.8rem;
+    text-align: center;
 }
 .submit-container{
     width: 95%;
@@ -93,6 +104,7 @@
     height: 2rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+
     font-size: 1rem;
     transition: outline-color 0.5s ease;
     text-indent: 0.4rem;
@@ -139,59 +151,71 @@
     background-image: url("../../assets/form/show_password.png");
     background-position: 0.2rem 0.35rem;
 }
-.form-input[required]:not(:focus){
+.form-input[required]:not(:focus) {
     outline: 3px solid rgba(188, 188, 188, 0.41);
-    --webkit-outline: transparent;
-}
-.form-input[required]:not(:placeholder-shown):invalid{
-    outline: 3px solid rgb(255, 108, 108);
-}
-.form-input[required]:not(:placeholder-shown):invalid:focus{
-    outline: 3px solid rgb(255, 222, 118);
-}
-.form-input[required]:not(:placeholder-shown):valid{
-    outline: 3px solid rgb(127, 255, 101);
-    --webkit-outline: transparent;
 }
 
-.requirement-message{
-    transition: font-size 0.4s ease;
+.form-input[required]:not(:placeholder-shown):invalid {
+    outline: 3px solid rgb(255, 108, 108);
+}
+
+.form-input[required]:not(:placeholder-shown):invalid:focus {
+    outline: 3px solid rgb(255, 222, 118);
+}
+
+.form-input[required]:not(:placeholder-shown):valid {
+    outline: 3px solid rgb(127, 255, 101);
+}
+
+.requirement-message {
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
     border-radius: 5px;
-    margin-block-start: 2.5rem;
-    position:absolute;
+    position: absolute;
+    top: calc(100% + 5px); /* ממקם את ההודעה קצת מתחת לשדה */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    align-content: center;
-    justify-content: center;
     align-items: center;
-    text-indent: 0.1rem;
-    font-size: 0;
-    max-width: 21.5%;
-    max-height: 10%;
-    padding: 0.5em;
-}
-.form-input[required]:not(:focus) + .requirement-message{
-    font-size: 0;
-}
-.form-input[required]:not(:placeholder-shown):invalid:focus + .requirement-message{
-    font-size: 1rem;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.85rem; /* קצת יותר גדול */
+    padding: 0.6em 1em;
+    width: auto;
+    max-width: 350px; /* רוחב גדול יותר להודעה */
+    background-color: rgba(255, 108, 108, 0.9); /* אדום שקוף */
     color: white;
-    background-color: rgb(255, 198, 0);
+    opacity: 0;
+    z-index: 9999; /* מבטיח שההודעה תהיה מעל הכול */
+    white-space: normal; /* מאפשר מעבר שורה */
+    word-wrap: break-word; /* שובר מילים אם צריך */
+    pointer-events: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
-.form-input[required]:not(:placeholder-shown):invalid  + .requirement-message{
-    font-size: 1rem;
-    color: white;
-    background-color:  rgb(255, 108, 108);
+
+
+/* הצגת ההודעה בגודל מותאם כאשר השדה לא תקין */
+.form-input[required]:not(:placeholder-shown):invalid + .requirement-message,
+.form-input[required]:not(:placeholder-shown):invalid:focus + .requirement-message {
+    opacity: 1;
+    transform: translateX(-50%) translateY(2px); /* הרמה קטנה של ההודעה */
+    font-size: 0.85rem;
+    background-color: rgb(255, 108, 108);
+    padding: 0.5em 1em;
 }
-.form-input[required]:not(:placeholder-shown):invalid:not(:focus)  + .requirement-message{
-    font-size: 1rem;
-    background-color:  rgb(255, 108, 108);
+
+/* הצגת הודעה צהובה כאשר המשתמש מתקן שגיאה */
+.form-input[required]:not(:placeholder-shown):invalid:focus + .requirement-message {
+    background-color: rgb(255, 222, 118);
 }
-.form-input[required]:not(:placeholder-shown):valid  + .requirement-message{
-    font-size: 0;
+
+/* הסתרת ההודעה כאשר השדה תקין */
+.form-input[required]:not(:placeholder-shown):valid + .requirement-message {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
 }
-.form-input[required]:not(:placeholder-shown):focus  + .requirement-message{
-    font-size: 0;
-}
+
+
+
 .input-pair{
     width: 100%;
     display:flex;
@@ -237,7 +261,7 @@
 #submit-button.active:hover{
     --color-1-bright: var(--color-1-brighter);
     --color-2-bright: var(--color-2-brighter);
-    scale: 1.1;
+    scale: 1.02;
 }
 .forgot-password-button{
     width: 100%;
@@ -364,3 +388,6 @@
     }
 
 }
+
+
+

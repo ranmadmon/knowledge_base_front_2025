@@ -1,5 +1,5 @@
 import axios from "axios"
-import {SERVER_URL} from "../Utils/Constants.jsx";
+import {SERVER_URL} from "../../../final/src/Utils/Constants.jsx";
 
 export async function getCourses() {
     try {
