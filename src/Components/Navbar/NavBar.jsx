@@ -1,184 +1,265 @@
-import "../CssFiles/NavBar.css"
-import {useEffect, useRef, useState} from 'react';
-import {Badge, Box, IconButton, Stack} from "@mui/material";
-import {Outlet, useNavigate} from "react-router-dom";
+import "../CssFiles/NavBar.css";
+import React, { useEffect, useState } from "react";
+import { Box, Stack } from "@mui/material";
+import { Outlet, useNavigate } from "react-router-dom";
 import ClickOutside from "./ClickOutside.jsx";
-import {COURSE_LIST_URL, DASHBOARD_URL, LOGIN_URL} from "../../Utils/Constants.jsx";
+import {
+    DASHBOARD_URL,
+    LOGIN_URL,
+    MathematicalExercises_URL,
+    PlayersProgressDashboard_URL,
+    UserDetails_URL,
+} from "../../Utils/Constants.jsx";
 import Cookies from "universal-cookie";
-import ChatPage from "../Chat/ChatPage.jsx";
-import ChatIcon from '@mui/icons-material/Chat';
-import ChatOffIcon from '@mui/icons-material/SpeakerNotesOff';
-import {getUserName} from "../../API/ProfileAPI.jsx";
+import { getUserName } from "../../API/ProfileAPI.jsx";
+import axios from "axios";
 
 
 function NavBar() {
     const navigate = useNavigate();
     const [homeClicked, setHomeClicked] = useState(false);
-    const [courseClicked, setCourseClicked] = useState(false);
+    const [practiceClicked, setPracticeClicked] = useState(false);
+    const [mathematicalExercisesClicked, setMathematicalExercisesClicked] = useState(false);
     const [dataVisible, setDataVisible] = useState(false);
-    const [isChatOpen, setIsChatOpen] = useState(false);
-    const [chatNotification, setChatNotification] = useState(0);
-
-    const chatPageRef = useRef(null);
     const [userName, setUserName] = useState("");
+    const [dropdownVisible, setDropdownVisible] = useState(false); // שליטה בתיבת הפרופיל
+    const [notificationsVisible, setNotificationsVisible] = useState(false); // שליטה בתיבת ההתראות
+    const [notifications, setNotifications] = useState([]);
+    const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+
+    const cookies = new Cookies();
+    const token = cookies.get("token");
+
     function handleDataVisible() {
         setDataVisible(!dataVisible);
     }
 
+    function toggleDropdown() {
+        setDropdownVisible(!dropdownVisible);
+    }
+
+    // בעת לחיצה על כפתור ההתראות – טוענים את ההתראות (אם לא נטענו כבר)
+    async function handleNotificationsClick() {
+        setNotificationsVisible(!notificationsVisible);
+        if (!notificationsVisible) {
+            try {
+                const response = await axios.get("http://localhost:8080/get-notifications", {
+                    params: { token: token },
+                });
+                setNotifications(response.data);
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            }
+        }
+    }
+
+    // פונקציה לסימון התראה כנקראת
+    async function markNotificationAsRead(notificationId) {
+        try {
+            await axios.post("http://localhost:8080/mark-notification-read", null, {
+                params: { notificationId: notificationId },
+            });
+            setNotifications((prevNotifications) =>
+                prevNotifications.filter((notif) => notif.id !== notificationId)
+            );
+            // עדכון hasUnreadNotifications לאחר הסרת ההתראה
+            if (notifications.length - 1 === 0) {
+                setHasUnreadNotifications(false);
+            }
+        } catch (error) {
+            console.error("Error marking notification as read:", error);
+        }
+    }
+
+    // useEffect שמעדכן את ה-UI עבור dataVisible
     useEffect(() => {
-        document.querySelector(".navbar ul").setAttribute("data-visible", dataVisible.toString());
+        const navbarUl = document.querySelector(".navbar ul");
+        if (navbarUl) {
+            navbarUl.setAttribute("data-visible", dataVisible.toString());
+        }
     }, [dataVisible]);
 
+    // טעינת שם המשתמש
     useEffect(() => {
         const fetchData = async () => {
-            setUserName(await getUserName())
-        }
-        fetchData()
-
-        const handleClickOutside = (event) => {
-            if (chatPageRef.current && !chatPageRef.current.contains(event.target)) {
-                setIsChatOpen(false);
-            }
+            setUserName(await getUserName());
         };
-
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        fetchData();
     }, []);
+
+    // useEffect לקריאה מידית לבדיקה של ההתראות הלא נקראות (על mount)
+    useEffect(() => {
+        async function checkNotifications() {
+            try {
+                const response = await axios.get("http://localhost:8080/get-notifications", {
+                    params: { token: token },
+                });
+                if (response.data && response.data.length > 0) {
+                    setHasUnreadNotifications(true);
+                } else {
+                    setHasUnreadNotifications(false);
+                }
+            } catch (error) {
+                console.error("Error checking unread notifications:", error);
+            }
+        }
+        checkNotifications();
+    }, [token]);
+
+    // useEffect לפולינג כל 2 דקות לבדוק אם קיימות התראות שלא נקראו
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/get-notifications", {
+                    params: { token: token },
+                });
+                if (response.data && response.data.length > 0) {
+                    setHasUnreadNotifications(true);
+                } else {
+                    setHasUnreadNotifications(false);
+                }
+            } catch (error) {
+                console.error("Error checking unread notifications:", error);
+            }
+        }, 120000);
+        return () => clearInterval(interval);
+    }, [token]);
 
     return (
         <Box>
             <Stack spacing={14} width={"100%"}>
-                <ClickOutside>
+                <ClickOutside onClickOutside={() => { setDropdownVisible(false); setNotificationsVisible(false); }}>
                     <nav className="navbar">
                         <div className="navbar-logo-container">
-                            <img className={"navbar-logo"} src={"src/assets/navbar/book-logo.PNG"} alt={"logo"}/>
+                            <img
+                                className="navbar-logo"
+                                src="src/assets/navbar/math-logo.png"
+                                alt="logo"
+                            />
                         </div>
-                        <div className="navbar-welcome">
-                            welcome {userName}
-                        </div>
-                        <button className={"hamburger-button"}
-                                onClick={() => {
-                                    handleDataVisible()
-                                }}>
-                            <svg data-visible={dataVisible} stroke="var(--color-scheme)" fill="none"
-                                 className="hamburger" viewBox="-10 15 120 120"
-                                 width="80">
-                                <path data-visible={dataVisible} className="line" strokeWidth="10" strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">
-                                </path>
-                            </svg>
-                        </button>
-                        <ul id={"navbar-ul"} data-visible={dataVisible} tabIndex={1}>
+                        <ul id="navbar-ul" tabIndex={1}>
                             <div className="right-buttons">
                                 <li>
-                                    <button aria-expanded={homeClicked ? "true" : "false"}
-                                            className={"navbar-button"} onClick={() => {
-                                        navigate(DASHBOARD_URL)
-                                        handleDataVisible()
-                                        setHomeClicked(true);
-                                        setCourseClicked(false);
-                                    }
-                                    }>Home
+                                    <button
+                                        aria-expanded={homeClicked ? "true" : "false"}
+                                        className="navbar-button"
+                                        onClick={() => {
+                                            navigate(DASHBOARD_URL);
+                                            handleDataVisible();
+                                            setHomeClicked(true);
+                                            setPracticeClicked(false);
+                                            setMathematicalExercisesClicked(false);
+                                        }}
+                                    >
+                                        Home
                                     </button>
                                 </li>
                                 <li>
                                     <button
-                                        aria-expanded={courseClicked ? "true" : "false"}
-                                        className={"navbar-button"}
+                                        aria-expanded={practiceClicked ? "true" : "false"}
+                                        className="navbar-button"
                                         onClick={() => {
-                                            navigate(COURSE_LIST_URL)
-                                            handleDataVisible()
-                                            setCourseClicked(true);
+                                            navigate(PlayersProgressDashboard_URL);
+                                            handleDataVisible();
+                                            setPracticeClicked(true);
                                             setHomeClicked(false);
-                                        }
-                                        }>Courses
+                                            setMathematicalExercisesClicked(false);
+                                        }}
+                                    >
+                                        PlayersProgressDashboard
                                     </button>
                                 </li>
-
-                            </div>
-                            <div className={"left-buttons"}>
                                 <li>
-                                    <button className={"navbar-button"} onClick={
-                                        async () => {
-                                            const cookies = new Cookies(null, {path: '/'});
-                                            await cookies.remove("token")
-                                            await cookies.remove("id")
-                                            navigate(LOGIN_URL)
-                                            window.location.reload()
-                                            handleDataVisible()
-                                        }
-                                    }>Logout
+                                    <button
+                                        aria-expanded={mathematicalExercisesClicked ? "true" : "false"}
+                                        className="navbar-button"
+                                        onClick={() => {
+                                            navigate(MathematicalExercises_URL);
+                                            handleDataVisible();
+                                            setPracticeClicked(false);
+                                            setHomeClicked(false);
+                                            setMathematicalExercisesClicked(true);
+                                        }}
+                                    >
+                                        mathematicalExercises
                                     </button>
-
                                 </li>
+                                <div className="profile-container">
+                                    {/* כפתור ההתראות עם שינוי תמונה בהתאם */}
+                                    <button className="notification-button" onClick={handleNotificationsClick}>
+                                        <img
+                                            src={
+                                                hasUnreadNotifications
+                                                    ? "src/assets/navbar/notificationPlus.png"
+                                                    : "src/assets/navbar/notification.png"
+                                            }
+                                            alt="Notifications"
+                                        />
+                                    </button>
+                                    {/* חלונית ההתראות */}
+                                    {notificationsVisible && (
+                                        <div className="notifications-dropdown">
+                                            {notifications.length === 0 ? (
+                                                <p className="no-notifications">No notifications</p>
+                                            ) : (
+                                                notifications.map((notif) => (
+                                                    <div
+                                                        key={notif.id}
+                                                        className="notification-item"
+                                                        onClick={() => markNotificationAsRead(notif.id)}
+                                                    >
+                                                        <p className="notification-message">{notif.message}</p>
+                                                        <span className="notification-timestamp">
+                              {notif.timestamp.toLocaleString()}
+                            </span>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    )}
+                                    {/* כפתור הפרופיל */}
+                                    <div className="profile-circle" onClick={toggleDropdown}>
+                                        {userName.charAt(0).toUpperCase()}
+                                    </div>
+                                    {dropdownVisible && (
+                                        <div className="profile-dropdown">
+                                            <button
+                                                className="dropdown-button"
+                                                onClick={() => {
+                                                    toggleDropdown();
+                                                    navigate(UserDetails_URL);
+                                                    setPracticeClicked(false);
+                                                    setHomeClicked(false);
+                                                    setMathematicalExercisesClicked(false);
+                                                }}
+                                            >
+                                                Change Details
+                                            </button>
+                                            <button
+                                                className="dropdown-button"
+                                                onClick={async () => {
+                                                    toggleDropdown();
+                                                    const cookies = new Cookies(null, { path: "/" });
+                                                    await cookies.remove("token");
+                                                    await cookies.remove("id");
+                                                    setPracticeClicked(false);
+                                                    setHomeClicked(false);
+                                                    setMathematicalExercisesClicked(false);
+                                                    navigate(LOGIN_URL);
+                                                    window.location.reload();
+                                                }}
+                                            >
+                                                Logout
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-
                         </ul>
-
                     </nav>
                 </ClickOutside>
-                <Outlet/>
+                <Outlet />
             </Stack>
-
-            <IconButton
-                sx={{
-                    bgcolor:"white",
-                    position: 'fixed',
-                    bottom: '3%',
-                    left: '2%',
-                    zIndex: 1000,
-                    transition: "all 0.3s ease-in-out",
-                    color: "var(--color-scheme)",
-                    border: "none",
-                    boxShadow: "0 0 3px 2px var(--color-scheme)",
-                    width:"80px", height:"80px",
-                    '&:hover': {
-                        backgroundColor:"white",
-                        transform: "scale(1.1)",
-                        boxShadow:" 0 0 10px 2px var(--color-scheme)"
-                    },
-                }}
-
-                size="large"
-                onClick={() => setIsChatOpen(prevState => !prevState)}
-            >
-                <Badge sx={{
-                    '& .MuiBadge-badge': {
-                        fontSize: '1.0rem',
-                        padding: '0.75rem',
-                    }
-                }}
-
-                       color={"secondary"}
-                       badgeContent={chatNotification}
-                >
-                {isChatOpen ? <ChatOffIcon sx={{fontSize: '3rem', color: 'var(--color-1)'}}/>
-                    :
-                    <ChatIcon sx={{fontSize: '3rem', color: 'var(--color-1)'}}/>}
-                </Badge >
-            </IconButton>
-
-                    <Box sx={{
-                        opacity:isChatOpen?"100%":"0%",
-                        scale:isChatOpen?"1":"0",
-                        position: 'fixed',
-                        bottom: '5%',
-                        left: '9%',
-                        zIndex: 1000,
-                    }}
-                         width={"30%"}
-                         minWidth={"400px"}
-                         minHeight={"300px"}
-                         height={"75%"}
-                         ref={chatPageRef}
-                    >
-                        <ChatPage isChatOpen={isChatOpen} setChatNotification={setChatNotification} chatNotification={chatNotification}/>
-                    </Box>
-
         </Box>
     );
 }

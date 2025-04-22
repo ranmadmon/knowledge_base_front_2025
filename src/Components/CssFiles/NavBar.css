@@ -1,17 +1,14 @@
-.navbar-logo-container{
-    display: flex;
-    align-items: center;
-    height: 100%;
+:root {
+    --navbar-height: 60px;
+    --background-color: #2c3e50; /* Deep blue-gray */
+    --text-color: #ecf0f1; /* Soft white */
+    --hover-color: #34495e; /* Darker blue-gray */
+    --button-highlight: #95a5a6; /* Metallic light gray-blue */
+    --dropdown-bg: #bdc3c7; /* Light grayish blue */
+    --dropdown-border: #7f8c8d; /* Grayish blue border */
 }
-.navbar-logo{
-    margin-inline-start: 8rem;
-    margin-top: 0.5rem;
-    width: 50px;
-    height: 50px;
-    transition: scale 0.3s ease;
 
-}
-.navbar{
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,13 +19,21 @@
     display: flex;
     flex-direction: row;
     background-color: var(--background-color);
-    box-shadow: 0 32px 10px -30px var(--color-scheme);
-}
-.hamburger-button{
-    display: none;
-    color: var(--color-scheme);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+.navbar-logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-logo {
+    margin-inline-start: 0.5rem;
+    width: 120px;
+    height: 55px;
+    transition: scale 0.3s ease;
+}
 
 .navbar ul {
     display: flex;
@@ -36,38 +41,16 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
-
     list-style-type: none;
     font-family: Inter, sans-serif;
     font-weight: bold;
     font-size: 1.5rem;
-
     height: 100%;
     width: 100%;
-    margin-inline-start: 2rem;
-    margin-inline-end: 8rem;
+    margin-inline-start: 1rem;
+    margin-inline-end: 8px;
     gap: 1rem;
-
-    transition: transform .3s ease-in-out;
-
-}
-.navbar-welcome {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 4px;
-    width: 15%;
-
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-scheme);
-    text-decoration: none;
-
+    transition: transform 0.3s ease-in-out;
 }
 
 .navbar-button {
@@ -78,73 +61,110 @@
     align-items: center;
     text-align: center;
     gap: 4px;
-
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
-    color: var(--color-scheme);
+    color: var(--text-color);
     text-decoration: none;
     cursor: pointer;
-    transition: box-shadow 0.4s ease;
+    transition: box-shadow 0.4s ease, background-color 0.3s ease;
 }
 
-
-.navbar-button:hover{
-    box-shadow: 0 5px 0 0 var(--color-scheme);
+.navbar-button:hover {
+    box-shadow: 0 5px 0 0 var(--hover-color);
 }
 
-.navbar-button[aria-expanded="true"]{
-    box-shadow: 0 5px 0 0 var(--color-scheme), 0 15px 6px -7px rgba(105, 27, 183, 0.55);
+.navbar-button[aria-expanded="true"] {
+    box-shadow: 0 5px 0 0 var(--hover-color), 0 15px 6px -7px rgba(46, 49, 50, 0.5); /* Metallic glow */
     transition: box-shadow 0.3s ease;
     outline: none;
 }
-.right-buttons{
+
+.right-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
-.hamburger .line{
-    stroke-dasharray: 61 29 60 1000;
-    transition: 0.4s ease;
-}
-.hamburger .line[data-visible='true']{
-    stroke-dasharray: 60 105 60 300;
-    stroke-dashoffset: -90;
-    translate: 50% -25px;
-    rotate: 0.125turn;
+
+.profile-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 790px; /* ריווח מצד ימין */
 }
 
-@media (max-width: 60rem){
-    .navbar-logo-container{
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    background-color: var(--button-highlight);
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px var(--hover-color);
+}
+
+.profile-circle:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 1px var(--button-highlight);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 57px;
+    right: 0;
+    background-color: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    color: var(--hover-color);
+    font-size: 1rem;
+    text-align: left;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-button:hover {
+    background-color: var(--hover-color);
+    color: white;
+}
+
+@media (max-width: 60rem) {
+    .navbar-logo-container {
         width: 100%;
         transition: width 2s ease;
         will-change: width;
         align-items: center;
         justify-content: center;
     }
-    .navbar-logo{
+
+    .navbar-logo {
         margin-inline-start: 0;
         scale: 1.3;
     }
-    .hamburger-button{
-        display: block;
-        position: absolute;
-        top: 1.7rem;
-        right: 2rem;
-        z-index: 999;
-        color: white;
-        background: transparent;
-        border: none;
-        font-size: x-large;
-        cursor: pointer;
-        /*transform: translateX(100%);*/
 
-    }
-
-    .navbar ul{
-        position:fixed;
+    .navbar ul {
+        position: fixed;
         width: 50%;
         inset-inline-end: -1rem;
         margin: 0;
@@ -152,27 +172,102 @@
         justify-content: center;
         align-items: flex-start;
         gap: 35em;
-
-        background: transparent;
-        backdrop-filter: blur(10px);
+        background: var(--background-color);
         border-radius: 10px;
-        border: 3px solid rebeccapurple;
+        border: 3px solid var(--dropdown-border);
+        transform: translateX(100%);
+    }
 
-        transform: translateX(100%);
-    }
-    .navbar ul:not(:focus){
-        transform: translateX(100%);
-    }
-    .navbar ul[data-visible='true']{
+    .navbar ul[data-visible='true'] {
         transform: translateX(0%);
     }
-    .right-buttons, .left-buttons{
+
+    .right-buttons, .left-buttons {
         align-items: flex-start;
         flex-direction: column;
         margin-inline-start: 1.3em;
     }
-    .navbar-button{
+
+    .navbar-button {
         font-size: 2.5rem;
         gap: 2rem;
     }
 }
+/* כפתור התראות */
+/* כפתור התראות */
+.notification-button {
+    background: linear-gradient(45deg, #2b3a4e, #3c4f66); /* גרדיאנט בגווני כחול-אפור קרובים ל־#2c3e50 */
+    border: none;
+    padding: 5px;
+    margin-right: 15px;
+    cursor: pointer;
+    border-radius: 50%; /* עיצוב עיגול */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צל עדין */
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.notification-button:hover {
+    background: linear-gradient(45deg, #253044, #32445d); /* גרדיאנט כהה יותר בעת ריחוף */
+    transform: scale(1.05);
+}
+
+
+
+/* התאמת גודל התמונה בתוך כפתור ההתראות */
+.notification-button img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* חלונית ההתראות - Dropdown */
+.notifications-dropdown {
+    position: absolute;
+    top: 130%;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width: 300px; /* ניתן להתאים את הרוחב לפי הצורך */
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    z-index: 1000;
+}
+
+/* פריט התראה בתוך החלונית */
+.notification-item {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* עיצוב בעת מעבר העכבר */
+.notification-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* עיצוב לטקסט כאשר אין התראות */
+.no-notifications {
+    text-align: center;
+    padding: 10px;
+    color: #777;
+}
+
+/* ניתן להוסיף התאמות נוספות ל-notification-message ו-notification-timestamp */
+.notification-message {
+    margin: 0;
+    font-size: 14px;
+}
+
+.notification-timestamp {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+

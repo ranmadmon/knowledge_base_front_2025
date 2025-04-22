@@ -1,92 +1,150 @@
-.dashboard {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* Dashboard.css */
+.dashboard-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f0f4f8;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-container,
+.progress-container {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    max-width: 600px;
+}
+
+.progress-container:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.table-container {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #d0d7de;
+    max-height: 250px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table-container table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-container th,
+.table-container td {
+    padding: 8px 10px;
     text-align: center;
-    align-items: center;
-    justify-content: flex-start;
-    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    line-height: 1.2;
 }
 
-.search-courses {
-    padding: 10px;
-    margin-right: 10px;
+.table-container th {
+    background-color: dodgerblue;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-
-button:hover {
-    border-color: #490a9d;
+.table-container tr:nth-child(even) {
+    background-color: #f7faff;
 }
 
-button:focus, button:focus-visible {
-    outline: 90px auto -webkit-focus-ring-color;
-}
-
-/*.navCourses {*/
-/*    gap: 1rem;*/
-/*    margin-top: 1rem;*/
-/*    margin-left: 1rem;*/
-/*    padding: 2rem;*/
-/*    max-width: 30%;*/
-/*    min-width: 20%;*/
-/*    max-height: 60%;*/
-/*    position: page;*/
-/*    display: inline-flex;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    align-content: center;*/
-/*    justify-items: center;*/
-/*    flex-direction: column;*/
-/*    border: 3px solid #007bff;*/
-/*    border-radius: 20px;*/
-/*}*/
-
-/*.ListCard {*/
-/*    margin-top: 1rem;*/
-/*    padding: 1rem;*/
-/*    width: 100%;*/
-/*    height: 60%;*/
-/*    max-width: 100%;*/
-/*    position: relative;*/
-/*    display: flex;*/
-/*    align-items: normal;*/
-/*    justify-content: center;*/
-/*    align-content: center;*/
-/*    justify-items: center;*/
-/*    flex-direction: column;*/
-/*    !*border: 3px solid #007bff;*!*!
-!*    !*border-radius: 20px;*!*!
-!*}*/
-
-.buttons {
-    display: inline;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    justify-items: stretch;
-    padding: 1rem;
-    gap: 20px;
-}
-
-.search-button{
-    width: 50px;
-    height: 50px;
-    border: none;
-    background: transparent;
+.table-container tr:hover {
+    background-color: #e9f5ff;
     cursor: pointer;
-    color: var(--color-scheme);
+    transition: background-color 0.2s ease;
 }
 
-.search-input {
-    min-width: 350px;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    border: 3px solid var(--color-scheme);
+.table-container td.Correct {
+    background-color: #f0fff4; /* רקע ירוק מאוד בהיר */
+    color: #2f855a;           /* טקסט ירוק כהה, אך עדין */
 }
 
-.search-bar-container {
+.table-container td.Wrong {
+    background-color: #fff5f5; /* רקע אדום מאוד בהיר */
+    color: #c53030;           /* טקסט אדום כהה, אך לא דומיננטי */
+}
+
+
+.filters-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.filters-container input,
+.filters-container select,
+.filters-container button {
+    border-radius: 6px;
+    padding: 6px 12px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filters-container button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 8px 12px;
+}
+
+.filters-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal Styles */
+.MuiDialog-paper { /* Target the dialog paper element */
+    max-width: 500px; /* Adjust as needed */
+    width: 90%;
+    border-radius: 8px;
+}
+
+.MuiDialog-container { /* Optional: Target the container for positioning */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Pagination Styles */
+.MuiPagination-root {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.truncated-text {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer; /* Make it clear it's clickable */
+}
+
+.truncated-text:hover {
+    text-decoration: underline;
+}
+.progress-container > div { /* Targets the immediate child div of .progress-container */
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center;     /* Center horizontally */
+    text-align: center;      /* Center text within elements */
 }

@@ -3,21 +3,19 @@ import Login from "./Components/Login&Registration/Login.jsx";
 import Register from "./Components/Login&Registration/Register.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import ErrorPage from "./Components/ErrorPages/ErrorPage.jsx";
-import CoursesList from "./Components/Courses/CoursesList.jsx";
 import "./Components/CssFiles/App.css"
-import MaterialList from "./Components/Material/MaterialList.jsx";
 
 import Cookies from "universal-cookie";
 import {
-    COURSE_LIST_URL,
-    COURSE_URL,
     DASHBOARD_URL,
-    LOGIN_URL,
-    MATERIAL_PAGE_URL,
-    REGISTER_URL
+    LOGIN_URL, MathematicalExercises_URL, PlayersProgressDashboard_URL,
+    REGISTER_URL, UserDetails_URL
 } from "./Utils/Constants.jsx";
-import MaterialPage from "./Components/Material/MaterialPage.jsx";
 import NavBar from "./Components/Navbar/NavBar.jsx";
+// eslint-disable-next-line no-unused-vars
+import MathematicalExercises from "./Components/Practice/MathematicalExercises.jsx";
+import PlayersProgressDashboard from "./Components/Dashboard/PlayersProgressDashboard.jsx";
+import UserDetails from "./Components/userDetalis/UserDetails.jsx";
 
 
 function App() {
@@ -42,9 +40,10 @@ function App() {
                                     <NavBar/>
                                 }>
                                 <Route path={DASHBOARD_URL} element={<Dashboard/>}/>
-                                <Route path={COURSE_LIST_URL} element={<CoursesList/>}/>
-                                <Route path={COURSE_URL + ":id"} element={<MaterialList/>}/>
-                                <Route path={COURSE_URL + ":id" + MATERIAL_PAGE_URL + ":id"} element={<MaterialPage/>}/>
+                                <Route path={PlayersProgressDashboard_URL} element={<PlayersProgressDashboard/>}/>
+                                <Route path={MathematicalExercises_URL} element={<MathematicalExercises/>}/>
+                                <Route path={UserDetails_URL} element={<UserDetails/>}/>
+
                             </Route>
                         </>
                     )

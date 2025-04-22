@@ -1,0 +1,54 @@
+.notification {
+    position: fixed;
+    bottom: 20px; /* מיקום החלון בתחתית */
+    right: 20px; /* קצת פנימה מצד ימין */
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.notification p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.notification.success {
+    border-left: 4px solid #28a745;
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.notification.error {
+    border-left: 4px solid #dc3545;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.notification button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.notification button:hover {
+    color: #343a40;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

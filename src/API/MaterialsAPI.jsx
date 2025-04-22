@@ -1,7 +1,7 @@
 import axios from "axios"
-import * as Constants from "../Utils/Constants.jsx";
+import * as Constants from "../../../final/src/Utils/Constants.jsx";
 import Cookies from "universal-cookie";
-import {SERVER_URL} from "../Utils/Constants.jsx";
+import {SERVER_URL} from "../../../final/src/Utils/Constants.jsx";
 
 const cookies = new Cookies(null, {path: '/'});
 const token = cookies.get("token");

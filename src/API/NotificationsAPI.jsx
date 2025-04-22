@@ -1,5 +1,5 @@
 import axios from "axios";
-import {NOTIFICATION_URL, SERVER_URL} from "../Utils/Constants.jsx";
+import {NOTIFICATION_URL, SERVER_URL} from "../../../final/src/Utils/Constants.jsx";
 
  export async function getNotifications() {
         try {

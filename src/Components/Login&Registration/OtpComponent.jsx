@@ -67,8 +67,8 @@ const OtpComponent = ({username = "Guest", length=6 , onOtpSubmit=()=>{}, isVeri
     return (
         <div className={"code-container"} style={{textAlign: "center", marginTop: "20px"}}>
             <div className={"form-headers"} style={{display: "flex", justifyContent: "space-between"}}>
-                <text style={{fontSize: "2.3rem", fontWeight: "bold"}}>Security Check</text>
-                <text style={{fontSize: "1.5rem", fontWeight: "bold"}}>Welcome {username}, {<br/>}Your code was sent to you via SMS</text>
+                <text style={{fontSize: "2.3rem", fontWeight: "bold",color: "#2f4f4f"}}>Security Check</text>
+                <text style={{fontSize: "1.5rem", fontWeight: "bold",color: "#2f4f4f"}}>Welcome {username}, {<br/>}Your code was sent to you via SMS</text>
             </div>
             <div className={"input-container"} style={{gap: "1.5rem",display: "contents"}}>
                 <div className={"otp-input-field"} style={{display: "flex", gap: "1.3rem"}}>

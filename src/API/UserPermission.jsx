@@ -1,5 +1,5 @@
 import axios from "axios";
-import {PERMISSION_URL, SERVER_URL} from "../Utils/Constants.jsx";
+import {PERMISSION_URL, SERVER_URL} from "../../../final/src/Utils/Constants.jsx";
 import Cookies from "universal-cookie";
 
 export async function getUserPermission () {
